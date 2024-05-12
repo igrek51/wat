@@ -1,7 +1,7 @@
 [project]
-name = "wat"
+name = "wat-inspector"
 version = "0.1.0"  # also in wat/version.py
-description = "Deep inspection tool"
+description = "Deep inspection of Python objects"
 license = {text = "MIT"}
 authors = [
     { name = "igrek51", email = "igrek51.dev@gmail.com" },
@@ -27,5 +27,10 @@ build-backend = "setuptools.build_meta"
 dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools]
-packages = ["wat"]
 include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]  # list of folders that contain the packages (["."] by default)
+include = ["wat*"]  # package names should match these glob patterns (["*"] by default)
+exclude = ["wat.inspection.insta.*"]  # exclude packages matching these glob patterns
+namespaces = false  # to disable scanning PEP 420 namespaces (true by default)

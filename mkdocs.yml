@@ -7,7 +7,7 @@ theme:
   name: material
   icon:
     repo: fontawesome/brands/github
-    logo: material/file-question
+    logo: material/lightbulb-outline
   palette:
     - scheme: default
       primary: indigo
