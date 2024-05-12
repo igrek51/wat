@@ -3,9 +3,7 @@ hide:
   - navigation
 ---
 
-# 🙀 WAT Inspector
-
-Inspection tool for Python.
+# 🙀 WAT
 
 <div align="center">
     <a href="https://github.com/igrek51/wat">GitHub</a>
@@ -15,6 +13,7 @@ Inspection tool for Python.
     <a href="https://igrek51.github.io/wat">Documentation</a>
 </div>
 
+Inspect anything in Python.
 
 **WAT** is a powerful inspection tool
 that allows you to delve into and examine unknown objects at runtime.
@@ -55,7 +54,7 @@ code = 'eJzNWuluG0cS/q+naCg/OLTGjBTvATChd51YcQw4ycJRNjAkYTDkNKWJhzPEHJYVLoE8xD7D
 exec(zlib.decompress(base64.b64decode(code.encode())).decode(), globals())
 ```
 
-Now you can use `wat`.
+Now you can use `wat` object.
 
 ## Usage & modifiers
 `wat` object can quickly inspect things
