@@ -1,6 +1,4 @@
-# 🙀 WAT Inspector
-
-Inspection tool for Python.
+# 🙀 WAT
 
 <div align="center">
     <a href="https://github.com/igrek51/wat">GitHub</a>
@@ -10,6 +8,7 @@ Inspection tool for Python.
     <a href="https://igrek51.github.io/wat">Documentation</a>
 </div>
 
+Deep inspection in Python.
 
 **WAT** is a powerful inspection tool
 that allows you to delve into and examine unknown objects at runtime.

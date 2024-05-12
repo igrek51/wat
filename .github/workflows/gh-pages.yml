@@ -16,7 +16,7 @@ jobs:
           python-version: '3.8'
 
       - name: Install documentation tools
-        run: pip install -r requirements-dev.txt
+        run: pip install -r docs/requirements.txt
 
       - name: Deploy mkdocs to Github Pages
         run: mkdocs gh-deploy --force

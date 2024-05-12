@@ -171,7 +171,7 @@ signature: async def looper\(\)
 
 
 def test_wat_with_nothing():
-    assert str(wat) == '<nuclear Wat Inspector object>'
+    assert str(wat) == '<Wat Inspector object>'
     with StdoutCap() as capture:
         assert repr(wat) == ''
     assert 'Try wat(object), wat / object or wat.modifiers / object to inspect an object. Modifiers are:' in capture.uncolor().splitlines()
@@ -181,12 +181,12 @@ def test_wat_locals():
     _local_var = 23
     with StdoutCap() as capture:
         wat()
-    assert 'value: <nuclear.inspection.inspection.locals object' in capture.uncolor()
+    assert 'value: <wat.inspection.inspection.locals object' in capture.uncolor()
     assert '_local_var: int = 23' in capture.uncolor()
 
     with StdoutCap() as capture:
         wat.locals
-    assert 'value: <nuclear.inspection.inspection.locals object' in capture.uncolor()
+    assert 'value: <wat.inspection.inspection.locals object' in capture.uncolor()
     assert '_local_var: int = 23' in capture.uncolor()
 
 
@@ -195,7 +195,7 @@ global_var = 23
 def test_wat_globals():
     with StdoutCap() as capture:
         wat.globals
-    assert 'value: <nuclear.inspection.inspection.globals object' in capture.uncolor()
+    assert 'value: <wat.inspection.inspection.globals object' in capture.uncolor()
     assert 'global_var: int = 23' in capture.uncolor()
 
 
