@@ -13,7 +13,7 @@ hide:
     <a href="https://igrek51.github.io/wat">Documentation</a>
 </div>
 
-Deep inspection of Python objects
+Deep inspection of Python objects.
 
 **WAT** is a powerful inspection tool
 that allows you to delve into and examine unknown objects at runtime.
