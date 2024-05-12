@@ -1,0 +1,43 @@
+site_name: WAT
+repo_name: igrek51/wat
+repo_url: https://github.com/igrek51/wat
+site_author: igrek51
+docs_dir: docs
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/solid/file-question
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      accent: green
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.expand
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.superfences
+plugins:
+  - search
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/igrek51/wat
+      name: WAT on GitHub
+
+nav:
+  - Home: index.md

@@ -1,0 +1,17 @@
+*.pyc
+.cache
+.pytest_cache
+.mypy_cache/
+__pycache__
+*.egg-info
+build/
+dist/
+.coverage
+coverage.xml
+/venv
+/venv*
+
+.idea
+*.iml
+.vscode
+launch.json

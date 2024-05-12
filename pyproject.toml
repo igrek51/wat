@@ -1,0 +1,31 @@
+[project]
+name = "wat"
+version = "0.1.0"  # also in wat/version.py
+description = "Deep inspection tool"
+license = {text = "MIT"}
+authors = [
+    { name = "igrek51", email = "igrek51.dev@gmail.com" },
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+readme = "README.md"
+requires-python = ">=3.8"
+dynamic = ["dependencies"]
+
+[project.urls]
+Homepage = "https://github.com/igrek51/wat"
+
+
+[build-system]
+requires = ["setuptools", "build", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools]
+packages = ["wat"]
+include-package-data = true
