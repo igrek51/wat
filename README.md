@@ -26,7 +26,7 @@ to investigate its
 
 ![](https://github.com/igrek51/wat/blob/master/docs/img/wat-intro-set.png?raw=true)
 
-<video width="100%" controls="true" allowFullscreen="true" src="https://github.com/igrek51/wat/assets/12595017/3585123a-c1c4-4ca3-85cd-f52e82e9c744">
+<video width="100%" controls="true" allowFullscreen="true" src="https://github.com/igrek51/wat/assets/12595017/3585123a-c1c4-4ca3-85cd-f52e82e9c744" poster="https://raw.githubusercontent.com/igrek51/wat/master/docs/img/wat-intro-set.png">
 </video>
 
 ## Import

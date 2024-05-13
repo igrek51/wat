@@ -29,14 +29,17 @@ to investigate its
 **type**, **formatted value**, **variables**, **methods**, **parent types**, **signature**,
 **documentation**, and even its **source code**.
 
-<video width="100%" controls="true" allowfullscreen="true" src="https://raw.githubusercontent.com/igrek51/nuclear/master/docs/demo/demo-inspect.mp4" poster="https://raw.githubusercontent.com/igrek51/nuclear/master/docs/demo/demo-inspect-poster.png">
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-intro-set.png?raw=true)
+
+<video width="100%" controls="true" allowFullscreen="true" src="https://github.com/igrek51/wat/assets/12595017/3585123a-c1c4-4ca3-85cd-f52e82e9c744" poster="https://raw.githubusercontent.com/igrek51/wat/master/docs/img/wat-intro-set.png">
 </video>
 
 ## Import
-Import inspection tools from **wat** package.
 ```sh
 pip install wat-inspector
 ```
+
+Import inspection tool from **wat** package:
 ```python
 from wat import wat
 ```
@@ -45,12 +48,12 @@ Alternatively, use **Insta-Load** in the section below.
 
 ### Insta-Load
 If you want to debug something quickly,
-you don't even need to install **wat** package to use the inspector.
+you don't even need to install anything to use the inspector.
 
 Load it on the fly by pasting this snippet to your Python interpreter:
 ```python
 import base64, zlib
-code = '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'
+code = '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'
 exec(zlib.decompress(base64.b64decode(code.encode())).decode(), globals())
 ```
 
@@ -83,7 +86,14 @@ Type `wat` in the interpreter to learn more about this object itself.
 In a dynamic typing language like Python, it's often hard to determine the type of an object. WAT Inspector can help you with that by showing the name of the type with the module it comes from.
 
 ```python
->>> wat.short({None})
+>>> wat.short / (1,)
+value: (1,)
+type: tuple
+len: 1
+```
+
+```python
+>>> wat.short / {None}
 value: {None}
 type: set
 len: 1
@@ -107,7 +117,7 @@ Plus, you can read their docstrings.
 wat / 'stringy'
 ```
 
-![](https://github.com/igrek51/nuclear/blob/master/docs/img/wat-string.png?raw=true)
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-string.png?raw=true)
 
 ### Discover function's signature
 See the docstrings and the signature of a function or a method to see how to use it.
@@ -116,7 +126,7 @@ See the docstrings and the signature of a function or a method to see how to use
 wat / str.split
 ```
 
-![](https://github.com/igrek51/nuclear/blob/master/docs/img/wat-str-split.png?raw=true)
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-str-split.png?raw=true)
 
 ### Look up attributes
 List the attribues and their types to see what's really inside the inspected object.
@@ -124,7 +134,7 @@ List the attribues and their types to see what's really inside the inspected obj
 wat / re.match('(\d)_(.*)', '1_title')
 ```
 
-![](https://github.com/igrek51/nuclear/blob/master/docs/img/wat-re-match.png?raw=true)
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-re-match.png?raw=true)
 
 ### Explore modules
 One of the use cases is to explore modules.
@@ -135,7 +145,7 @@ import pathlib
 wat / pathlib
 ```
 
-![](https://github.com/igrek51/nuclear/blob/master/docs/img/wat-pathlib.png?raw=true)
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-pathlib.png?raw=true)
 
 Then, you can navigate further, e.g. `wat / pathlib.fnmatch`.
 
@@ -144,7 +154,7 @@ Then, you can navigate further, e.g. `wat / pathlib.fnmatch`.
 wat.dunder / {}
 ```
 
-![](https://github.com/igrek51/nuclear/blob/master/docs/img/wat-dict-dunder.png?raw=true)
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-dict-dunder.png?raw=true)
 
 ### Review the code
 Look up the source code of a function to see how it really works.
@@ -154,7 +164,7 @@ import re
 wat.code / re.match
 ```
 
-![](https://github.com/igrek51/nuclear/blob/master/docs/img/wat-code-rematch.png?raw=true)
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-code-rematch.png?raw=true)
 
 ### Debug with breakpoint
 You can use Python's `breakpoint()` keyword to launch an interactive debugger in your program:
