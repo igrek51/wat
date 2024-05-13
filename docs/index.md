@@ -35,11 +35,10 @@ to investigate its
 </video>
 
 ## Import
+Install **wat-inspector** package and import inspection tool from **wat** module:
 ```sh
 pip install wat-inspector
 ```
-
-Import inspection tool from **wat** package:
 ```python
 from wat import wat
 ```
@@ -48,7 +47,7 @@ Alternatively, use **Insta-Load** in the section below.
 
 ### Insta-Load
 If you want to debug something quickly,
-you don't even need to install anything to use the inspector.
+you **don't even need to install anything** to use the inspector.
 
 Load it on the fly by pasting this snippet to your Python interpreter:
 ```python
@@ -119,6 +118,8 @@ wat / 'stringy'
 
 ![](https://github.com/igrek51/wat/blob/master/docs/img/wat-string.png?raw=true)
 
+Use `wat.long` if you want to see full doscstrings.
+
 ### Discover function's signature
 See the docstrings and the signature of a function or a method to see how to use it.
 
@@ -150,6 +151,7 @@ wat / pathlib
 Then, you can navigate further, e.g. `wat / pathlib.fnmatch`.
 
 ### Explore dunder attributes
+By default, WAT Inspector hides attributes starting with `__`. Use `wat.dunder` to see them.
 ```python
 wat.dunder / {}
 ```
