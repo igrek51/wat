@@ -26,6 +26,7 @@ theme:
     code: Roboto Mono
   features:
     - navigation.expand
+    - content.code.copy
 markdown_extensions:
   - admonition
   - pymdownx.highlight:
