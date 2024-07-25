@@ -360,7 +360,7 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
         print(text)
 
     def _react_with(self, other: Any) -> Any:
-        ret = self._params.pop('ret')
+        ret = self._params.pop('ret', False)
         inspect(other, **self._params)
         if ret:
             return other
