@@ -5,7 +5,7 @@ import re
 from pydantic import BaseModel
 
 from wat import wat
-from wat.inspection.inspection import Wat, inspect_format
+from wat.inspection.inspection import inspect_format
 from tests.asserts import assert_multiline_match, strip_ansi_colors, StdoutCap
 
 
@@ -149,14 +149,30 @@ parents: datetime\.date
 ''')
 
 
-def test_inspect_source_code():
+def test_inspect_long():
     output = inspect_format(datetime, long=True, code=True)
     lines = output.splitlines()
     assert "value: <class 'datetime.datetime'>" in lines
     assert "type: type" in lines
     assert "signature: class datetime(…)" in lines
     assert "datetime(year, month, day[, hour[, minute[, second[, microsecond[,tzinfo]]]]])" in lines
-    assert "class datetime(date):" in lines
+
+
+def test_inspect_source_code():
+    class Sorcerer:
+        def __init__(self):
+            self.level = 1
+        def level_up(self):
+            self.level += 1
+
+    output = inspect_format(Sorcerer, code=True)
+    lines = output.splitlines()
+    assert "value: <class 'test_inspect.test_inspect_source_code.<locals>.Sorcerer'>" in lines
+    assert "type: type" in lines
+    assert "signature: class Sorcerer()" in lines
+    assert "source code:" in lines
+    assert "    class Sorcerer:" in lines
+    assert "            self.level += 1" in lines
 
 
 def test_inspect_async_def():
@@ -174,7 +190,7 @@ def test_wat_with_nothing():
     assert str(wat) == '<Wat Inspector object>'
     with StdoutCap() as capture:
         assert repr(wat) == ''
-    assert 'Try wat(object), wat / object or wat.modifiers / object to inspect an object. Modifiers are:' in capture.uncolor().splitlines()
+    assert 'Try wat / object or wat.modifiers / object to inspect an object. Modifiers are:' in capture.uncolor().splitlines()
 
 
 def test_wat_locals():
