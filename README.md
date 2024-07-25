@@ -19,26 +19,17 @@ If you find yourself deep within the Python console, feeling dazed and confused,
 wondering "WAT? What's that thing?",
 that's where the `wat` inspector comes in handy.
 
-Start the Python Interpreter (or attach to your program) and execute `wat(object)` on any `object`
+Start the Python Interpreter (or attach to one) and execute `wat / object` on any `object`
 to investigate its
 **type**, **formatted value**, **variables**, **methods**, **parent types**, **signature**,
 **documentation**, and even its **source code**.
 
-![](https://github.com/igrek51/wat/blob/master/docs/img/wat-intro-set.png?raw=true)
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-datetime.png?raw=true)
 
 <video width="100%" controls="true" allowFullscreen="true" src="https://github.com/igrek51/wat/assets/12595017/3585123a-c1c4-4ca3-85cd-f52e82e9c744" poster="https://raw.githubusercontent.com/igrek51/wat/master/docs/img/wat-intro-set.png">
 </video>
 
 ## Import
-Install **wat-inspector** package and import inspection tool from **wat** module:
-```sh
-pip install wat-inspector
-```
-```python
-from wat import wat
-```
-
-Alternatively, use **Insta-Load** in the section below.
 
 ### Insta-Load
 If you want to debug something quickly,
@@ -53,6 +44,15 @@ exec(zlib.decompress(base64.b64decode(code.encode())).decode(), globals())
 
 Now you can use `wat` object.
 
+### Install with pip
+Alternatively, install **wat-inspector** package and import inspection tool from **wat** module:
+```sh
+pip install wat-inspector
+```
+```python
+from wat import wat
+```
+
 ## Usage & modifiers
 `wat` object can quickly inspect things
 by using the division operator (to avoid typing parentheses). 
@@ -61,7 +61,7 @@ A short, no-parentheses syntax `wat / object` is equivalent to `wat(object)`.
 You can call `wat.modifiers / object` (or `wat.modifiers(object)`)
 with the following **modifiers**:
 
-- `.short` to hide attributes (variables and methods)
+- `.short` or `.s` to hide attributes (variables and methods)
 - `.long` to show non-abbreviated values and documentation
 - `.dunder` to display dunder attributes
 - `.code` to reveal the source code of a function, method, or class
@@ -70,7 +70,8 @@ with the following **modifiers**:
 
 You can chain modifiers, e.g. `wat.long.dunder.nodocs / object`.
 
-Call `wat()` to inspect `locals()` variables.
+Call `wat.locals` or `wat()` to inspect `locals()` variables.
+Call `wat.globals` to inspect `globals()` variables.
 
 Type `wat` in the interpreter to learn more about this object itself.
 
@@ -101,7 +102,10 @@ type: django.contrib.auth.models.User
 parents: django.contrib.auth.models.AbstractUser, django.contrib.auth.base_user.AbstractBaseUser, django.contrib.auth.models.PermissionsMixin, django.db.models.base.Model, django.db.models.utils.AltersData
 ```
 
-Now that you've identified the actual type, you can put the type annotations in your code to reduce the confusion.
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-intro-set.png?raw=true)
+
+Now that you've identified the actual type,
+you can put the type annotations in your code to reduce the confusion.
 
 ### Look up methods
 Listing methods, functions and looking up their signature is extremely beneficial to see how to use them.
