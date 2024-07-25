@@ -28,6 +28,7 @@ Start the Python Interpreter (or attach to one) and execute `wat / object` on an
 to investigate its
 **type**, **formatted value**, **variables**, **methods**, **parent types**, **signature**,
 **documentation**, and even its **source code**.
+Alternatively, you can use `wat(object)` syntax.
 
 ![](https://github.com/igrek51/wat/blob/master/docs/img/wat-datetime.png?raw=true)
 
@@ -60,7 +61,7 @@ from wat import wat
 
 ## Usage & modifiers
 `wat` object can quickly inspect things
-by using the division operator (to avoid typing parentheses). 
+by using the division operator (for faster typing without parentheses). 
 A short, no-parentheses syntax `wat / object` is equivalent to `wat(object)`.
 
 You can call `wat.modifiers / object` (or `wat.modifiers(object)`)
