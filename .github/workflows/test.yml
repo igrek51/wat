@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: '3.8'
       - name: Install dependencies
-        run: make setup-test-unit
+        run: make venv-test-unit
       - run: . venv/bin/activate && make test && python -m coverage xml
       
       - name: Upload Coverage

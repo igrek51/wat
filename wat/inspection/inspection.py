@@ -171,8 +171,8 @@ def _get_callable_signature(name: str, obj: Any) -> Optional[str]:
 def _get_source_code(obj: Any) -> Optional[str]:
     try:
         return std_inspect.getsource(obj)
-    except (OSError, TypeError, IndentationError):
-        return None
+    except (OSError, TypeError, IndentationError) as e:
+        return f'failed to get source code: {type(e)}: {e}'
 
 
 def _get_doc(obj: Any, long: bool) -> Optional[str]:
@@ -244,9 +244,9 @@ def _format_dict_value(dic: Dict, indent: int) -> str:
         return f'{STYLE_YELLOW}{{}}{RESET}'
 
 
-def _format_list_value(l: List, indent: int) -> str:
+def _format_list_value(lst: List, indent: int) -> str:
     lines: List[str] = []
-    for value in l:
+    for value in lst:
         value_str = _format_value(value, indent)
         lines.append('    ' * indent + f'{value_str},')
     if lines:
@@ -269,7 +269,7 @@ def _get_parent_types(type_: Type) -> Iterable[str]:
         for index, base_type in enumerate(type_.__mro__):
             if index == 0:
                 continue
-            if base_type == object:
+            if base_type is object:
                 continue
             yield _format_type(base_type)
 
@@ -344,14 +344,15 @@ class Wat:
     
     def _print_help(self):
         text = f"""
-Try {STYLE_YELLOW}wat(object){RESET}, {STYLE_YELLOW}wat / object{RESET} or {STYLE_YELLOW}wat.modifiers / object{RESET} to inspect an {STYLE_YELLOW}object{RESET}. {STYLE_BRIGHT}Modifiers{RESET} are:
-  {STYLE_GREEN}.short{RESET} to hide attributes (variables and methods)
+Try {STYLE_YELLOW}wat / object{RESET} or {STYLE_YELLOW}wat.modifiers / object{RESET} to inspect an {STYLE_YELLOW}object{RESET}. {STYLE_BRIGHT}Modifiers{RESET} are:
+  {STYLE_GREEN}.short{RESET} or {STYLE_GREEN}.s{RESET} to hide attributes (variables and methods)
   {STYLE_GREEN}.long{RESET} to print non-abbreviated values and documentation
   {STYLE_GREEN}.dunder{RESET} to print dunder attributes
   {STYLE_GREEN}.code{RESET} to print source code of a function, method or class
   {STYLE_GREEN}.nodocs{RESET} to hide documentation for functions and classes
   {STYLE_GREEN}.all{RESET} to include all information
-Call {STYLE_YELLOW}wat(){RESET} to inspect {STYLE_YELLOW}locals(){RESET} variables.
+Call {STYLE_YELLOW}wat.locals{RESET} or {STYLE_YELLOW}wat(){RESET} to inspect {STYLE_YELLOW}locals(){RESET} variables.
+Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} variables.
 """.strip()
         if not sys.stdout.isatty():
             text = _strip_color(text)

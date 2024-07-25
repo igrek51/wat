@@ -1,15 +1,15 @@
-.PHONY: setup test clean build dist
+.PHONY: venv test clean build dist
 
 SHELL := /bin/bash
 
-setup:
+venv:
 	python3 -m venv venv &&\
 	. venv/bin/activate &&\
 	pip install --upgrade pip &&\
 	pip install -r requirements.txt -r requirements-dev.txt &&\
 	python -m pip install -e .
 
-setup-test-unit:
+venv-test-unit:
 	python3 -m venv venv &&\
 	. venv/bin/activate &&\
 	pip install -r requirements.txt -r requirements-dev.txt &&\
