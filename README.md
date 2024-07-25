@@ -102,6 +102,8 @@ type: django.contrib.auth.models.User
 parents: django.contrib.auth.models.AbstractUser, django.contrib.auth.base_user.AbstractBaseUser, django.contrib.auth.models.PermissionsMixin, django.db.models.base.Model, django.db.models.utils.AltersData
 ```
 
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-short-types.png?raw=true)
+
 ![](https://github.com/igrek51/wat/blob/master/docs/img/wat-intro-set.png?raw=true)
 
 Now that you've identified the actual type,
