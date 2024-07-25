@@ -11,10 +11,10 @@ def dump_snippet(filename: str) -> str:
     return code
 
 
-def encode_text(text: str) -> str:
+def encode_text(text: str) -> bytes:
     compressed = zlib.compress(text.encode())
     b64: bytes = base64.b64encode(compressed)
-    return b64.decode()
+    return b64
 
 
 if __name__ == '__main__':
