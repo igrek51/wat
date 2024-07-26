@@ -69,7 +69,8 @@ def inspect_format(
         output.append(f'{STYLE_BRIGHT_BLUE}parents:{RESET} {parents}')
 
 
-    if isinstance(obj, (list, dict, str, bytes, bytearray, tuple, set, frozenset, range)):
+    len_attr = getattr(obj, '__len__', None)
+    if callable(len_attr):
         output.append(f'{STYLE_BRIGHT_BLUE}len:{RESET} {_format_value(len(obj))}')
  
     if callable(obj):

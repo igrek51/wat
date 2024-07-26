@@ -352,3 +352,16 @@ Private attributes:
 def test_backwards_wat_wat_import():
     from wat import wat
     assert wat.ret / 'foo' == 'foo'
+
+
+def test_inspect_overriden_len():
+    class Foo:
+        def __len__(self):
+            return 4
+
+    output = inspect_format(Foo())
+    assert_multiline_match(output, r'''
+value: <test_inspect\.test_inspect_overriden_len\.<locals>\.Foo object at .*>
+type: test_inspect\.Foo
+len: 4
+''')
