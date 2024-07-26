@@ -323,3 +323,7 @@ repr: Person\(name='george'\)
 type: test_inspect\.Person
 parents: pydantic\.main\.BaseModel
 ''')
+
+
+def test_returning_inspected_object():
+    assert wat.short.ret / 'hello' == 'hello'
