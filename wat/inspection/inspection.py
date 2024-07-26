@@ -37,17 +37,6 @@ def inspect(
     code: bool = False,
     all: bool = False,
 ):
-    """
-    Examine the object's information, such as its type, formatted value, variables, methods,
-    documentation or source code.
-    :param obj: object to inspect
-    :param short: whether to print short output without attributes (neither variables nor methods)
-    :param long: whether to print non-abbreviated values and documentation
-    :param dunder: whether to print dunder attributes
-    :param code: whether to print source code of a function, method or class
-    :param nodocs: whether to hide documentation for functions and classes
-    :param all: whether to include all information
-    """
     print(inspect_format(
         obj, short=short, dunder=dunder or all, long=long or all, nodocs=nodocs, code=code or all
     ))
@@ -380,8 +369,8 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
         new_wat._config = self._config.copy()
         return new_wat
 
-    def __truediv__(self, other: Any): return self._react_with(other) # /
-    def __add__(self, other: Any): return self._react_with(other) # +
+    def __truediv__(self, other: Any): return self._react_with(other)  # /
+    def __add__(self, other: Any): return self._react_with(other)  # +
     def __lshift__(self, other: Any): return self._react_with(other)  # <<
     def __rshift__(self, other: Any): return self._react_with(other)  # >>
     def __or__(self, other: Any): return self._react_with(other)  # |
