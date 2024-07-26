@@ -68,7 +68,7 @@ Alternatively, install **wat-inspector** package and import inspection tool from
 pip install wat-inspector
 ```
 ```python
-from wat import wat
+import wat
 ```
 
 ## Usage & modifiers
@@ -198,7 +198,7 @@ logger.debug('done')
 ```
 
 ```python
-(Pdb) from wat import wat  # or paste insta-load snippet
+(Pdb) import wat  # or paste insta-load snippet
 (Pdb) wat / x  # inspect local variable
 ...
 (Pdb) c  # continue execution

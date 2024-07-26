@@ -4,7 +4,7 @@ import re
 
 from pydantic import BaseModel
 
-from wat import wat
+import wat
 from wat.inspection.inspection import inspect_format
 from tests.asserts import assert_multiline_match, strip_ansi_colors, StdoutCap
 
