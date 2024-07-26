@@ -327,3 +327,28 @@ parents: pydantic\.main\.BaseModel
 
 def test_returning_inspected_object():
     assert wat.short.ret / 'hello' == 'hello'
+
+
+def test_listing_private_attributes():
+    class Foo:
+        def __init__(self, name: str):
+            self._name = name
+        
+        def _private_method(self):
+            pass
+    
+    output = inspect_format(Foo('bar'))
+    assert_multiline_match(output, r'''
+value: <test_inspect\.test_listing_private_attributes\.<locals>\.Foo object at .*>
+type: test_inspect\.Foo
+
+Private attributes:
+  _name: str = 'bar'
+
+  def _private_method\(\)
+''')
+
+
+def test_backwards_wat_wat_import():
+    from wat import wat
+    assert wat.ret / 'foo' == 'foo'
