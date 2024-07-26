@@ -374,6 +374,7 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
     def __lshift__(self, other: Any): return self._react_with(other)  # <<
     def __rshift__(self, other: Any): return self._react_with(other)  # >>
     def __or__(self, other: Any): return self._react_with(other)  # |
+    def __ror__(self, other: Any): return self._react_with(other)  # |
     def __lt__(self, other: Any): return self._react_with(other)  # <
 
     def __getattr__(self, name) -> Union['Wat', None]:
