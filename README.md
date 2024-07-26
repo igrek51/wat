@@ -33,8 +33,8 @@ Alternatively, you can use `wat(object)` syntax.
 ## Import
 
 ### Insta-Load
-If you want to debug something quickly without restarting,
-you can even use this inspector **without installing anything**.
+If you want to quickly debug something,
+you can use this inspector **without installing anything**, in the same session.
 
 Load it on the fly by pasting this snippet to your Python interpreter:
 ```python
