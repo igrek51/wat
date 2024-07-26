@@ -38,8 +38,8 @@ Alternatively, you can use `wat(object)` syntax.
 ## Import
 
 ### Insta-Load
-If you want to debug something quickly,
-you **don't even need to install anything** to use the inspector.
+If you want to debug something quickly without restarting,
+you can even use this inspector **without installing anything**.
 
 Load it on the fly by pasting this snippet to your Python interpreter:
 ```python
@@ -49,6 +49,17 @@ exec(zlib.decompress(base64.b64decode(code.encode())).decode(), globals())
 ```
 
 Now you can use `wat` object.
+
+!!! warning
+    Before executing Insta-Load snippet, it's recommended to verify what you're about to run.
+    If you feel uncomfortable, you can either:
+    - Verify what's inside the extracted code before executing it:
+      ```python
+      print(zlib.decompress(base64.b64decode(code.encode())).decode())
+      ```
+    - Paste the content of [inspection.py](https://github.com/igrek51/wat/blob/master/wat/inspection/inspection.py) into your interpreter.
+      It has the same effect.
+    - [Install package with pip](#install-with-pip) and review the code.
 
 ### Install with pip
 Alternatively, install **wat-inspector** package and import inspection tool from **wat** module:
