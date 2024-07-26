@@ -351,6 +351,7 @@ Try {STYLE_YELLOW}wat / object{RESET} or {STYLE_YELLOW}wat.modifiers / object{RE
   {STYLE_GREEN}.code{RESET} to print source code of a function, method or class
   {STYLE_GREEN}.nodocs{RESET} to hide documentation for functions and classes
   {STYLE_GREEN}.all{RESET} to include all information
+  {STYLE_GREEN}.ret{RESET} to return {STYLE_YELLOW}object{RESET}
 Call {STYLE_YELLOW}wat.locals{RESET} or {STYLE_YELLOW}wat(){RESET} to inspect {STYLE_YELLOW}locals(){RESET} variables.
 Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} variables.
 """.strip()
@@ -358,8 +359,11 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
             text = _strip_color(text)
         print(text)
 
-    def _react_with(self, other: Any) -> None:
+    def _react_with(self, other: Any) -> Any:
+        ret = self._params.pop('ret', False)
         inspect(other, **self._params)
+        if ret:
+            return other
     
     def __call__(self, *args: Any, **kwargs: Any) -> Union['Wat', None]:
         if args:
@@ -392,6 +396,8 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
             new_wat._params['nodocs'] = True
         elif name == 'all':
             new_wat._params['all'] = True
+        elif name == 'ret':
+            new_wat._params['ret'] = True
         elif name == 'locals':
             return inspect(_build_locals_object())
         elif name == 'globals':
