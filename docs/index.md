@@ -53,7 +53,8 @@ Now you can use `wat` object.
 !!! warning
     Before executing Insta-Load snippet, it's recommended to verify what you're about to run.
     If you feel uncomfortable, you can either:
-    - Verify what's inside the extracted code before executing it:
+
+    - Verify what's inside the extracted code beforehand:
       ```python
       print(zlib.decompress(base64.b64decode(code.encode())).decode())
       ```
