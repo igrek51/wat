@@ -1,6 +1,6 @@
 [project]
 name = "wat-inspector"
-version = "0.1.2"  # should be in sync with wat/version.py
+version = "0.2.0"  # should be in sync with wat/version.py
 description = "Deep inspection of Python objects"
 license = {text = "MIT"}
 authors = [

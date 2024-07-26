@@ -3,6 +3,6 @@
 python -m IPython
 ```
 ```
-from wat import wat
+import wat
 wat / {42}
 ```

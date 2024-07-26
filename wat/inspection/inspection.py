@@ -396,6 +396,8 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
             return inspect(_build_locals_object())
         elif name == 'globals':
             return inspect(_build_globals_object())
+        elif name == 'wat':
+            return self
         else:
             raise AttributeError
         return new_wat

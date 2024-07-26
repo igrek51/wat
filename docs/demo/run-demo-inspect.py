@@ -4,7 +4,7 @@ from livekey import animate_commands
 
 commands = [
     'python',
-    'from wat import wat',
+    'import wat',
     'wat / {7}',
     'wat.short / (1,)',
     'import re',
