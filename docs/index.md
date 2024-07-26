@@ -56,7 +56,7 @@ Now you can use `wat` object.
 
     - Verify what's inside the extracted code beforehand:
       ```python
-      print(zlib.decompress(base64.b64decode(code.encode())).decode())
+      print(zlib.decompress(base64.b64decode(code)).decode())
       ```
     - Paste the content of [inspection.py](https://github.com/igrek51/wat/blob/master/wat/inspection/inspection.py) into your interpreter.
       It has the same effect.
