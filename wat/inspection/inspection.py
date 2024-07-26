@@ -332,8 +332,9 @@ def _render_attrs_section(attributes: List[InspectAttribute], config: InspectCon
 
 class Wat:
     """Inspector instance to examine unknown objects with short operators"""
-    def __init__(self, **kwargs):
-        self._params = kwargs
+    def __init__(self, **inspect_kwargs):
+        self._inspect_kwargs: Dict[str, bool] = inspect_kwargs
+        self._config = {}
 
     def __repr__(self) -> str:
         self._print_help()
@@ -351,6 +352,7 @@ Try {STYLE_YELLOW}wat / object{RESET} or {STYLE_YELLOW}wat.modifiers / object{RE
   {STYLE_GREEN}.code{RESET} to print source code of a function, method or class
   {STYLE_GREEN}.nodocs{RESET} to hide documentation for functions and classes
   {STYLE_GREEN}.all{RESET} to include all information
+  {STYLE_GREEN}.ret{RESET} to return the inspected {STYLE_YELLOW}object{RESET}
 Call {STYLE_YELLOW}wat.locals{RESET} or {STYLE_YELLOW}wat(){RESET} to inspect {STYLE_YELLOW}locals(){RESET} variables.
 Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} variables.
 """.strip()
@@ -358,18 +360,25 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
             text = _strip_color(text)
         print(text)
 
-    def _react_with(self, other: Any) -> None:
-        inspect(other, **self._params)
+    def _react_with(self, other: Any) -> Any:
+        inspect(other, **self._inspect_kwargs)
+        if self._config.get('ret', False):
+            return other
     
     def __call__(self, *args: Any, **kwargs: Any) -> Union['Wat', None]:
         if args:
-            new_params = self._params.copy()
-            new_params.update(kwargs)
-            return inspect(*args, **new_params)
+            inspect_kwargs = self._inspect_kwargs.copy()
+            inspect_kwargs.update(kwargs)
+            return inspect(*args, **inspect_kwargs)
         elif kwargs:
             return Wat(**kwargs)
         else:
             return inspect(_build_locals_object())
+    
+    def _clone(self) -> 'Wat':
+        new_wat = Wat(**self._inspect_kwargs)
+        new_wat._config = self._config.copy()
+        return new_wat
 
     def __truediv__(self, other: Any): return self._react_with(other) # /
     def __add__(self, other: Any): return self._react_with(other) # +
@@ -379,19 +388,21 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
     def __lt__(self, other: Any): return self._react_with(other)  # <
 
     def __getattr__(self, name) -> Union['Wat', None]:
-        new_wat = Wat(**self._params)
+        new_wat = self._clone()
         if name in {'short', 's'}:
-            new_wat._params['short'] = True
+            new_wat._inspect_kwargs['short'] = True
         elif name == 'long':
-            new_wat._params['long'] = True
+            new_wat._inspect_kwargs['long'] = True
         elif name == 'dunder':
-            new_wat._params['dunder'] = True
+            new_wat._inspect_kwargs['dunder'] = True
         elif name == 'code':
-            new_wat._params['code'] = True
+            new_wat._inspect_kwargs['code'] = True
         elif name == 'nodocs':
-            new_wat._params['nodocs'] = True
+            new_wat._inspect_kwargs['nodocs'] = True
         elif name == 'all':
-            new_wat._params['all'] = True
+            new_wat._inspect_kwargs['all'] = True
+        elif name == 'ret':
+            new_wat._config['ret'] = True
         elif name == 'locals':
             return inspect(_build_locals_object())
         elif name == 'globals':
