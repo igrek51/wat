@@ -352,3 +352,12 @@ Private attributes:
 def test_backwards_wat_wat_import():
     from wat import wat
     assert wat.ret / 'foo' == 'foo'
+
+
+def test_wat_return_output():
+    result = wat.short.return_output / 'foo'
+    assert_multiline_match(result, r'''
+value: 'foo'
+type: str
+len: 3
+''')

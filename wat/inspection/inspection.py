@@ -13,6 +13,7 @@ class InspectConfig:
     nodocs: bool
     long: bool
     code: bool
+    return_output: bool
 
 
 @dataclass
@@ -36,10 +37,14 @@ def inspect(
     long: bool = False,
     code: bool = False,
     all: bool = False,
+    return_output: bool = False,
 ):
-    print(inspect_format(
+    result = inspect_format(
         obj, short=short, dunder=dunder or all, long=long or all, nodocs=nodocs, code=code or all
-    ))
+    )
+    if return_output:
+        return result
+    print(result)
 
 
 def inspect_format(
@@ -50,8 +55,9 @@ def inspect_format(
     nodocs: bool = False,
     long: bool = False,
     code: bool = False,
+    return_output: bool = False,
 ) -> str:
-    config = InspectConfig(short=short, dunder=dunder, nodocs=nodocs, long=long, code=code)
+    config = InspectConfig(short=short, dunder=dunder, nodocs=nodocs, long=long, code=code, return_output=return_output)
     output: List[str] = []
 
     str_value = _format_value(obj)
@@ -350,11 +356,14 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
         print(text)
 
     def _react_with(self, other: Any) -> Any:
-        inspect(other, **self._inspect_kwargs)
+        result = inspect(other, **self._inspect_kwargs)
         if self._config.get('ret', False):
             return other
+        if self._inspect_kwargs.get("return_output", False):
+            return result
+
     
-    def __call__(self, *args: Any, **kwargs: Any) -> Union['Wat', None]:
+    def __call__(self, *args: Any, **kwargs: Any) -> Union['Wat', None, str]:
         if args:
             inspect_kwargs = self._inspect_kwargs.copy()
             inspect_kwargs.update(kwargs)
@@ -377,7 +386,7 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
     def __ror__(self, other: Any): return self._react_with(other)  # |
     def __lt__(self, other: Any): return self._react_with(other)  # <
 
-    def __getattr__(self, name) -> Union['Wat', None]:
+    def __getattr__(self, name) -> Union['Wat', None, str]:
         new_wat = self._clone()
         if name in {'short', 's'}:
             new_wat._inspect_kwargs['short'] = True
@@ -399,6 +408,8 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
             return inspect(_build_globals_object())
         elif name == 'wat':
             return self
+        elif name == 'return_output':
+            new_wat._inspect_kwargs['return_output'] = True
         else:
             raise AttributeError
         return new_wat
