@@ -355,7 +355,7 @@ def test_backwards_wat_wat_import():
 
 
 def test_wat_return_output():
-    result = wat.short.return_output / 'foo'
+    result = wat.short.str / 'foo'
     assert_multiline_match(result, r'''
 value: 'foo'
 type: str

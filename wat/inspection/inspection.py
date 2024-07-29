@@ -13,7 +13,6 @@ class InspectConfig:
     nodocs: bool
     long: bool
     code: bool
-    return_output: bool
 
 
 @dataclass
@@ -28,25 +27,6 @@ class InspectAttribute:
     doc: Optional[str]
 
 
-def inspect(
-    obj: Any,
-    *,
-    short: bool = False,
-    dunder: bool = False,
-    nodocs: bool = False,
-    long: bool = False,
-    code: bool = False,
-    all: bool = False,
-    return_output: bool = False,
-):
-    result = inspect_format(
-        obj, short=short, dunder=dunder or all, long=long or all, nodocs=nodocs, code=code or all
-    )
-    if return_output:
-        return result
-    print(result)
-
-
 def inspect_format(
     obj: Any,
     *,
@@ -55,9 +35,9 @@ def inspect_format(
     nodocs: bool = False,
     long: bool = False,
     code: bool = False,
-    return_output: bool = False,
+    all: bool = False,
 ) -> str:
-    config = InspectConfig(short=short, dunder=dunder, nodocs=nodocs, long=long, code=code, return_output=return_output)
+    config = InspectConfig(short=short, dunder=dunder or all, nodocs=nodocs, long=long or all, code=code or all)
     output: List[str] = []
 
     str_value = _format_value(obj)
@@ -348,43 +328,45 @@ Try {STYLE_YELLOW}wat / object{RESET} or {STYLE_YELLOW}wat.modifiers / object{RE
   {STYLE_GREEN}.nodocs{RESET} to hide documentation for functions and classes
   {STYLE_GREEN}.all{RESET} to include all information
   {STYLE_GREEN}.ret{RESET} to return the inspected {STYLE_YELLOW}object{RESET}
+  {STYLE_GREEN}.str{RESET} to return the output string
 Call {STYLE_YELLOW}wat.locals{RESET} or {STYLE_YELLOW}wat(){RESET} to inspect {STYLE_YELLOW}locals(){RESET} variables.
 Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} variables.
 """.strip()
         if not sys.stdout.isatty():
             text = _strip_color(text)
         print(text)
-
-    def _react_with(self, other: Any) -> Any:
-        result = inspect(other, **self._inspect_kwargs)
-        if self._config.get('ret', False):
-            return other
-        if self._inspect_kwargs.get("return_output", False):
-            return result
-
     
-    def __call__(self, *args: Any, **kwargs: Any) -> Union['Wat', None, str]:
+    def __call__(self, *args: Any, **kwargs: Any) -> Union['Wat', None, str, Any]:
         if args:
             inspect_kwargs = self._inspect_kwargs.copy()
             inspect_kwargs.update(kwargs)
-            return inspect(*args, **inspect_kwargs)
+            return Wat(**inspect_kwargs)._inspect(*args)
         elif kwargs:
             return Wat(**kwargs)
         else:
-            return inspect(_build_locals_object())
+            return self._inspect(_build_locals_object())
+    
+    def _inspect(self, other: Any) -> Union[None, str, Any]:
+        output = inspect_format(other, **self._inspect_kwargs)
+        if self._config.get('str', False):
+            return output
+        print(output)
+        if self._config.get('ret', False):
+            return other
+        return None
     
     def _clone(self) -> 'Wat':
         new_wat = Wat(**self._inspect_kwargs)
         new_wat._config = self._config.copy()
         return new_wat
 
-    def __truediv__(self, other: Any): return self._react_with(other)  # /
-    def __add__(self, other: Any): return self._react_with(other)  # +
-    def __lshift__(self, other: Any): return self._react_with(other)  # <<
-    def __rshift__(self, other: Any): return self._react_with(other)  # >>
-    def __or__(self, other: Any): return self._react_with(other)  # |
-    def __ror__(self, other: Any): return self._react_with(other)  # |
-    def __lt__(self, other: Any): return self._react_with(other)  # <
+    def __truediv__(self, other: Any): return self._inspect(other)  # /
+    def __add__(self, other: Any): return self._inspect(other)  # +
+    def __lshift__(self, other: Any): return self._inspect(other)  # <<
+    def __rshift__(self, other: Any): return self._inspect(other)  # >>
+    def __or__(self, other: Any): return self._inspect(other)  # |
+    def __ror__(self, other: Any): return self._inspect(other)  # |
+    def __lt__(self, other: Any): return self._inspect(other)  # <
 
     def __getattr__(self, name) -> Union['Wat', None, str]:
         new_wat = self._clone()
@@ -402,14 +384,14 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
             new_wat._inspect_kwargs['all'] = True
         elif name == 'ret':
             new_wat._config['ret'] = True
+        elif name == 'str':
+            new_wat._config['str'] = True
         elif name == 'locals':
-            return inspect(_build_locals_object())
+            return self._inspect(_build_locals_object())
         elif name == 'globals':
-            return inspect(_build_globals_object())
+            return self._inspect(_build_globals_object())
         elif name == 'wat':
             return self
-        elif name == 'return_output':
-            new_wat._inspect_kwargs['return_output'] = True
         else:
             raise AttributeError
         return new_wat
