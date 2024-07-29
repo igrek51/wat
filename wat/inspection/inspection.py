@@ -328,7 +328,7 @@ Try {STYLE_YELLOW}wat / object{RESET} or {STYLE_YELLOW}wat.modifiers / object{RE
   {STYLE_GREEN}.nodocs{RESET} to hide documentation for functions and classes
   {STYLE_GREEN}.all{RESET} to include all information
   {STYLE_GREEN}.ret{RESET} to return the inspected {STYLE_YELLOW}object{RESET}
-  {STYLE_GREEN}.str{RESET} to return the output string
+  {STYLE_GREEN}.str{RESET} to return the output string instead of printing
 Call {STYLE_YELLOW}wat.locals{RESET} or {STYLE_YELLOW}wat(){RESET} to inspect {STYLE_YELLOW}locals(){RESET} variables.
 Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} variables.
 """.strip()
@@ -436,7 +436,6 @@ def _build_globals_object():
 RESET ='\033[0m'
 STYLE_BRIGHT = '\033[1m'
 STYLE_DIM = '\033[2m'
-
 STYLE_RED = '\033[0;31m'
 STYLE_BRIGHT_RED = '\033[1;31m'
 STYLE_GREEN = '\033[0;32m'
