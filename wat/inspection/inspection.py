@@ -79,14 +79,13 @@ def inspect_format(
         attributes = sorted(_iter_attributes(obj, config), key=lambda attr: attr.name)
         output.extend(_render_attrs_section(attributes, config))
 
-    if sys.stdout.isatty():  # horizontal bar
+    if sys.stdout.isatty() and _color_enabled():  # horizontal bar
         terminal_width = os.get_terminal_size().columns
-        if not ("PYTHON_WAT_DISABLECOLOR" in os.environ and os.environ["PYTHON_WAT_DISABLECOLOR"] == 'true'):
-            output.insert(0, STYLE_BLUE + '─' * terminal_width + RESET)
-            output.append(STYLE_BLUE + '─' * terminal_width + RESET)
+        output.insert(0, STYLE_BLUE + '─' * terminal_width + RESET)
+        output.append(STYLE_BLUE + '─' * terminal_width + RESET)
 
     text = '\n'.join(line for line in output if line is not None)
-    if (not sys.stdout.isatty()) or ("PYTHON_WAT_DISABLECOLOR" in os.environ and os.environ["PYTHON_WAT_DISABLECOLOR"] == 'true'):
+    if not _color_enabled():
         text = _strip_color(text)
     return text
 
@@ -333,7 +332,7 @@ Try {STYLE_YELLOW}wat / object{RESET} or {STYLE_YELLOW}wat.modifiers / object{RE
 Call {STYLE_YELLOW}wat.locals{RESET} or {STYLE_YELLOW}wat(){RESET} to inspect {STYLE_YELLOW}locals(){RESET} variables.
 Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} variables.
 """.strip()
-        if (not sys.stdout.isatty()) or ("PYTHON_WAT_DISABLECOLOR" in os.environ and os.environ["PYTHON_WAT_DISABLECOLOR"] == 'true'):
+        if not _color_enabled():
             text = _strip_color(text)
         print(text)
     
@@ -402,6 +401,16 @@ wat = Wat()
 
 def _strip_color(text: str) -> str:
     return re.sub(r'\x1b\[\d+(;\d+)?m', '', text)
+
+
+def _color_enabled() -> bool:
+    env_color = {
+        'false': False,
+        'true': True,
+    }.get(os.environ.get('WAT_COLOR', '').lower())
+    if env_color is not None:
+        return env_color
+    return sys.stdout.isatty()
 
 
 def _build_locals_object():

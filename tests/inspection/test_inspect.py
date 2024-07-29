@@ -1,5 +1,6 @@
 from datetime import datetime
 from enum import Enum
+import os
 import re
 
 from pydantic import BaseModel
@@ -361,3 +362,18 @@ value: 'foo'
 type: str
 len: 3
 ''')
+
+
+def test_colorful_output():
+    try:
+        os.environ['WAT_COLOR'] = 'false'
+        output = inspect_format(None)
+        assert output == """value: None
+type: NoneType"""
+
+        os.environ['WAT_COLOR'] = 'true'
+        output = inspect_format(None)
+        assert output == """\x1b[1;34mvalue:\x1b[0m \x1b[0;35mNone\x1b[0m
+\x1b[1;34mtype:\x1b[0m \x1b[0;33mNoneType\x1b[0m"""
+    finally:
+        os.environ['WAT_COLOR'] = ''
