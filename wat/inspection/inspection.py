@@ -54,7 +54,6 @@ def inspect_format(
     if parents:
         output.append(f'{STYLE_BRIGHT_BLUE}parents:{RESET} {parents}')
 
-
     len_attr = getattr(obj, '__len__', None)
     if callable(len_attr):
         output.append(f'{STYLE_BRIGHT_BLUE}len:{RESET} {_format_value(len(obj))}')
