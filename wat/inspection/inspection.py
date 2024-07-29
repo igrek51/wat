@@ -340,13 +340,13 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
         if args:
             inspect_kwargs = self._inspect_kwargs.copy()
             inspect_kwargs.update(kwargs)
-            return Wat(**inspect_kwargs)._inspect(*args)
+            return Wat(**inspect_kwargs).inspect(*args)
         elif kwargs:
             return Wat(**kwargs)
         else:
-            return self._inspect(_build_locals_object())
+            return self.inspect(_build_locals_object())
     
-    def _inspect(self, other: Any) -> Union[None, str, Any]:
+    def inspect(self, other: Any) -> Union[None, str, Any]:
         output = inspect_format(other, **self._inspect_kwargs)
         if self._config.get('str', False):
             return output
@@ -360,13 +360,13 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
         new_wat._config = self._config.copy()
         return new_wat
 
-    def __truediv__(self, other: Any): return self._inspect(other)  # /
-    def __add__(self, other: Any): return self._inspect(other)  # +
-    def __lshift__(self, other: Any): return self._inspect(other)  # <<
-    def __rshift__(self, other: Any): return self._inspect(other)  # >>
-    def __or__(self, other: Any): return self._inspect(other)  # |
-    def __ror__(self, other: Any): return self._inspect(other)  # |
-    def __lt__(self, other: Any): return self._inspect(other)  # <
+    def __truediv__(self, other: Any): return self.inspect(other)  # /
+    def __add__(self, other: Any): return self.inspect(other)  # +
+    def __lshift__(self, other: Any): return self.inspect(other)  # <<
+    def __rshift__(self, other: Any): return self.inspect(other)  # >>
+    def __or__(self, other: Any): return self.inspect(other)  # |
+    def __ror__(self, other: Any): return self.inspect(other)  # |
+    def __lt__(self, other: Any): return self.inspect(other)  # <
 
     def __getattr__(self, name) -> Union['Wat', None, str]:
         new_wat = self._clone()
@@ -387,9 +387,9 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
         elif name == 'str':
             new_wat._config['str'] = True
         elif name == 'locals':
-            return self._inspect(_build_locals_object())
+            return self.inspect(_build_locals_object())
         elif name == 'globals':
-            return self._inspect(_build_globals_object())
+            return self.inspect(_build_globals_object())
         elif name == 'wat':
             return self
         else:
