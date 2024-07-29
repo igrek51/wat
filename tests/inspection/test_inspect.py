@@ -377,3 +377,16 @@ type: NoneType"""
 \x1b[1;34mtype:\x1b[0m \x1b[0;33mNoneType\x1b[0m"""
     finally:
         os.environ['WAT_COLOR'] = ''
+
+
+def test_inspect_overriden_len():
+    class Foo:
+        def __len__(self):
+            return 4
+
+    output = inspect_format(Foo())
+    assert_multiline_match(output, r'''
+value: <test_inspect\.test_inspect_overriden_len\.<locals>\.Foo object at .*>
+type: test_inspect\.Foo
+len: 4
+''')
