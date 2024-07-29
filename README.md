@@ -225,3 +225,6 @@ wat.locals
 ```python
 wat.globals
 ```
+
+### Environment variables
+Automatically disable color in output by setting `PYTHON_WAT_DISABLECOLOR="true"`
