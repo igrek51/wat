@@ -99,7 +99,7 @@ def inspect_format(
         output.append(STYLE_BLUE + '─' * terminal_width + RESET)
 
     text = '\n'.join(line for line in output if line is not None)
-    if not sys.stdout.isatty():
+    if not sys.stdout.isatty() or ("PYTHON_WAT_DISABLECOLOR" in os.environ and os.environ["PYTHON_WAT_DISABLECOLOR"] == 'true'):
         text = _strip_color(text)
     return text
 
