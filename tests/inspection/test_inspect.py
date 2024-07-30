@@ -188,7 +188,7 @@ signature: async def looper\(\)
 
 
 def test_wat_with_nothing():
-    assert str(wat) == '<Wat Inspector object>'
+    assert str(wat) == '<WAT Inspector object>'
     with StdoutCap() as capture:
         assert repr(wat) == ''
     assert 'Try wat / object or wat.modifiers / object to inspect an object. Modifiers are:' in capture.uncolor().splitlines()

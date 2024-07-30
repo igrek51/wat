@@ -200,10 +200,16 @@ def _format_value(value: Any, indent: int = 0) -> str:
         return _format_dict_value(value, indent=indent+1)
     if isinstance(value, list):
         return _format_list_value(value, indent=indent+1)
-    return f"{STYLE_GREEN}{str(value)}{RESET}"
+    str_val = str(value)
+    angle_bracket_match = re.fullmatch(r'<(.*)>', str_val)
+    if angle_bracket_match:
+        return f'{STYLE_YELLOW}<{STYLE_BRIGHT_YELLOW}{angle_bracket_match.group(1)}{STYLE_YELLOW}>{RESET}'
+    return f'{STYLE_GREEN}{str_val}{RESET}'
 
 
 def _format_dict_value(dic: Dict, indent: int) -> str:
+    if indent > 30:
+        return f'{STYLE_BRIGHT_RED}ERROR: too deeply nested{RESET}'
     lines: List[str] = []
     indentation = '    ' * indent
     for key, value in dic.items():
@@ -309,13 +315,15 @@ class Wat:
     def __init__(self, **inspect_kwargs):
         self._inspect_kwargs: Dict[str, bool] = inspect_kwargs
         self._config = {}
+        self._inspect_in_progress = False
 
     def __repr__(self) -> str:
-        self._print_help()
+        if not wat._inspect_in_progress:
+            self._print_help()
         return ''
         
     def __str__(self) -> str:
-        return '<Wat Inspector object>'
+        return '<WAT Inspector object>'
     
     def _print_help(self):
         text = f"""
@@ -346,15 +354,19 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
             return self.inspect(_build_locals_object())
     
     def inspect(self, other: Any) -> Union[None, str, Any]:
-        output = inspect_format(other, **self._inspect_kwargs)
-        if self._config.get('str', False):
-            return output
-        print(output)
-        if self._config.get('ret', False):
-            return other
-        return None
+        wat._inspect_in_progress = True
+        try:
+            output = inspect_format(other, **self._inspect_kwargs)
+            if self._config.get('str', False):
+                return output
+            print(output)
+            if self._config.get('ret', False):
+                return other
+            return None
+        finally:
+            wat._inspect_in_progress = False
     
-    def _clone(self) -> 'Wat':
+    def copy(self) -> 'Wat':
         new_wat = Wat(**self._inspect_kwargs)
         new_wat._config = self._config.copy()
         return new_wat
@@ -368,7 +380,7 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
     def __lt__(self, other: Any): return self.inspect(other)  # <
 
     def __getattr__(self, name) -> Union['Wat', None, str]:
-        new_wat = self._clone()
+        new_wat = self.copy()
         if name in {'short', 's'}:
             new_wat._inspect_kwargs['short'] = True
         elif name == 'long':

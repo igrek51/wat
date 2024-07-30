@@ -47,4 +47,4 @@ dump-inspect:
 	@echo "paste it to: wat/inspection/insta/instaload.py"
 
 example-inspect:
-	python docs/example/inspection.py
+	python docs/example/example_inspection.py
