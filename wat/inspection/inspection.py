@@ -466,7 +466,7 @@ def _list_global_variables() -> Dict[str, Any]:
         del frame
 
 
-def _render_variables(variables: dict[str, Any], title: str) -> Iterable[str]:
+def _render_variables(variables: Dict[str, Any], title: str) -> Iterable[str]:
     yield f"{STYLE_BRIGHT}{title}:{RESET}"
     for name in sorted(variables.keys()):
         value = variables[name]
