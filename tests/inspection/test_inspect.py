@@ -196,24 +196,23 @@ def test_wat_with_nothing():
 
 def test_wat_locals():
     _local_var = 23
-    with StdoutCap() as capture:
-        wat()
-    assert 'value: <wat.inspection.inspection.locals object' in capture.uncolor()
-    assert '_local_var: int = 23' in capture.uncolor()
+    output = wat.str.gray.locals.splitlines()
+    assert 'Local variables:' in output
+    assert '  _local_var: int = 23' in output
 
     with StdoutCap() as capture:
-        wat.locals
-    assert 'value: <wat.inspection.inspection.locals object' in capture.uncolor()
-    assert '_local_var: int = 23' in capture.uncolor()
+        wat()
+    assert 'Local variables' in capture.uncolor()
+    assert '  _local_var: int = 23' in capture.uncolor()
 
 
 global_var = 23
 
 def test_wat_globals():
-    with StdoutCap() as capture:
-        wat.globals
-    assert 'value: <wat.inspection.inspection.globals object' in capture.uncolor()
-    assert 'global_var: int = 23' in capture.uncolor()
+    output = wat.str.gray.globals.splitlines()
+    assert 'Global variables:' in output
+    assert '  global_var: int = 23' in output
+    assert "  __name__: str = 'test_inspect'" in output
 
 
 def test_wat_with_object():

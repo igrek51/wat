@@ -336,6 +336,7 @@ Try {STYLE_YELLOW}wat / object{RESET} or {STYLE_YELLOW}wat.modifiers / object{RE
   {STYLE_GREEN}.all{RESET} to include all information
   {STYLE_GREEN}.ret{RESET} to return the inspected {STYLE_YELLOW}object{RESET}
   {STYLE_GREEN}.str{RESET} to return the output string instead of printing
+  {STYLE_GREEN}.gray{RESET} to disable colorful output in the console
 Call {STYLE_YELLOW}wat.locals{RESET} or {STYLE_YELLOW}wat(){RESET} to inspect {STYLE_YELLOW}locals(){RESET} variables.
 Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} variables.
 """.strip()
@@ -351,15 +352,15 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
         elif kwargs:
             return Wat(**kwargs)
         else:
-            return self.inspect(_build_locals_object())
+            return self._print_variables(_list_local_variables(), 'Local variables')
     
     def inspect(self, other: Any) -> Union[None, str, Any]:
         wat._inspect_in_progress = True
         try:
             output = inspect_format(other, **self._inspect_kwargs)
-            if self._config.get('str', False):
-                return output
-            print(output)
+            output_return = self._display_output(output)
+            if output_return:
+                return output_return
             if self._config.get('ret', False):
                 return other
             return None
@@ -370,6 +371,19 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
         new_wat = Wat(**self._inspect_kwargs)
         new_wat._config = self._config.copy()
         return new_wat
+    
+    def _display_output(self, output: str) -> Optional[str]:
+        if self._config.get('gray', False) or not _color_enabled():
+            output = _strip_color(output)
+        if self._config.get('str', False):
+            return output
+        print(output)
+        return None
+
+    def _print_variables(self, variables: Dict[str, Any], title: str) -> Optional[str]:
+        lines = list(_render_variables(variables, title))
+        output = '\n'.join(line for line in lines if line is not None)
+        return self._display_output(output)
 
     def __truediv__(self, other: Any): return self.inspect(other)  # /
     def __add__(self, other: Any): return self.inspect(other)  # +
@@ -380,7 +394,7 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
     def __lt__(self, other: Any): return self.inspect(other)  # <
 
     def __getattr__(self, name) -> Union['Wat', None, str]:
-        new_wat = self.copy()
+        new_wat = self.copy() 
         if name in {'short', 's'}:
             new_wat._inspect_kwargs['short'] = True
         elif name == 'long':
@@ -397,10 +411,12 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect {STYLE_YELLOW}globals(){RESET} 
             new_wat._config['ret'] = True
         elif name == 'str':
             new_wat._config['str'] = True
+        elif name == 'gray':
+            new_wat._config['gray'] = True
         elif name == 'locals':
-            return self.inspect(_build_locals_object())
+            return self._print_variables(_list_local_variables(), 'Local variables')
         elif name == 'globals':
-            return self.inspect(_build_globals_object())
+            return self._print_variables(_list_global_variables(), 'Global variables')
         elif name == 'wat':
             return self
         else:
@@ -424,34 +440,39 @@ def _color_enabled() -> bool:
     return sys.stdout.isatty()
 
 
-def _build_locals_object():
-    o = type('locals', (object,), {})()
+def _list_local_variables() -> Dict[str, Any]:
     frame = std_inspect.currentframe()
     try:
         for _ in range(2):  # back to caller frame
             if frame is not None:
                 frame = frame.f_back
         if frame is not None:
-            for key, value in frame.f_locals.items():
-                setattr(o, key, value)
+            return frame.f_locals
+        return {}
     finally:
         del frame
-    return o
 
 
-def _build_globals_object():
-    o = type('globals', (object,), {})()
+def _list_global_variables() -> Dict[str, Any]:
     frame = std_inspect.currentframe()
     try:
-        for _ in range(2):
+        for _ in range(2):  # back to caller frame
             if frame is not None:
                 frame = frame.f_back
         if frame is not None:
-            for key, value in frame.f_globals.items():
-                setattr(o, key, value)
+            return frame.f_globals
+        return {}
     finally:
         del frame
-    return o
+
+
+def _render_variables(variables: dict[str, Any], title: str) -> Iterable[str]:
+    yield f"{STYLE_BRIGHT}{title}:{RESET}"
+    for name in sorted(variables.keys()):
+        value = variables[name]
+        value_str = _format_short_value(value, long=False)
+        type_str = _format_type(type(value))
+        yield f'  {STYLE_BRIGHT_YELLOW}{name}{STYLE_YELLOW}: {type_str} = {value_str}'
 
 
 RESET ='\033[0m'

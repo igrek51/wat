@@ -3,4 +3,5 @@ import wat
 
 
 if __name__ == '__main__':
-    wat / locals()
+    a = globals()
+    wat.globals
