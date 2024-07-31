@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-import inspect as std_inspect
+import inspect
 import os
 import re
 import sys
@@ -72,7 +72,7 @@ def inspect_format(
         else:
             output.extend([f'{STYLE_GRAY}"""', doc, f'"""{RESET}'])
 
-    if config.code and (std_inspect.isclass(obj) or callable(obj)):
+    if config.code and (inspect.isclass(obj) or callable(obj)):
         source = _get_source_code(obj)
         if source:
             output.append(f'{STYLE_BRIGHT_BLUE}source code:{RESET}\n{source}')
@@ -120,15 +120,15 @@ def _iter_attributes(obj, config: InspectConfig) -> Iterable[InspectAttribute]:
 
 def _get_callable_signature(name: str, obj) -> Optional[str]:
     try:
-        _signature = str(std_inspect.signature(obj))
+        _signature = str(inspect.signature(obj))
     except (ValueError, TypeError):
         _signature = '(…)'
     
-    if std_inspect.isclass(obj):
+    if inspect.isclass(obj):
         prefix = 'class '
-    elif std_inspect.iscoroutinefunction(obj):
+    elif inspect.iscoroutinefunction(obj):
         prefix = 'async def '
-    elif std_inspect.isfunction(obj) or std_inspect.ismethod(obj) or std_inspect.isbuiltin(obj) or hasattr(obj, '__name__'):
+    elif inspect.isfunction(obj) or inspect.ismethod(obj) or inspect.isbuiltin(obj) or hasattr(obj, '__name__'):
         prefix = 'def '
     else:
         prefix = ''
@@ -137,13 +137,13 @@ def _get_callable_signature(name: str, obj) -> Optional[str]:
 
 def _get_source_code(obj) -> Optional[str]:
     try:
-        return std_inspect.getsource(obj)
+        return inspect.getsource(obj)
     except (OSError, TypeError, IndentationError) as e:
         return f'failed to get source code: {type(e)}: {e}'
 
 
 def _get_doc(obj, long: bool) -> Optional[str]:
-    doc = std_inspect.getdoc(obj)
+    doc = inspect.getdoc(obj)
     if doc is None:
         return None
     doc = doc.strip()
@@ -422,7 +422,7 @@ def _color_enabled() -> bool:
 
 
 def _list_local_variables() -> Dict[str, Any]:
-    frame = std_inspect.currentframe()
+    frame = inspect.currentframe()
     try:
         for _ in range(2):  # back to caller frame
             if frame is not None:
@@ -435,7 +435,7 @@ def _list_local_variables() -> Dict[str, Any]:
 
 
 def _list_global_variables() -> Dict[str, Any]:
-    frame = std_inspect.currentframe()
+    frame = inspect.currentframe()
     try:
         for _ in range(2):  # back to caller frame
             if frame is not None:
@@ -456,7 +456,7 @@ def _render_variables(variables: Dict[str, Any], title: str) -> Iterable[str]:
         yield f'  {STYLE_BRIGHT_YELLOW}{name}{STYLE_YELLOW}: {type_str} = {value_str}'
 
 
-RESET ='\033[0m'
+RESET = '\033[0m'
 STYLE_BRIGHT = '\033[1m'
 STYLE_RED = '\033[0;31m'
 STYLE_BRIGHT_RED = '\033[1;31m'
