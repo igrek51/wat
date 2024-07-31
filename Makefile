@@ -1,6 +1,6 @@
 .PHONY: venv test clean build dist
 
-SHELL := /bin/bash
+SHELL := bash
 
 venv:
 	python3 -m venv venv &&\
@@ -39,12 +39,9 @@ mkdocs-local:
 mkdocs-push:
 	mkdocs gh-deploy --force
 
-dump-inspect:
-	python wat/inspection/insta/dump.py wat/inspection/inspection.py
-	@echo
-	@echo "paste it to: README.md"
-	@echo "paste it to: docs/index.md"
-	@echo "paste it to: wat/inspection/insta/instaload.py"
+# Generate Insta-Load snippet and update it in the docs
+regenerate-insta-load:
+	python wat/inspection/insta/regenerate.py wat/inspection/inspection.py README.md docs/index.md wat/inspection/insta/instaload.py
 
 example-inspect:
 	python docs/example/example_inspection.py
