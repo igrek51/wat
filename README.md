@@ -25,9 +25,9 @@ to investigate its
 **documentation**, and even its **source code**.
 Alternatively, you can use `wat(object)` syntax.
 
-![](https://github.com/igrek51/wat/blob/master/docs/img/wat-datetime.png?raw=true)
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-datetime-now.png?raw=true)
 
-<video width="100%" controls="true" allowFullscreen="true" src="https://github.com/user-attachments/assets/022ef89a-9e35-45be-9e2f-08d2c6af9075" poster="https://raw.githubusercontent.com/igrek51/wat/master/docs/img/wat-intro-set.png">
+<video width="100%" controls="true" allowFullscreen="true" src="https://github.com/user-attachments/assets/022ef89a-9e35-45be-9e2f-08d2c6af9075" poster="https://raw.githubusercontent.com/igrek51/wat/master/docs/img/wat-set.png">
 </video>
 
 ## Import
@@ -47,7 +47,7 @@ Now you can use `wat` object.
 
 > [!Warning]
 > Before executing Insta-Load snippet, it's recommended to verify what you're about to run.
-> If you feel uncomfortable, you can either:
+> You can either:
 >
 > - Verify what's inside the extracted code beforehand:
 >   ```python
@@ -74,9 +74,9 @@ A short syntax `wat / object` is equivalent to `wat(object)`.
 You can call `wat.modifiers / object` with the following **modifiers**:
 
 - `.short` or `.s` to hide attributes (variables and methods)
-- `.long` to show non-abbreviated values and documentation
 - `.dunder` to display dunder attributes
 - `.code` to reveal the source code of a function, method, or class
+- `.long` to show non-abbreviated values and documentation
 - `.nodocs` to hide documentation for functions and classes
 - `.all` to include all available information
 - `.ret` to return the inspected object
@@ -85,8 +85,8 @@ You can call `wat.modifiers / object` with the following **modifiers**:
 
 You can chain modifiers, e.g. `wat.long.dunder.nodocs / object`.
 
-Call `wat.locals` or `wat()` to inspect `locals()` variables.  
-Call `wat.globals` to inspect `globals()` variables.
+Call `wat.locals` or `wat()` to inspect local variables.  
+Call `wat.globals` to inspect global variables.
 
 Type `wat` in the interpreter to learn more about this object itself.
 
@@ -132,21 +132,21 @@ Now that you've identified the actual type,
 you can put the type annotations in your code to reduce the confusion.
 
 ### Look up methods
-Listing methods, functions and looking up their signature is extremely beneficial to see how to use them.
+By listing out methods and their signatures, you can easily grasp how to use the unknown object.
 Plus, you can read their docstrings.
 
 ```python
-wat / 'stringy'
+wat / ['foo']
 ```
 
-![](https://github.com/igrek51/wat/blob/master/docs/img/wat-string.png?raw=true)
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-list.png?raw=true)
 
-![](https://github.com/igrek51/wat/blob/master/docs/img/wat-intro-set.png?raw=true)
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-set.png?raw=true)
 
 Use `wat.long` if you want to see full doscstrings.
 
 ### Discover function's signature
-See the docstrings and the signature of a function or a method to see how to use it.
+See the docstrings and the signature of a function to learn how to use it.
 
 ```python
 wat / str.split
@@ -181,7 +181,7 @@ By default, WAT Inspector hides attributes starting with `__`. Use `wat.dunder` 
 wat.dunder / {}
 ```
 
-![](https://github.com/igrek51/wat/blob/master/docs/img/wat-dict-dunder.png?raw=true)
+![](https://github.com/igrek51/wat/blob/master/docs/img/wat-dunder-dict.png?raw=true)
 
 ### Review the code
 Look up the source code of a function to see how it really works.
@@ -276,11 +276,6 @@ wat.s / List[str]
 # parents: typing._BaseGenericAlias, typing._Final
 # signature: def List(*args, **kwargs)
 
-wat.s / list[str]
-# value: list[str]
-# type: types.GenericAlias
-# signature: def list(*args, **kwargs)
-
 wat(str | None)
 # value: str | None
 # type: types.UnionType
@@ -295,6 +290,15 @@ wat / ...
 # type: ellipsis
 ```
 
+### Inspect WAT itself
+```python
+wat / wat
+wat.code / wat.__truediv__
+```
+
 ## Environment variables
 - `WAT_COLOR="false"` to disable colorful output in the console.
 - `WAT_COLOR="true"` to enforce colorful outputs even in non-tty environment.
+
+## References
+- Inspired by [Rich Inspect](https://github.com/Textualize/rich?tab=readme-ov-file#rich-inspect)
