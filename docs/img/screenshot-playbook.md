@@ -44,3 +44,8 @@ output = '\n'.join([
 ])
 print(output)
 ```
+
+## wat-nested-dict-pretty.png
+```python
+wat.s / {"people":[{"name":"Alice","age":21,"pets":None},{"name":"Bob", "age":42,"pets":['Kitty','Fluffy'],"items":[{'name':"teapot","price":10.99,'in_stock':True}]}]}
+```
