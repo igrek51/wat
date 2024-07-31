@@ -50,7 +50,7 @@ def inspect_format(
 
     str_type = _format_type(type(obj))
     output.append(f'{STYLE_BRIGHT_BLUE}type:{RESET} {str_type}')
-    parents = _format_parent_types(obj)
+    parents = ', '.join(_get_parent_types(type(obj)))
     if parents:
         output.append(f'{STYLE_BRIGHT_BLUE}parents:{RESET} {parents}')
 
@@ -250,15 +250,9 @@ def _format_type(type_: Type) -> str:
 def _get_parent_types(type_: Type) -> Iterable[str]:
     if hasattr(type_, '__mro__'):
         for index, base_type in enumerate(type_.__mro__):
-            if index == 0:
-                continue
-            if base_type is object:
+            if index == 0 or base_type is object:
                 continue
             yield _format_type(base_type)
-
-
-def _format_parent_types(obj: Any) -> str:
-    return ', '.join(_get_parent_types(type(obj)))
 
 
 def _shorten_string(text: str) -> str:
@@ -271,16 +265,12 @@ def _shorten_string(text: str) -> str:
 
 
 def _render_attrs_section(attributes: List[InspectAttribute], config: InspectConfig) -> Iterable[str]:
-    public_attrs = [attr for attr in attributes if not attr.private and not attr.dunder]
-    private_attrs = [attr for attr in attributes if attr.private]
-    dunder_attrs = [attr for attr in attributes if attr.dunder]
-
-    public_vars = [attr for attr in public_attrs if not attr.callable]
-    private_vars = [attr for attr in private_attrs if not attr.callable]
-    dunder_vars = [attr for attr in dunder_attrs if not attr.callable]
-    public_methods = [attr for attr in public_attrs if attr.callable]
-    private_methods = [attr for attr in private_attrs if attr.callable]
-    dunder_methods = [attr for attr in dunder_attrs if attr.callable]
+    public_vars = [attr for attr in attributes if not attr.private and not attr.dunder and not attr.callable]
+    private_vars = [attr for attr in attributes if attr.private and not attr.callable]
+    dunder_vars = [attr for attr in attributes if attr.dunder and not attr.callable]
+    public_methods = [attr for attr in attributes if not attr.private and not attr.dunder and attr.callable]
+    private_methods = [attr for attr in attributes if attr.private and attr.callable]
+    dunder_methods = [attr for attr in attributes if attr.dunder and attr.callable]
 
     if public_vars or public_methods:
         yield ""
@@ -302,7 +292,7 @@ def _render_attrs_section(attributes: List[InspectAttribute], config: InspectCon
         for attr in private_methods:
             yield _render_attr_method(attr)
 
-    if config.dunder and dunder_attrs:
+    if config.dunder and (dunder_vars or dunder_methods):
         yield ""
         yield f"{STYLE_BRIGHT}Dunder attributes:{RESET}"
         for attr in dunder_vars:
@@ -392,8 +382,8 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect global variables.
     def __add__(self, other: Any): return self.inspect(other)  # +
     def __lshift__(self, other: Any): return self.inspect(other)  # <<
     def __rshift__(self, other: Any): return self.inspect(other)  # >>
-    def __or__(self, other: Any): return self.inspect(other)  # |
-    def __ror__(self, other: Any): return self.inspect(other)  # |
+    def __or__(self, other: Any): return self.inspect(other)  # wat |
+    def __ror__(self, other: Any): return self.inspect(other)  # | wat
     def __lt__(self, other: Any): return self.inspect(other)  # <
 
     def __getattr__(self, name) -> Union['Wat', None, str]:
@@ -480,7 +470,6 @@ def _render_variables(variables: Dict[str, Any], title: str) -> Iterable[str]:
 
 RESET ='\033[0m'
 STYLE_BRIGHT = '\033[1m'
-STYLE_DIM = '\033[2m'
 STYLE_RED = '\033[0;31m'
 STYLE_BRIGHT_RED = '\033[1;31m'
 STYLE_GREEN = '\033[0;32m'
@@ -491,5 +480,4 @@ STYLE_BLUE = '\033[0;34m'
 STYLE_BRIGHT_BLUE = '\033[1;34m'
 STYLE_MAGENTA = '\033[0;35m'
 STYLE_CYAN = '\033[0;36m'
-STYLE_WHITE = '\033[0;37m'
 STYLE_GRAY = '\033[2;37m'
