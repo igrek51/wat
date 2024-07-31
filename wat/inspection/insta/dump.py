@@ -12,6 +12,8 @@ def dump_snippet(filename: str) -> str:
     lines = [line for line in lines if line.strip()]  # remove empty lines
     comment_pattern = re.compile(r'  # (.+)$')
     lines = [comment_pattern.sub('', line) for line in lines]  # trim comments
+    # trim type hints
+    # remove spaces: , = : == + *
     text = '\n'.join(lines)
     code: str = encode_text(text)
     return code
