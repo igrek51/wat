@@ -1,1 +1,1 @@
-__version__ = "0.3.2"  # should be in sync with pyproject.toml
+__version__ = "0.3.3"  # should be in sync with pyproject.toml
