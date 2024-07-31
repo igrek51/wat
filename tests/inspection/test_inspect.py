@@ -389,3 +389,10 @@ value: <test_inspect\.test_inspect_overriden_len\.<locals>\.Foo object at .*>
 type: test_inspect\.Foo
 len: 4
 ''')
+
+
+def test_catch_len_on_str_type():
+    output = (wat.str.short / str).splitlines()
+    assert "value: <class 'str'>" in output
+    assert "type: type" in output
+    assert "signature: class str(…)" in output
