@@ -55,7 +55,10 @@ def inspect_format(
         output.append(f'{STYLE_BRIGHT_BLUE}parents:{RESET} {parents}')
 
     if callable(getattr(obj, '__len__', None)):
-        output.append(f'{STYLE_BRIGHT_BLUE}len:{RESET} {_format_value(len(obj))}')
+        try:
+            output.append(f'{STYLE_BRIGHT_BLUE}len:{RESET} {_format_value(len(obj))}')
+        except TypeError:
+            pass
  
     if callable(obj):
         name = getattr(obj, '__name__', '…')
