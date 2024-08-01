@@ -1,4 +1,4 @@
-# 🙀 WAT Inspector
+# 🙀 WAT
 
 <div align="center">
     <a href="https://github.com/igrek51/wat">GitHub</a>
@@ -15,8 +15,8 @@ that allows you to delve into and examine unknown objects at runtime.
 
 > "Wat" is a variant of the English word "what" that is often used to express confusion or disgust
 
-If you find yourself deep within the Python console, feeling dazed and confused,
-wondering "WAT? What's that thing?",
+If you find yourself deep in the Python console, feeling lost and confused,
+and wondering "WAT? What is this thing?",
 that's where the `wat` inspector comes in handy.
 
 Start the Python Interpreter (or attach to one) and execute `wat / object` on any `object`
@@ -69,21 +69,21 @@ import wat
 ## Usage & modifiers
 `wat` object can quickly inspect things
 by using the division operator (for faster typing without parentheses). 
-A short syntax `wat / object` is equivalent to `wat(object)`.
+A short syntax `wat / foo` is equivalent to `wat(foo)`.
 
-You can call `wat.modifiers / object` with the following **modifiers**:
+You can call `wat.modifiers / foo` with the following **modifiers**:
 
-- `.short` or `.s` to hide attributes (variables and methods)
-- `.dunder` to display dunder attributes
+- `.short` or `.s` to hide the attributes (variables and methods inside the object)
+- `.dunder` to display dunder attributes (starting with `__`)
 - `.code` to reveal the source code of a function, method, or class
-- `.long` to show non-abbreviated values and documentation
+- `.long` to show non-abbreviated values and docstrings
 - `.nodocs` to hide documentation for functions and classes
 - `.all` to include all available information
 - `.ret` to return the inspected object
-- `.str` to return the output string instead of printing
+- `.str` to return the output string instead of printing it
 - `.gray` to disable colorful output in the console
 
-You can chain modifiers, e.g. `wat.long.dunder.nodocs / object`.
+You can chain modifiers, e.g. `wat.long.dunder.nodocs / foo`.
 
 Call `wat.locals` or `wat()` to inspect local variables.  
 Call `wat.globals` to inspect global variables.
@@ -99,7 +99,7 @@ wat('foo', short=True)  # natural Python syntax
 'foo' | wat.short  # Unix piping
 ```
 
-## Use Cases Examples
+## Use Case Examples
 
 ### Determine type
 In a dynamic typing language like Python, it's often hard to determine the type of an object. WAT Inspector can help you with that by showing the name of the type with the module it comes from.
