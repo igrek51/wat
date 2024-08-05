@@ -93,8 +93,7 @@ def inspect_format(
 
 
 def _iter_attributes(obj, config: InspectConfig) -> Iterable[InspectAttribute]:
-    keys = dir(obj)
-    for key in keys:
+    for key in dir(obj):
         dunder = key.startswith('__') and key.endswith('__')
         if dunder and not config.dunder:
             continue
@@ -103,14 +102,14 @@ def _iter_attributes(obj, config: InspectConfig) -> Iterable[InspectAttribute]:
             value = getattr(obj, key)
         except BaseException as e:
             value = e
-        callable_ = callable(value)
-        signature = _get_callable_signature(key, value) if callable_ else None
-        doc = _get_doc(value, long=config.long) if callable_ else None
+        _callable = callable(value)
+        signature = _get_callable_signature(key, value) if _callable else None
+        doc = _get_doc(value, long=config.long) if _callable else None
         yield InspectAttribute(
             name=key,
             value=value,
             type=type(value),
-            callable=callable_,
+            callable=_callable,
             dunder=dunder,
             private=private,
             signature=signature,
@@ -255,12 +254,12 @@ def _shorten_string(text: str) -> str:
 
 
 def _render_attrs_section(attributes: List[InspectAttribute], config: InspectConfig) -> Iterable[str]:
-    public_vars = [attr for attr in attributes if not attr.private and not attr.dunder and not attr.callable]
-    private_vars = [attr for attr in attributes if attr.private and not attr.callable]
-    dunder_vars = [attr for attr in attributes if attr.dunder and not attr.callable]
-    public_methods = [attr for attr in attributes if not attr.private and not attr.dunder and attr.callable]
-    private_methods = [attr for attr in attributes if attr.private and attr.callable]
-    dunder_methods = [attr for attr in attributes if attr.dunder and attr.callable]
+    public_vars = [a for a in attributes if not a.private and not a.dunder and not a.callable]
+    private_vars = [a for a in attributes if a.private and not a.callable]
+    dunder_vars = [a for a in attributes if a.dunder and not a.callable]
+    public_methods = [a for a in attributes if not a.private and not a.dunder and a.callable]
+    private_methods = [a for a in attributes if a.private and a.callable]
+    dunder_methods = [a for a in attributes if a.dunder and a.callable]
 
     if public_vars or public_methods:
         yield ''
@@ -291,6 +290,51 @@ def _render_attrs_section(attributes: List[InspectAttribute], config: InspectCon
             yield ''
         for attr in dunder_methods:
             yield _render_attr_method(attr)
+
+
+def _list_local_variables() -> Dict[str, Any]:
+    frame = inspect.currentframe()
+    try:
+        for _ in range(2):  # back to caller frame
+            if frame is not None:
+                frame = frame.f_back
+        return frame.f_locals if frame is not None else {}
+    finally:
+        del frame
+
+
+def _list_global_variables() -> Dict[str, Any]:
+    frame = inspect.currentframe()
+    try:
+        for _ in range(2):  # back to caller frame
+            if frame is not None:
+                frame = frame.f_back
+        return frame.f_globals if frame is not None else {}
+    finally:
+        del frame
+
+
+def _render_variables(variables: Dict[str, Any], title: str) -> Iterable[str]:
+    yield f'{STYLE_BRIGHT}{title}:{RESET}'
+    for name in sorted(variables.keys()):
+        value = variables[name]
+        value_str = _format_short_value(value, long=False)
+        type_str = _format_type(type(value))
+        yield f'  {STYLE_BRIGHT_YELLOW}{name}{STYLE_YELLOW}: {type_str} = {value_str}'
+
+
+def _color_enabled() -> bool:
+    env_color = {
+        'false': False,
+        'true': True,
+    }.get(os.environ.get('WAT_COLOR', '').lower())
+    if env_color is not None:
+        return env_color
+    return sys.stdout.isatty()
+
+
+def _strip_color(text: str) -> str:
+    return re.sub(r'\x1b\[\d+(;\d+)?m', '', text)
 
 
 class Wat:
@@ -404,57 +448,6 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect global variables.'''
             raise AttributeError
         return new_wat
 
-wat = Wat()
-
-
-def _strip_color(text: str) -> str:
-    return re.sub(r'\x1b\[\d+(;\d+)?m', '', text)
-
-
-def _color_enabled() -> bool:
-    env_color = {
-        'false': False,
-        'true': True,
-    }.get(os.environ.get('WAT_COLOR', '').lower())
-    if env_color is not None:
-        return env_color
-    return sys.stdout.isatty()
-
-
-def _list_local_variables() -> Dict[str, Any]:
-    frame = inspect.currentframe()
-    try:
-        for _ in range(2):  # back to caller frame
-            if frame is not None:
-                frame = frame.f_back
-        if frame is not None:
-            return frame.f_locals
-        return {}
-    finally:
-        del frame
-
-
-def _list_global_variables() -> Dict[str, Any]:
-    frame = inspect.currentframe()
-    try:
-        for _ in range(2):  # back to caller frame
-            if frame is not None:
-                frame = frame.f_back
-        if frame is not None:
-            return frame.f_globals
-        return {}
-    finally:
-        del frame
-
-
-def _render_variables(variables: Dict[str, Any], title: str) -> Iterable[str]:
-    yield f'{STYLE_BRIGHT}{title}:{RESET}'
-    for name in sorted(variables.keys()):
-        value = variables[name]
-        value_str = _format_short_value(value, long=False)
-        type_str = _format_type(type(value))
-        yield f'  {STYLE_BRIGHT_YELLOW}{name}{STYLE_YELLOW}: {type_str} = {value_str}'
-
 
 RESET = '\033[0m'
 STYLE_BRIGHT = '\033[1m'
@@ -469,3 +462,5 @@ STYLE_BRIGHT_BLUE = '\033[1;34m'
 STYLE_MAGENTA = '\033[0;35m'
 STYLE_CYAN = '\033[0;36m'
 STYLE_GRAY = '\033[2;37m'
+
+wat = Wat()
