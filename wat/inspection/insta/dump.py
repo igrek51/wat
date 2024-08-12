@@ -14,7 +14,7 @@ def dump_snippet(filename: str) -> str:
     lines = [comment_pattern.sub('', line) for line in lines]  # trim comments
     lines = [minify_code(line) for line in lines]
     text = '\n'.join(lines)
-    # Path('wat/inspection/inspection_pruned.py').write_text(text)
+    # Path('wat/inspection/insta/.inspection_minified.py').write_text(text)
     code: str = encode_text(text)
     return code
 

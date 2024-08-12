@@ -38,48 +38,7 @@ def inspect_format(
     all: bool = False,
 ) -> str:
     config = InspectConfig(short=short, dunder=dunder or all, nodocs=nodocs, long=long or all, code=code or all)
-    output: List[str] = []
-
-    str_value = _format_value(obj)
-    repr_value: str = repr(obj)
-    if repr_value == str(obj) or repr_value == _strip_color(str_value):
-        output.append(f'{STYLE_BRIGHT_BLUE}value:{RESET} {str_value}')
-    else:
-        output.append(f'{STYLE_BRIGHT_BLUE}str:{RESET} {str_value}')
-        output.append(f'{STYLE_BRIGHT_BLUE}repr:{RESET} {STYLE_BRIGHT}{repr_value}{RESET}')
-
-    str_type = _format_type(type(obj))
-    output.append(f'{STYLE_BRIGHT_BLUE}type:{RESET} {str_type}')
-    parents = ', '.join(_get_parent_types(type(obj)))
-    if parents:
-        output.append(f'{STYLE_BRIGHT_BLUE}parents:{RESET} {parents}')
-
-    if callable(getattr(obj, '__len__', None)):
-        try:
-            output.append(f'{STYLE_BRIGHT_BLUE}len:{RESET} {_format_value(len(obj))}')
-        except TypeError:
-            pass
- 
-    if callable(obj):
-        name = getattr(obj, '__name__', '…')
-        signature = _get_callable_signature(name, obj)
-        output.append(f'{STYLE_BRIGHT_BLUE}signature:{RESET} {signature}')
-
-    doc = _get_doc(obj, long=True)
-    if doc and not config.nodocs and callable(obj):
-        if doc.count('\n') == 0:
-            output.append(f'{STYLE_GRAY}"""{doc}"""{RESET}')
-        else:
-            output.extend([f'{STYLE_GRAY}"""', doc, f'"""{RESET}'])
-
-    if config.code and (inspect.isclass(obj) or callable(obj)):
-        source = _get_source_code(obj)
-        if source:
-            output.append(f'{STYLE_BRIGHT_BLUE}source code:{RESET}\n{source}')
-
-    if not config.short:
-        attributes = sorted(_iter_attributes(obj, config), key=lambda attr: attr.name)
-        output.extend(_render_attrs_section(attributes, config))
+    output: List[str] = list(_produce_inspect_lines(obj, config))
 
     if sys.stdout.isatty() and _color_enabled():  # horizontal bar
         terminal_width = os.get_terminal_size().columns
@@ -90,6 +49,49 @@ def inspect_format(
     if not _color_enabled():
         text = _strip_color(text)
     return text
+
+
+def _produce_inspect_lines(obj, config: InspectConfig) -> Iterable[str]:
+    str_value = _format_value(obj)
+    repr_value: str = repr(obj)
+    if repr_value == str(obj) or repr_value == _strip_color(str_value):
+        yield f'{STYLE_BRIGHT_BLUE}value:{RESET} {str_value}'
+    else:
+        yield f'{STYLE_BRIGHT_BLUE}str:{RESET} {str_value}'
+        yield f'{STYLE_BRIGHT_BLUE}repr:{RESET} {STYLE_BRIGHT}{repr_value}{RESET}'
+
+    str_type = _format_type(type(obj))
+    yield f'{STYLE_BRIGHT_BLUE}type:{RESET} {str_type}'
+    parents = ', '.join(_get_parent_types(type(obj)))
+    if parents:
+        yield f'{STYLE_BRIGHT_BLUE}parents:{RESET} {parents}'
+
+    if callable(getattr(obj, '__len__', None)):
+        try:
+            yield f'{STYLE_BRIGHT_BLUE}len:{RESET} {_format_value(len(obj))}'
+        except TypeError:
+            pass
+ 
+    if callable(obj):
+        name = getattr(obj, '__name__', '…')
+        signature = _get_callable_signature(name, obj)
+        yield f'{STYLE_BRIGHT_BLUE}signature:{RESET} {signature}'
+
+    doc = _get_doc(obj, long=True)
+    if doc and not config.nodocs and callable(obj):
+        if doc.count('\n') == 0:
+            yield f'{STYLE_GRAY}"""{doc}"""{RESET}'
+        else:
+            yield from [f'{STYLE_GRAY}"""', doc, f'"""{RESET}']
+
+    if config.code and (inspect.isclass(obj) or callable(obj)):
+        source = _get_source_code(obj)
+        if source:
+            yield f'{STYLE_BRIGHT_BLUE}source code:{RESET}\n{source}'
+
+    if not config.short:
+        attributes = sorted(_iter_attributes(obj, config), key=lambda attr: attr.name)
+        yield from _render_attrs_section(attributes, config)
 
 
 def _iter_attributes(obj, config: InspectConfig) -> Iterable[InspectAttribute]:
