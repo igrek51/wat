@@ -13,6 +13,7 @@ class InspectConfig:
     nodocs: bool
     long: bool
     code: bool
+    caller: bool
 
 
 @dataclass
@@ -28,16 +29,17 @@ class InspectAttribute:
 
 
 def inspect_format(
-    obj,
+    obj: Any,
     *,
     short: bool = False,
     dunder: bool = False,
     nodocs: bool = False,
     long: bool = False,
     code: bool = False,
+    caller: bool = False,
     all: bool = False,
 ) -> str:
-    config = InspectConfig(short=short, dunder=dunder or all, nodocs=nodocs, long=long or all, code=code or all)
+    config = InspectConfig(short=short, dunder=dunder or all, nodocs=nodocs, long=long or all, code=code or all, caller=caller or all)
     output: List[str] = list(_produce_inspect_lines(obj, config))
 
     if sys.stdout.isatty() and _color_enabled():  # horizontal bar
@@ -76,6 +78,9 @@ def _produce_inspect_lines(obj, config: InspectConfig) -> Iterable[str]:
         name = getattr(obj, '__name__', '…')
         signature = _get_callable_signature(name, obj)
         yield f'{STYLE_BRIGHT_BLUE}signature:{RESET} {signature}'
+    
+    if config.caller:
+        yield from _get_caller_info()
 
     doc = _get_doc(obj, long=True)
     if doc and not config.nodocs and callable(obj):
@@ -246,6 +251,23 @@ def _get_parent_types(type_: Type) -> Iterable[str]:
             yield _format_type(base_type)
 
 
+def _get_caller_info() -> Iterable[str]:
+    frame = inspect.currentframe()
+    try:
+        for _ in range(5):  # back to caller frame
+            if frame is not None:
+                frame = frame.f_back
+        if frame:
+            frameinfo = inspect.getframeinfo(frame)
+            if frameinfo.code_context:
+                code = '\n'.join(frameinfo.code_context).strip()
+                yield f'{STYLE_BRIGHT_BLUE}caller expression:{RESET} {code}'
+                yield f'{STYLE_BRIGHT_BLUE}caller file:{RESET} {frameinfo.filename}:{frameinfo.lineno}'
+        return None
+    finally:
+        del frame
+
+
 def _shorten_string(text: str) -> str:
     first_line, _, rest = text.partition('\n')
     if rest:
@@ -361,6 +383,7 @@ class Wat:
   {STYLE_GREEN}.code{RESET} to print source code of a function, method or class
   {STYLE_GREEN}.long{RESET} to print non-abbreviated values and documentation
   {STYLE_GREEN}.nodocs{RESET} to hide documentation for functions and classes
+  {STYLE_GREEN}.caller{RESET} to show how and where the inspection was called
   {STYLE_GREEN}.all{RESET} to include all information
   {STYLE_GREEN}.ret{RESET} to return the inspected {STYLE_YELLOW}object{RESET}
   {STYLE_GREEN}.str{RESET} to return the output string instead of printing
@@ -432,6 +455,8 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect global variables.'''
             new_wat._inspect_kwargs['code'] = True
         elif name == 'nodocs':
             new_wat._inspect_kwargs['nodocs'] = True
+        elif name == 'caller':
+            new_wat._inspect_kwargs['caller'] = True
         elif name == 'all':
             new_wat._inspect_kwargs['all'] = True
         elif name == 'ret':
