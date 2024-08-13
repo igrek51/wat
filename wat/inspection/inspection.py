@@ -13,6 +13,7 @@ class InspectConfig:
     nodocs: bool
     long: bool
     code: bool
+    caller: bool
 
 
 @dataclass
@@ -28,17 +29,18 @@ class InspectAttribute:
 
 
 def inspect_format(
-    obj,
+    obj: Any,
     *,
     short: bool = False,
     dunder: bool = False,
     nodocs: bool = False,
     long: bool = False,
     code: bool = False,
+    caller: bool = False,
     all: bool = False,
 ) -> str:
-    config = InspectConfig(short=short, dunder=dunder or all, nodocs=nodocs, long=long or all, code=code or all)
-    output: List[str] = list(_produce_inspect_lines(obj, config))
+    config = InspectConfig(short=short, dunder=dunder or all, nodocs=nodocs, long=long or all, code=code or all, caller=caller or all)
+    output: List[str] = list(_yield_inspect_lines(obj, config))
 
     if sys.stdout.isatty() and _color_enabled():  # horizontal bar
         terminal_width = os.get_terminal_size().columns
@@ -51,7 +53,7 @@ def inspect_format(
     return text
 
 
-def _produce_inspect_lines(obj, config: InspectConfig) -> Iterable[str]:
+def _yield_inspect_lines(obj, config: InspectConfig) -> Iterable[str]:
     str_value = _format_value(obj)
     repr_value: str = repr(obj)
     if repr_value == str(obj) or repr_value == _strip_color(str_value):
@@ -76,6 +78,9 @@ def _produce_inspect_lines(obj, config: InspectConfig) -> Iterable[str]:
         name = getattr(obj, '__name__', '…')
         signature = _get_callable_signature(name, obj)
         yield f'{STYLE_BRIGHT_BLUE}signature:{RESET} {signature}'
+    
+    if config.caller:
+        yield from _retrieve_caller_info()
 
     doc = _get_doc(obj, long=True)
     if doc and not config.nodocs and callable(obj):
@@ -108,14 +113,8 @@ def _iter_attributes(obj, config: InspectConfig) -> Iterable[InspectAttribute]:
         signature = _get_callable_signature(key, value) if _callable else None
         doc = _get_doc(value, long=config.long) if _callable else None
         yield InspectAttribute(
-            name=key,
-            value=value,
-            type=type(value),
-            callable=_callable,
-            dunder=dunder,
-            private=private,
-            signature=signature,
-            doc=doc,
+            name=key, value=value, type=type(value), callable=_callable, dunder=dunder,
+            private=private, signature=signature, doc=doc,
         )
 
 
@@ -148,10 +147,7 @@ def _get_doc(obj, long: bool) -> Optional[str]:
     if doc is None:
         return None
     doc = doc.strip()
-    if long:
-        return doc
-    else:
-        return _shorten_string(doc)
+    return doc if long else _shorten_string(doc)
 
 
 def _render_attr_variable(attr: InspectAttribute, config: InspectConfig) -> str:
@@ -246,6 +242,17 @@ def _get_parent_types(type_: Type) -> Iterable[str]:
             yield _format_type(base_type)
 
 
+def _retrieve_caller_info() -> Iterable[str]:
+    frame = _caller_stack_frame(6)
+    if frame:
+        frameinfo = inspect.getframeinfo(frame)
+        if frameinfo.code_context:
+            code = '\n'.join(frameinfo.code_context).strip()
+            yield f'{STYLE_BRIGHT_BLUE}caller expression:{RESET} {code}'
+        if frameinfo.filename:
+            yield f'{STYLE_BRIGHT_BLUE}caller file:{RESET} {frameinfo.filename}:{frameinfo.lineno}'
+
+
 def _shorten_string(text: str) -> str:
     first_line, _, rest = text.partition('\n')
     if rest:
@@ -294,26 +301,12 @@ def _render_attrs_section(attributes: List[InspectAttribute], config: InspectCon
             yield _render_attr_method(attr)
 
 
-def _list_local_variables() -> Dict[str, Any]:
+def _caller_stack_frame(depth: int):
     frame = inspect.currentframe()
-    try:
-        for _ in range(2):  # back to caller frame
-            if frame is not None:
-                frame = frame.f_back
-        return frame.f_locals if frame is not None else {}
-    finally:
-        del frame
-
-
-def _list_global_variables() -> Dict[str, Any]:
-    frame = inspect.currentframe()
-    try:
-        for _ in range(2):  # back to caller frame
-            if frame is not None:
-                frame = frame.f_back
-        return frame.f_globals if frame is not None else {}
-    finally:
-        del frame
+    for _ in range(depth):  # back to caller frame
+        if frame is not None:
+            frame = frame.f_back
+    return frame
 
 
 def _render_variables(variables: Dict[str, Any], title: str) -> Iterable[str]:
@@ -361,6 +354,7 @@ class Wat:
   {STYLE_GREEN}.code{RESET} to print source code of a function, method or class
   {STYLE_GREEN}.long{RESET} to print non-abbreviated values and documentation
   {STYLE_GREEN}.nodocs{RESET} to hide documentation for functions and classes
+  {STYLE_GREEN}.caller{RESET} to show how and where the inspection was called
   {STYLE_GREEN}.all{RESET} to include all information
   {STYLE_GREEN}.ret{RESET} to return the inspected {STYLE_YELLOW}object{RESET}
   {STYLE_GREEN}.str{RESET} to return the output string instead of printing
@@ -379,7 +373,9 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect global variables.'''
         elif kwargs:
             return Wat(**kwargs)
         else:
-            return self._print_variables(_list_local_variables(), 'Local variables')
+            frame = _caller_stack_frame(2)
+            local_vars = frame.f_locals if frame else {}
+            return self._print_variables(local_vars, 'Local variables')
     
     def inspect(self, other):
         wat._inspect_in_progress = True
@@ -424,26 +420,18 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect global variables.'''
         new_wat = self.copy() 
         if name in {'short', 's'}:
             new_wat._inspect_kwargs['short'] = True
-        elif name == 'long':
-            new_wat._inspect_kwargs['long'] = True
-        elif name == 'dunder':
-            new_wat._inspect_kwargs['dunder'] = True
-        elif name == 'code':
-            new_wat._inspect_kwargs['code'] = True
-        elif name == 'nodocs':
-            new_wat._inspect_kwargs['nodocs'] = True
-        elif name == 'all':
-            new_wat._inspect_kwargs['all'] = True
-        elif name == 'ret':
-            new_wat._config['ret'] = True
-        elif name == 'str':
-            new_wat._config['str'] = True
-        elif name == 'gray':
-            new_wat._config['gray'] = True
+        elif name in {'long', 'dunder', 'code', 'nodocs', 'caller', 'all'}:
+            new_wat._inspect_kwargs[name] = True
+        elif name in {'ret', 'str', 'gray'}:
+            new_wat._config[name] = True
         elif name == 'locals':
-            return self._print_variables(_list_local_variables(), 'Local variables')
+            frame = _caller_stack_frame(2)
+            local_vars = frame.f_locals if frame else {}
+            return self._print_variables(local_vars, 'Local variables')
         elif name == 'globals':
-            return self._print_variables(_list_global_variables(), 'Global variables')
+            frame = _caller_stack_frame(2)
+            global_vars = frame.f_globals if frame else {}
+            return self._print_variables(global_vars, 'Global variables')
         elif name == 'wat':
             return self
         else:
