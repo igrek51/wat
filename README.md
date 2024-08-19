@@ -30,7 +30,7 @@ Alternatively, you can use `wat(object)` syntax.
 <video width="100%" controls="true" allowFullscreen="true" src="https://github.com/user-attachments/assets/022ef89a-9e35-45be-9e2f-08d2c6af9075" poster="https://raw.githubusercontent.com/igrek51/wat/master/docs/img/wat-set.png">
 </video>
 
-## Import
+## Loading
 
 ### Insta-Load
 If you want to quickly debug something,
@@ -65,7 +65,7 @@ pip install wat-inspector
 ```python
 import wat
 ```
-This package has no dependencies.
+This package has no external dependencies.
 
 ## Usage & modifiers
 `wat` object can quickly inspect things
