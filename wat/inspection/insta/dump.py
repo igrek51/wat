@@ -1,3 +1,4 @@
+import ast
 import base64
 from pathlib import Path
 import re
@@ -8,6 +9,9 @@ from typing import List
 
 def dump_snippet(filename: str) -> str:
     text: str = Path(filename).read_text()
+
+    text = strip_type_hints(text)
+
     lines: List[str] = text.splitlines()
     lines = [line for line in lines if line.strip()]  # remove empty lines
     comment_pattern = re.compile(r'  # (.+)$')
@@ -22,36 +26,6 @@ def dump_snippet(filename: str) -> str:
 
 
 def minify_code(text: str) -> str:
-    """Trim type hints and empty spaces"""
-    text = re.sub(r'\) -> \'Wat\':$', '):', text)
-    text = re.sub(r'\) -> Union\[.+\]:$', '):', text)
-    if "'" not in text and '"' not in text:
-        text = text.replace(': bool = ', '=')
-        text = text.replace(': int = ', '=')
-        text = text.replace(': List[str] = ', '=')
-        text = text.replace(': str, ', ',')
-        text = text.replace(': Any,', ',')
-        text = text.replace(': bool)', ')')
-        text = text.replace(': int)', ')')
-        text = text.replace(': InspectAttribute', '')
-        text = text.replace(': InspectConfig', '')
-        text = re.sub(r'\) -> str:$', '):', text)
-        text = re.sub(r'\) -> bool:$', '):', text)
-        text = re.sub(r'\) -> Optional\[.+\]:$', '):', text)
-        text = re.sub(r'\) -> Dict\[.+\]:$', '):', text)
-        text = re.sub(r'\) -> Iterable\[.+\]:$', '):', text)
-        text = re.sub(r': Dict(\[.+\])?', '', text)
-        text = re.sub(r': List(\[.+\])?', '', text)
-        text = text.replace(': Type)', ')')
-        # text = text.replace(' = ', '=')
-        # text = text.replace(', ', ',')
-        # text = text.replace(': ', ':')
-    # text = text.replace(' == ', '==')
-    # text = text.replace(' + ', '+')
-    # text = text.replace(' * ', '*')
-    # text = text.replace(' = \'', '=\'')
-    if not text.endswith(': str'):
-        text = text.replace(': str', '')
     if text.count(' = ') == 1:
         if not _is_in_quote(text, ' = '):
             text = text.replace(' = ', '=')
@@ -72,6 +46,43 @@ def _is_in_quote(line: str, part: str) -> bool:
     before_quotes = before.count('"') + before.count("'")
     after_quotes = after.count('"') + after.count("'")
     return before_quotes % 2 == 1 and after_quotes % 2 == 1
+
+
+def strip_type_hints(code: str) -> str:
+    tree = ast.parse(code, type_comments=False)
+    new_tree = TypeHintStripper().visit(tree)
+    new_tree = ast.fix_missing_locations(new_tree)
+    return ast.unparse(new_tree)
+
+
+class TypeHintStripper(ast.NodeTransformer):
+    def visit_arg(self, node: ast.arg):
+        if node.annotation is not None:
+            node.annotation = None
+        if node.type_comment is not None:
+            node.type_comment = None
+        return node
+    
+    def visit_FunctionDef(self, node: ast.FunctionDef):
+        if node.returns is not None:
+            node.returns = None
+        if node.type_comment is not None:
+            node.type_comment = None
+        node.args = self.visit(node.args)
+        node.body = [self.visit(child) for child in node.body]
+        return node
+    
+    def visit_Assign(self, node: ast.Assign):
+        if node.type_comment is not None:
+            node.type_comment = None
+        node.targets = [self.visit(target) for target in node.targets]
+        return node
+    
+    def visit_AnnAssign(self, node: ast.AnnAssign):
+        if node.value is None:
+            return node
+        target = self.visit(node.target)
+        return ast.Assign(targets=[target], value=node.value)
 
 
 if __name__ == '__main__':
