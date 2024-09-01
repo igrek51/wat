@@ -54,6 +54,9 @@ def inspect_format(
 
 
 def _yield_inspect_lines(obj, config: InspectConfig) -> Iterable[str]:
+    if config.caller:
+        yield from _generate_caller_info()
+
     str_value = _format_value(obj)
     repr_value: str = repr(obj)
     if repr_value == str(obj) or repr_value == _strip_color(str_value):
@@ -78,9 +81,6 @@ def _yield_inspect_lines(obj, config: InspectConfig) -> Iterable[str]:
         name = getattr(obj, '__name__', '…')
         signature = _get_callable_signature(name, obj)
         yield f'{STYLE_BRIGHT_BLUE}signature:{RESET} {signature}'
-    
-    if config.caller:
-        yield from _retrieve_caller_info()
 
     doc = _get_doc(obj, long=True)
     if doc and not config.nodocs and callable(obj):
@@ -242,15 +242,15 @@ def _get_parent_types(type_: Type) -> Iterable[str]:
             yield _format_type(base_type)
 
 
-def _retrieve_caller_info() -> Iterable[str]:
+def _generate_caller_info() -> Iterable[str]:
     frame = _caller_stack_frame(6)
     if frame:
         frameinfo = inspect.getframeinfo(frame)
+        if frameinfo.filename:
+            yield f'{STYLE_BRIGHT_BLUE}caller file: {STYLE_YELLOW}{frameinfo.filename}:{STYLE_BRIGHT_YELLOW}{frameinfo.lineno}{RESET}'
         if frameinfo.code_context:
             code = '\n'.join(frameinfo.code_context).strip()
             yield f'{STYLE_BRIGHT_BLUE}caller expression:{RESET} {code}'
-        if frameinfo.filename:
-            yield f'{STYLE_BRIGHT_BLUE}caller file:{RESET} {frameinfo.filename}:{frameinfo.lineno}'
 
 
 def _shorten_string(text: str) -> str:
