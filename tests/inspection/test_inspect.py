@@ -270,11 +270,11 @@ def test_wat_modifiers_all_but_nodocs():
     with StdoutCap() as capture:
         wat.all.short.nodocs / re.match
     assert_multiline_match(capture.stripped(), r'''
+caller file: .*/tests/inspection/test_inspect.py:\d+
+caller expression: wat\.all\.short\.nodocs / re\.match
 value: <function match at .*>
 type: function
 signature: def match\(pattern, string, flags=0\)
-caller expression: wat\.all\.short\.nodocs / re\.match
-caller file: .*/tests/inspection/test_inspect.py:\d+
 source code:
 def match\(pattern, string, flags=0\):
     """.*
@@ -404,8 +404,8 @@ def test_catch_len_on_str_type():
 def test_retrieve_caller_info_type():
     output = wat.caller.short.str / math.sqrt(2+2)
     assert_multiline_match(output, r'''
+caller file: .*/tests/inspection/test_inspect.py:\d+
+caller expression: output = wat\.caller\.short\.str / math\.sqrt\(2\+2\)
 value: 2.0
 type: float
-caller expression: output = wat\.caller\.short\.str / math\.sqrt\(2\+2\)
-caller file: .*/tests/inspection/test_inspect.py:\d+
 ''')
