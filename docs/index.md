@@ -193,7 +193,8 @@ wat.dunder / {}
 Look up the source code of a function to see how it really works.
 
 ```python
-wat.code / wat.__call__
+import colorsys
+wat.code / colorsys.hsv_to_rgb
 ```
 
 ![](https://github.com/igrek51/wat/blob/master/docs/img/wat-code-wat-call.png?raw=true)
