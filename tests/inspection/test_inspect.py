@@ -409,3 +409,12 @@ caller expression: output = wat\.caller\.short\.str / math\.sqrt\(2\+2\)
 value: 2.0
 type: float
 ''')
+
+
+def test_modifiers_as_keywords():
+    output = wat(4, short=True, str=True, gray=True)
+    assert_multiline_match(output, r'''
+value: 4
+type: int
+''')
+    assert wat(4, ret=True) == 4
