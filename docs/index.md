@@ -90,7 +90,7 @@ You can call `wat.modifiers / foo` with the following **modifiers**:
 - `.str` to return the output string instead of printing it
 - `.gray` to disable colorful output in the console
 
-You can chain modifiers, e.g. `wat.long.dunder.nodocs / foo`.
+You can chain modifiers, e.g. `wat.short.str.gray / foo`.
 
 Call `wat.locals` or `wat()` to inspect local variables.  
 Call `wat.globals` to inspect global variables.
