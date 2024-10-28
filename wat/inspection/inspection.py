@@ -367,11 +367,9 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect global variables.'''
     
     def __call__(self, *args, **kwargs):
         if args:
-            inspect_kwargs = self._inspect_kwargs.copy()
-            inspect_kwargs.update(kwargs)
-            return Wat(**inspect_kwargs).inspect(*args)
+            return self.copy(**kwargs).inspect(*args)
         elif kwargs:
-            return Wat(**kwargs)
+            return self.copy(**kwargs)
         else:
             frame = _caller_stack_frame(2)
             local_vars = frame.f_locals if frame else {}
@@ -390,9 +388,15 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect global variables.'''
         finally:
             wat._inspect_in_progress = False
     
-    def copy(self) -> 'Wat':
-        new_wat = Wat(**self._inspect_kwargs)
-        new_wat._config = self._config.copy()
+    def copy(self, **kwargs) -> 'Wat':
+        new_config = self._config.copy()
+        for name in kwargs.copy():
+            if name in {'ret', 'str', 'gray'}:
+                new_config[name] = kwargs.pop(name)
+        new_inspect_kwargs = self._inspect_kwargs.copy()
+        new_inspect_kwargs.update(kwargs)
+        new_wat = Wat(**new_inspect_kwargs)
+        new_wat._config = new_config
         return new_wat
     
     def _display_output(self, output: str) -> Optional[str]:
