@@ -42,15 +42,12 @@ def inspect_format(
     config = InspectConfig(short=short, dunder=dunder or all, nodocs=nodocs, long=long or all, code=code or all, caller=caller or all)
     output: List[str] = list(_yield_inspect_lines(obj, config))
 
-    if sys.stdout.isatty() and _color_enabled():  # horizontal bar
+    if sys.stdout.isatty():  # horizontal bar
         terminal_width = os.get_terminal_size().columns
         output.insert(0, STYLE_BLUE + '─' * terminal_width + RESET)
         output.append(STYLE_BLUE + '─' * terminal_width + RESET)
 
-    text = '\n'.join(line for line in output if line is not None)
-    if not _color_enabled():
-        text = _strip_color(text)
-    return text
+    return '\n'.join(line for line in output if line is not None)
 
 
 def _yield_inspect_lines(obj, config: InspectConfig) -> Iterable[str]:
@@ -318,16 +315,6 @@ def _render_variables(variables: Dict[str, Any], title: str) -> Iterable[str]:
         yield f'  {STYLE_BRIGHT_YELLOW}{name}{STYLE_YELLOW}: {type_str} = {value_str}'
 
 
-def _color_enabled() -> bool:
-    env_color = {
-        'false': False,
-        'true': True,
-    }.get(os.environ.get('WAT_COLOR', '').lower())
-    if env_color is not None:
-        return env_color
-    return sys.stdout.isatty()
-
-
 def _strip_color(text: str) -> str:
     return re.sub(r'\x1b\[\d+(;\d+)?m', '', text)
 
@@ -359,9 +346,10 @@ class Wat:
   {STYLE_GREEN}.ret{RESET} to return the inspected {STYLE_YELLOW}object{RESET}
   {STYLE_GREEN}.str{RESET} to return the output string instead of printing
   {STYLE_GREEN}.gray{RESET} to disable colorful output in the console
+  {STYLE_GREEN}.color{RESET} to enforce colorful outputs in the console
 Call {STYLE_YELLOW}wat.locals{RESET} or {STYLE_YELLOW}wat(){RESET} to inspect local variables.
 Call {STYLE_YELLOW}wat.globals{RESET} to inspect global variables.'''
-        if not _color_enabled():
+        if not self._color_enabled():
             text = _strip_color(text)
         print(text)
     
@@ -391,7 +379,7 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect global variables.'''
     def copy(self, **kwargs) -> 'Wat':
         new_config = self._config.copy()
         for name in kwargs.copy():
-            if name in {'ret', 'str', 'gray'}:
+            if name in {'ret', 'str', 'gray', 'color'}:
                 new_config[name] = kwargs.pop(name)
         new_inspect_kwargs = self._inspect_kwargs.copy()
         new_inspect_kwargs.update(kwargs)
@@ -400,12 +388,25 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect global variables.'''
         return new_wat
     
     def _display_output(self, output: str) -> Optional[str]:
-        if self._config.get('gray', False) or not _color_enabled():
+        if not self._color_enabled():
             output = _strip_color(output)
         if self._config.get('str', False):
             return output
         print(output)
         return None
+    
+    def _color_enabled(self) -> bool:
+        if self._config.get('color', False):
+            return True
+        if self._config.get('gray', False):
+            return False
+        env_color = {
+            'false': False,
+            'true': True,
+        }.get(os.environ.get('WAT_COLOR', '').lower())
+        if env_color is not None:
+            return env_color
+        return sys.stdout.isatty()
 
     def _print_variables(self, variables: Dict[str, Any], title: str) -> Optional[str]:
         lines = list(_render_variables(variables, title))
@@ -426,7 +427,7 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect global variables.'''
             new_wat._inspect_kwargs['short'] = True
         elif name in {'long', 'dunder', 'code', 'nodocs', 'caller', 'all'}:
             new_wat._inspect_kwargs[name] = True
-        elif name in {'ret', 'str', 'gray'}:
+        elif name in {'ret', 'str', 'gray', 'color'}:
             new_wat._config[name] = True
         elif name == 'locals':
             frame = _caller_stack_frame(2)

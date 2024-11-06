@@ -153,6 +153,7 @@ parents: datetime\.date
 
 def test_inspect_long():
     output = inspect_format(datetime, long=True, code=True)
+    output = strip_ansi_colors(output)
     lines = output.splitlines()
     assert "value: <class 'datetime.datetime'>" in lines
     assert "type: type" in lines
@@ -168,6 +169,7 @@ def test_inspect_source_code():
             self.level += 1
 
     output = inspect_format(Sorcerer, code=True)
+    output = strip_ansi_colors(output)
     lines = output.splitlines()
     assert "value: <class 'test_inspect.test_inspect_source_code.<locals>.Sorcerer'>" in lines
     assert "type: type" in lines
@@ -369,12 +371,12 @@ len: 3
 def test_colorful_output():
     try:
         os.environ['WAT_COLOR'] = 'false'
-        output = inspect_format(None)
+        output = wat.str / None
         assert output == """value: None
 type: NoneType"""
 
         os.environ['WAT_COLOR'] = 'true'
-        output = inspect_format(None)
+        output = wat.str / None
         assert output == """\x1b[1;34mvalue:\x1b[0m \x1b[0;35mNone\x1b[0m
 \x1b[1;34mtype:\x1b[0m \x1b[0;33mNoneType\x1b[0m"""
     finally:
