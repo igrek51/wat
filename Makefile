@@ -45,3 +45,6 @@ regenerate-insta-load:
 
 example-inspect:
 	python docs/example/example_inspection.py
+
+mkdocs-index:
+	python docs/mkdocs_gen.py generate-index

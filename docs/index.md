@@ -16,24 +16,27 @@ hide:
 Deep inspection of Python objects.
 
 **WAT** is a powerful inspection tool
-that allows you to delve into and examine unknown objects at runtime.
+designed to help you explore unknown objects and examine them at runtime.
 
 > "Wat" is a variant of the English word "what" that is often used to express confusion or disgust
 
-If you find yourself deep in the Python console, feeling lost and confused,
+If you ever find yourself in a Python console, feeling lost and confused,
 and wondering "WAT? What is this thing?",
-that's where the `wat` inspector comes in handy.
+that's where `wat` inspector comes in handy.
 
-Start the Python Interpreter (or attach to one) and execute `wat / object` on any `object`
+Launch the Python Interpreter and execute `wat / object` on any `object`
 to investigate its
 **type**, **formatted value**, **variables**, **methods**, **parent types**, **signature**,
-**documentation**, and even its **source code**.
-Alternatively, you can use `wat(object)` syntax.
+**documentation**, and its **source code**.
+This makes it particularly useful for debugging or understanding intricate data structures in Python,
+providing a straightforward way to answer "what" exactly an object represents.
 
 ![](https://github.com/igrek51/wat/blob/master/docs/img/wat-datetime-now.png?raw=true)
 
 <video width="100%" controls="true" allowFullscreen="true" src="https://github.com/user-attachments/assets/022ef89a-9e35-45be-9e2f-08d2c6af9075" poster="https://raw.githubusercontent.com/igrek51/wat/master/docs/img/wat-set.png">
 </video>
+
+Alternatively, use `wat(object)` syntax for the same in-depth inspection.
 
 ## Loading
 
@@ -73,14 +76,14 @@ import wat
 This package has no external dependencies.
 
 ## Usage & modifiers
-`wat` object can quickly inspect things
+`wat` can quickly inspect things
 by using the division operator (for faster typing without parentheses). 
 A short syntax `wat / foo` is equivalent to `wat(foo)`.
 
 You can call `wat.modifiers / foo` with the following **modifiers**:
 
 - `.short` or `.s` to hide the attributes (variables and methods inside the object)
-- `.dunder` to display dunder attributes (starting with `__`)
+- `.dunder` to display dunder attributes (starting with double underscore)
 - `.code` to reveal the source code of a function, method, or class
 - `.long` to show non-abbreviated values and docstrings
 - `.nodocs` to hide documentation for functions and classes
@@ -91,10 +94,14 @@ You can call `wat.modifiers / foo` with the following **modifiers**:
 - `.gray` to disable colorful output in the console
 - `.color` to enforce colorful outputs in the console
 
-You can chain modifiers, e.g. `wat.short.str.gray / foo`.
+You can chain modifiers, e.g. `wat.short.str.gray / 'foo'`.
 
 Call `wat.locals` or `wat()` to inspect local variables.  
 Call `wat.globals` to inspect global variables.
+
+You can explore any object.
+In Python, an "object" refers to not only to data structures,
+but also to functions, classes, modules, built-in types, and more.
 
 Type `wat` in the interpreter to learn more about this object itself.
 
@@ -110,7 +117,8 @@ wat('foo', short=True)  # natural Python syntax
 ## Use Case Examples
 
 ### Determine type
-In a dynamic typing language like Python, it's often hard to determine the type of an object. WAT Inspector can help you with that by showing the name of the type with the module it comes from.
+In a dynamic typing language like Python, it's often hard to determine the type of an object.
+WAT Inspector can help you with that by showing the name of the type with the module it comes from.
 
 ```python
 >>> wat.short / (1,)
@@ -206,7 +214,8 @@ Nested dictionaries and lists get nicely formatted, indented output:
 ![](https://github.com/igrek51/wat/blob/master/docs/img/wat-nested-dict-pretty.png?raw=true)
 
 ### Debug with breakpoint
-You can use Python's `breakpoint()` keyword to launch an interactive debugger in your program. Attach to the interpreter and inspect things on the spot.
+You can use Python's `breakpoint()` keyword to launch an interactive debugger in your program.
+Attach to the interpreter and inspect things on the spot.
 
 ```python
 (Pdb) import wat  # or paste Insta-Load snippet
@@ -236,6 +245,18 @@ wat / type('ObjectCreator', (), {})
 # value: <class '__main__.ObjectCreator'>
 # type: type
 # signature: class ObjectCreator()
+
+wat / type
+# value: <class 'type'>
+# type: type
+# signature: class type(…)
+# """
+# type(object) -> the object's type
+# type(name, bases, dict, **kwds) -> a new type
+# """
+# 
+# Public attributes:
+#   def mro(self, /) # Return a type's method resolution order.
 ```
 
 ```python
