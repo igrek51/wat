@@ -153,10 +153,10 @@ def _render_attr_variable(attr: InspectAttribute, config: InspectConfig) -> str:
     return f'  {STYLE_BRIGHT_YELLOW}{attr.name}{STYLE_YELLOW}: {type_str} = {value_str}'
 
 
-def _render_attr_method(attr: InspectAttribute) -> str:
+def _render_attr_method(attr: InspectAttribute, config: InspectConfig) -> str:
     if not attr.signature:
         return f'  {attr.name}(…)'
-    if attr.doc:
+    if attr.doc and not config.nodocs:
         if attr.doc.count('\n') == 0:
             return f'  {attr.signature} {STYLE_GRAY}# {attr.doc}{RESET}'
         else:
@@ -275,7 +275,7 @@ def _render_attrs_section(attributes: List[InspectAttribute], config: InspectCon
         if public_vars and public_methods:
             yield ''
         for attr in public_methods:
-            yield _render_attr_method(attr)
+            yield _render_attr_method(attr, config)
     
     if private_vars or private_methods:
         yield ''
@@ -285,7 +285,7 @@ def _render_attrs_section(attributes: List[InspectAttribute], config: InspectCon
         if private_vars and private_methods:
             yield ''
         for attr in private_methods:
-            yield _render_attr_method(attr)
+            yield _render_attr_method(attr, config)
 
     if config.dunder and (dunder_vars or dunder_methods):
         yield ''
@@ -295,7 +295,7 @@ def _render_attrs_section(attributes: List[InspectAttribute], config: InspectCon
         if dunder_vars and dunder_methods:
             yield ''
         for attr in dunder_methods:
-            yield _render_attr_method(attr)
+            yield _render_attr_method(attr, config)
 
 
 def _caller_stack_frame(depth: int):
