@@ -420,3 +420,13 @@ value: 4
 type: int
 ''')
     assert wat(4, ret=True) == 4
+
+
+def test_modifiers_long_nodocs():
+    output = wat.long.nodocs.str / str
+    lines = output.splitlines()
+    assert '"""' not in lines
+    for line in lines:
+        assert ' # ' not in line
+        assert '"""' not in line
+    assert '  def capitalize(self, /)' in lines
