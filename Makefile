@@ -6,13 +6,13 @@ venv:
 	python3 -m venv venv &&\
 	. venv/bin/activate &&\
 	pip install --upgrade pip &&\
-	pip install -r requirements.txt -r requirements-dev.txt &&\
+	pip install -r requirements-dev.txt &&\
 	python -m pip install -e .
 
 venv-test-unit:
 	python3 -m venv venv &&\
 	. venv/bin/activate &&\
-	pip install -r requirements.txt -r requirements-dev.txt &&\
+	pip install -r requirements-dev.txt &&\
 	python -m pip install -e .
 
 install-local:

@@ -1,6 +1,5 @@
 [project]
 name = "wat-inspector"
-version = "0.4.3"  # should be in sync with wat/version.py
 description = "Deep inspection of Python objects"
 license = {text = "MIT"}
 authors = [
@@ -13,7 +12,7 @@ classifiers = [
 ]
 readme = "README.md"
 requires-python = ">=3.8"
-dynamic = ["dependencies"]
+dynamic = ["version"]
 
 [project.urls]
 Homepage = "https://github.com/igrek51/wat"
@@ -24,7 +23,7 @@ requires = ["setuptools", "build", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
+version = {attr = "wat.version.__version__"}
 
 [tool.setuptools]
 include-package-data = true
