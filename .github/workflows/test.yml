@@ -12,7 +12,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: ['3.8', '3.13']
+          python-version: '3.8'
       - name: Install dependencies
         run: make venv-test-unit
       - run: . venv/bin/activate && make test && python -m coverage xml
