@@ -1,0 +1,1008 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="igrek51">
+      
+      
+      
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.22">
+    
+    
+      
+        <title>WAT</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.732c4fb1.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#wat" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="WAT" class="md-header__button md-logo" aria-label="WAT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            WAT
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/igrek51/wat" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    igrek51/wat
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="WAT" class="md-nav__button md-logo" aria-label="WAT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+
+    </a>
+    WAT
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/igrek51/wat" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    igrek51/wat
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Loading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insta-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      Insta-Load
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-with-pip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install with pip
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage &amp; modifiers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-case-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Case Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use Case Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#determine-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Determine type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#look-up-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Look up methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#discover-functions-signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Discover function's signature
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#look-up-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Look up attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explore-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explore modules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explore-dunder-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explore dunder attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#review-the-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review the code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prettify-unreadable-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prettify unreadable collections
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-with-breakpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug with breakpoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#look-up-local-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Look up local variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learn-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learn Python
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-wat-itself" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspect WAT itself
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Loading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insta-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      Insta-Load
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-with-pip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install with pip
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage &amp; modifiers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-case-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Case Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use Case Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#determine-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Determine type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#look-up-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Look up methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#discover-functions-signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Discover function's signature
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#look-up-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Look up attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explore-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explore modules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explore-dunder-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explore dunder attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#review-the-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review the code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prettify-unreadable-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prettify unreadable collections
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-with-breakpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug with breakpoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#look-up-local-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Look up local variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learn-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Learn Python
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-wat-itself" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspect WAT itself
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment variables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="wat">🙀 WAT</h1>
+<div align="center">
+    <a href="https://github.com/igrek51/wat">GitHub</a>
+    -
+    <a href="https://pypi.org/project/wat-inspector">PyPI</a>
+    -
+    <a href="https://igrek51.github.io/wat">Documentation</a>
+</div>
+
+<p>Deep inspection of Python objects.</p>
+<p><strong>WAT</strong> is a powerful inspection tool
+designed to help you explore unknown objects and examine them at runtime.</p>
+<blockquote>
+<p>"Wat" is a variant of the English word "what" that is often used to express confusion or disgust</p>
+</blockquote>
+<p>If you ever find yourself in a Python console, feeling lost and confused,
+and wondering "WAT? What is this thing?",
+that's where <code>wat</code> inspector comes in handy.</p>
+<p>Launch the Python Interpreter and execute <code>wat / object</code> on any <code>object</code>
+to investigate its
+<strong>type</strong>, <strong>formatted value</strong>, <strong>variables</strong>, <strong>methods</strong>, <strong>parent types</strong>, <strong>signature</strong>,
+<strong>documentation</strong>, and its <strong>source code</strong>.
+This makes it particularly useful for debugging or understanding intricate data structures in Python,
+providing a straightforward way to answer "what" exactly an object represents.</p>
+<p><img alt="" src="https://github.com/igrek51/wat/blob/master/docs/img/wat-datetime-now.png?raw=true" /></p>
+<video width="100%" controls="true" allowFullscreen="true" src="https://github.com/user-attachments/assets/022ef89a-9e35-45be-9e2f-08d2c6af9075" poster="https://raw.githubusercontent.com/igrek51/wat/master/docs/img/wat-set.png">
+</video>
+
+<p>Alternatively, use <code>wat(object)</code> syntax for the same in-depth inspection.</p>
+<h2 id="loading">Loading</h2>
+<h3 id="insta-load">Insta-Load</h3>
+<p>If you want to quickly debug something,
+you can use this inspector <strong>without installing anything</strong>, in the same session.</p>
+<p>Load it on the fly by pasting this snippet to your Python interpreter:
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">zlib</span>
+<span class="n">code</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;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&#39;</span>
+<span class="n">exec</span><span class="p">(</span><span class="n">zlib</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">code</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="nb">globals</span><span class="p">())</span>
+</code></pre></div></p>
+<p>Now you can use <code>wat</code> object.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Before executing <strong>Insta-Load</strong> snippet, it's recommended to verify what you're about to run.
+You can either:</p>
+<ul>
+<li>Verify what's inside the extracted code beforehand:
+  <div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">zlib</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">code</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+</code></pre></div></li>
+<li>Paste the content of <a href="https://github.com/igrek51/wat/blob/master/wat/inspection/inspection.py">inspection.py</a> into your interpreter.
+  It has the same effect.</li>
+<li><a href="#install-with-pip">Install package with pip</a> and review the code.</li>
+</ul>
+</div>
+<h3 id="install-with-pip">Install with pip</h3>
+<p>Alternatively, install <strong>wat-inspector</strong> package and import inspection tool from <strong>wat</strong> module:
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>wat-inspector
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">wat</span>
+</code></pre></div>
+This package has no external dependencies.</p>
+<h2 id="usage-modifiers">Usage &amp; modifiers</h2>
+<p><code>wat</code> can quickly inspect things
+by using the division operator (for faster typing without parentheses). 
+A short syntax <code>wat / foo</code> is equivalent to <code>wat(foo)</code>.</p>
+<p>You can call <code>wat.modifier / foo</code> with the following <strong>modifiers</strong>:</p>
+<ul>
+<li><code>.short</code> or <code>.s</code> to hide the attributes (variables and methods inside the object)
+  and print only value, type, parent types, signature and documentation</li>
+<li><code>.dunder</code> to display dunder attributes (starting with double underscore)</li>
+<li><code>.code</code> to reveal the source code of a function, method, or class</li>
+<li><code>.long</code> to show non-abbreviated values and docstrings</li>
+<li><code>.nodocs</code> to hide documentation for functions and classes</li>
+<li><code>.caller</code> to show how and where the inspection was called (works in files, not REPL)</li>
+<li><code>.all</code> to include all available information</li>
+<li><code>.ret</code> to return the object back after the inspection</li>
+<li><code>.str</code> to return the output string instead of printing it</li>
+<li><code>.gray</code> to disable colorful output in the console</li>
+<li><code>.color</code> to enforce colorful outputs in the console</li>
+</ul>
+<p>You can chain modifiers, e.g. <code>wat.short.str.gray / 'foo'</code>.</p>
+<p>Call <code>wat.locals</code> or <code>wat()</code> to inspect local variables.<br />
+Call <code>wat.globals</code> to inspect global variables.</p>
+<p>You can explore any object.
+In Python, an "object" refers to not only to data structures,
+but also to functions, classes, modules, built-in types, and more.</p>
+<p>Type <code>wat</code> in the interpreter to learn more about this object itself.</p>
+<p>There are several alternative syntaxes that are equivalent.
+Choose the one that works best for you:
+<div class="highlight"><pre><span></span><code><span class="n">wat</span><span class="o">.</span><span class="n">short</span> <span class="o">/</span> <span class="s1">&#39;foo&#39;</span>  <span class="c1"># fast typing</span>
+<span class="n">wat</span><span class="o">.</span><span class="n">short</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+<span class="n">wat</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># natural Python syntax</span>
+<span class="s1">&#39;foo&#39;</span> <span class="o">|</span> <span class="n">wat</span><span class="o">.</span><span class="n">short</span>  <span class="c1"># Unix piping</span>
+</code></pre></div></p>
+<h2 id="use-case-examples">Use Case Examples</h2>
+<h3 id="determine-type">Determine type</h3>
+<p>In a dynamic typing language like Python, it's often hard to determine the type of an object.
+WAT Inspector can help you with that by showing the name of the type with the module it comes from.</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">wat</span><span class="o">.</span><span class="n">short</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+<span class="n">value</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+<span class="nb">type</span><span class="p">:</span> <span class="nb">tuple</span>
+<span class="nb">len</span><span class="p">:</span> <span class="mi">1</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">wat</span><span class="o">.</span><span class="n">short</span> <span class="o">/</span> <span class="p">{</span><span class="kc">None</span><span class="p">}</span>
+<span class="n">value</span><span class="p">:</span> <span class="p">{</span><span class="kc">None</span><span class="p">}</span>
+<span class="nb">type</span><span class="p">:</span> <span class="nb">set</span>
+<span class="nb">len</span><span class="p">:</span> <span class="mi">1</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">wat</span><span class="o">.</span><span class="n">short</span> <span class="o">/</span> <span class="n">user</span>
+<span class="nb">str</span><span class="p">:</span> <span class="n">admin</span>
+<span class="nb">repr</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">User</span><span class="p">:</span> <span class="n">admin</span><span class="o">&gt;</span>
+<span class="nb">type</span><span class="p">:</span> <span class="n">django</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">User</span>
+<span class="n">parents</span><span class="p">:</span> <span class="n">django</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">AbstractUser</span><span class="p">,</span> <span class="n">django</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">base_user</span><span class="o">.</span><span class="n">AbstractBaseUser</span><span class="p">,</span> <span class="n">django</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">auth</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">PermissionsMixin</span><span class="p">,</span> <span class="n">django</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">Model</span><span class="p">,</span> <span class="n">django</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">AltersData</span>
+</code></pre></div>
+<p><img alt="" src="https://github.com/igrek51/wat/blob/master/docs/img/wat-short-types.png?raw=true" /></p>
+<p>Now that you've identified the actual type,
+you can put the type annotations in your code to reduce further confusion.</p>
+<h3 id="look-up-methods">Look up methods</h3>
+<p>By listing out methods with their signatures and docstrings, you can easily grasp how to use the unknown object.</p>
+<div class="highlight"><pre><span></span><code><span class="n">wat</span> <span class="o">/</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span>
+</code></pre></div>
+<p><img alt="" src="https://github.com/igrek51/wat/blob/master/docs/img/wat-list.png?raw=true" /><br />
+<img alt="" src="https://github.com/igrek51/wat/blob/master/docs/img/wat-set.png?raw=true" /></p>
+<p>Use <code>wat.long</code> if you want to see full doscstrings.</p>
+<h3 id="discover-functions-signature">Discover function's signature</h3>
+<p>See the docstrings and the signature of a function to learn how to use it.</p>
+<div class="highlight"><pre><span></span><code><span class="n">wat</span> <span class="o">/</span> <span class="nb">str</span><span class="o">.</span><span class="n">split</span>
+</code></pre></div>
+<p><img alt="" src="https://github.com/igrek51/wat/blob/master/docs/img/wat-str-split.png?raw=true" /></p>
+<h3 id="look-up-attributes">Look up attributes</h3>
+<p>List the attribues and their types to see what's really inside the inspected object.
+<div class="highlight"><pre><span></span><code><span class="n">wat</span> <span class="o">/</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;(\d)_(.*)&#39;</span><span class="p">,</span> <span class="s1">&#39;1_title&#39;</span><span class="p">)</span>
+</code></pre></div></p>
+<p><img alt="" src="https://github.com/igrek51/wat/blob/master/docs/img/wat-re-match.png?raw=true" /></p>
+<h3 id="explore-modules">Explore modules</h3>
+<p>Another use case is to explore modules.
+You can list the functions,
+classes and sub-modules of a selected module.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="n">wat</span> <span class="o">/</span> <span class="n">pathlib</span>
+</code></pre></div>
+<p><img alt="" src="https://github.com/igrek51/wat/blob/master/docs/img/wat-pathlib.png?raw=true" /></p>
+<p>Then, you can navigate further, e.g. <code>wat / pathlib.fnmatch</code>.</p>
+<h3 id="explore-dunder-attributes">Explore dunder attributes</h3>
+<p>By default, WAT Inspector hides attributes starting with <code>__</code>. Use <code>wat.dunder</code> to see them.
+<div class="highlight"><pre><span></span><code><span class="n">wat</span><span class="o">.</span><span class="n">dunder</span> <span class="o">/</span> <span class="p">{}</span>
+</code></pre></div></p>
+<p><img alt="" src="https://github.com/igrek51/wat/blob/master/docs/img/wat-dunder-dict.png?raw=true" /></p>
+<h3 id="review-the-code">Review the code</h3>
+<p>Look up the source code of a function to see how it really works.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">colorsys</span>
+<span class="n">wat</span><span class="o">.</span><span class="n">code</span> <span class="o">/</span> <span class="n">colorsys</span><span class="o">.</span><span class="n">hsv_to_rgb</span>
+</code></pre></div>
+<p><img alt="" src="https://github.com/igrek51/wat/blob/master/docs/img/wat-code-wat-call.png?raw=true" /></p>
+<h3 id="prettify-unreadable-collections">Prettify unreadable collections</h3>
+<p>Nested dictionaries and lists get nicely formatted, indented output:</p>
+<p><img alt="" src="https://github.com/igrek51/wat/blob/master/docs/img/wat-nested-dict-pretty.png?raw=true" /></p>
+<h3 id="debug-with-breakpoint">Debug with breakpoint</h3>
+<p>You can use Python's <code>breakpoint()</code> keyword to launch an interactive debugger in your program.
+Attach to the interpreter and inspect things on the spot.</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="n">Pdb</span><span class="p">)</span> <span class="kn">import</span> <span class="nn">wat</span>  <span class="c1"># or paste Insta-Load snippet</span>
+<span class="p">(</span><span class="n">Pdb</span><span class="p">)</span> <span class="n">wat</span> <span class="o">/</span> <span class="n">foo</span>  <span class="c1"># inspect local variables</span>
+<span class="o">...</span>
+<span class="p">(</span><span class="n">Pdb</span><span class="p">)</span> <span class="n">c</span>  <span class="c1"># continue execution</span>
+</code></pre></div>
+<h3 id="look-up-local-variables">Look up local variables</h3>
+<p>Use <code>wat.locals</code> or <code>wat.globals</code> to look up the local and global variables respectively.</p>
+<p><img alt="" src="https://github.com/igrek51/wat/blob/master/docs/img/wat-locals.png?raw=true" /></p>
+<h3 id="learn-python">Learn Python</h3>
+<p>With these snippets you can better understand Python internals.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">reversed</span><span class="p">([])</span> <span class="o">==</span> <span class="nb">reversed</span><span class="p">([])</span>
+<span class="c1"># False</span>
+<span class="n">wat</span><span class="o">.</span><span class="n">s</span> <span class="o">/</span> <span class="nb">reversed</span><span class="p">([])</span>
+<span class="c1"># value: &lt;list_reverseiterator object at 0x76749d1cb400&gt;</span>
+<span class="c1"># type: list_reverseiterator</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">wat</span> <span class="o">/</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;ObjectCreator&#39;</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{})</span>
+<span class="c1"># value: &lt;class &#39;__main__.ObjectCreator&#39;&gt;</span>
+<span class="c1"># type: type</span>
+<span class="c1"># signature: class ObjectCreator()</span>
+
+<span class="n">wat</span> <span class="o">/</span> <span class="nb">type</span>
+<span class="c1"># value: &lt;class &#39;type&#39;&gt;</span>
+<span class="c1"># type: type</span>
+<span class="c1"># signature: class type(…)</span>
+<span class="c1"># &quot;&quot;&quot;</span>
+<span class="c1"># type(object) -&gt; the object&#39;s type</span>
+<span class="c1"># type(name, bases, dict, **kwds) -&gt; a new type</span>
+<span class="c1"># &quot;&quot;&quot;</span>
+<span class="c1"># </span>
+<span class="c1"># Public attributes:</span>
+<span class="c1">#   def mro(self, /) # Return a type&#39;s method resolution order.</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="n">wat</span><span class="o">.</span><span class="n">s</span> <span class="o">/</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="c1"># value: typing.List[str]</span>
+<span class="c1"># type: typing._GenericAlias</span>
+<span class="c1"># parents: typing._BaseGenericAlias, typing._Final</span>
+<span class="c1"># signature: def List(*args, **kwargs)</span>
+
+<span class="n">wat</span><span class="p">(</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span>
+<span class="c1"># value: str | None</span>
+<span class="c1"># type: types.UnionType</span>
+</code></pre></div>
+<p>Explore Python built-ins:
+<div class="highlight"><pre><span></span><code><span class="n">wat</span> <span class="o">/</span> <span class="n">__builtins__</span>
+<span class="n">wat</span> <span class="o">/</span> <span class="o">...</span>
+</code></pre></div></p>
+<h3 id="inspect-wat-itself">Inspect WAT itself</h3>
+<div class="highlight"><pre><span></span><code><span class="n">wat</span><span class="o">.</span><span class="n">dunder</span> <span class="o">/</span> <span class="n">wat</span>
+<span class="n">wat</span><span class="o">.</span><span class="n">code</span> <span class="o">/</span> <span class="n">wat</span><span class="o">.</span><span class="fm">__truediv__</span>
+</code></pre></div>
+<h2 id="environment-variables">Environment variables</h2>
+<ul>
+<li><code>WAT_COLOR="false"</code> to disable colorful output in the console.</li>
+<li><code>WAT_COLOR="true"</code> to enforce colorful outputs even in non-tty environment.</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li>Inspired by <a href="https://github.com/Textualize/rich?tab=readme-ov-file#rich-inspect">Rich Inspect</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/igrek51/wat" target="_blank" rel="noopener" title="WAT on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.expand", "content.code.copy"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.5cfa9459.min.js"></script>
+      
+    
+  </body>
+</html>
