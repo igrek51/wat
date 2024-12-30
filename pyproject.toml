@@ -1,5 +1,5 @@
 [project]
-name = "wat-inspector"
+name = "wat"
 description = "Deep inspection of Python objects"
 license = {text = "MIT"}
 authors = [
