@@ -8,7 +8,7 @@ hide:
 <div align="center">
     <a href="https://github.com/igrek51/wat">GitHub</a>
     -
-    <a href="https://pypi.org/project/wat-inspector">PyPI</a>
+    <a href="https://pypi.org/project/wat">PyPI</a>
     -
     <a href="https://igrek51.github.io/wat">Documentation</a>
 </div>
@@ -66,9 +66,9 @@ Now you can use `wat` object.
     - [Install package with pip](#install-with-pip) and review the code.
 
 ### Install with pip
-Alternatively, install **wat-inspector** package and import inspection tool from **wat** module:
+Alternatively, install **wat** package and import inspection tool from **wat** module:
 ```sh
-pip install wat-inspector
+pip install wat
 ```
 ```python
 import wat
