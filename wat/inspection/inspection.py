@@ -44,8 +44,8 @@ def inspect_format(
 
     if sys.stdout.isatty():  # horizontal bar
         terminal_width = os.get_terminal_size().columns
-        output.insert(0, STYLE_BLUE + '─' * terminal_width + RESET)
-        output.append(STYLE_BLUE + '─' * terminal_width + RESET)
+        output.insert(0, STYLE_LINE + '─' * terminal_width + RESET)
+        output.append(STYLE_LINE + '─' * terminal_width + RESET)
 
     return '\n'.join(line for line in output if line is not None)
 
@@ -57,39 +57,39 @@ def _yield_inspect_lines(obj, config: InspectConfig) -> Iterable[str]:
     str_value = _format_value(obj)
     repr_value: str = repr(obj)
     if repr_value == str(obj) or repr_value == _strip_color(str_value):
-        yield f'{STYLE_BRIGHT_BLUE}value:{RESET} {str_value}'
+        yield f'{STYLE_TRAIT}value:{RESET} {str_value}'
     else:
-        yield f'{STYLE_BRIGHT_BLUE}str:{RESET} {str_value}'
-        yield f'{STYLE_BRIGHT_BLUE}repr:{RESET} {STYLE_BRIGHT}{repr_value}{RESET}'
+        yield f'{STYLE_TRAIT}str:{RESET} {str_value}'
+        yield f'{STYLE_TRAIT}repr:{RESET} {STYLE_REPR}{repr_value}{RESET}'
 
     str_type = _format_type(type(obj))
-    yield f'{STYLE_BRIGHT_BLUE}type:{RESET} {str_type}'
+    yield f'{STYLE_TRAIT}type:{RESET} {str_type}'
     parents = ', '.join(_get_parent_types(type(obj)))
     if parents:
-        yield f'{STYLE_BRIGHT_BLUE}parents:{RESET} {parents}'
+        yield f'{STYLE_TRAIT}parents:{RESET} {parents}'
 
     if callable(getattr(obj, '__len__', None)):
         try:
-            yield f'{STYLE_BRIGHT_BLUE}len:{RESET} {_format_value(len(obj))}'
+            yield f'{STYLE_TRAIT}len:{RESET} {_format_value(len(obj))}'
         except TypeError:
             pass
  
     if callable(obj):
         name = getattr(obj, '__name__', '…')
         signature = _get_callable_signature(name, obj)
-        yield f'{STYLE_BRIGHT_BLUE}signature:{RESET} {signature}'
+        yield f'{STYLE_TRAIT}signature:{RESET} {signature}'
 
     doc = _get_doc(obj, long=True)
     if doc and not config.nodocs and callable(obj):
         if doc.count('\n') == 0:
-            yield f'{STYLE_GRAY}"""{doc}"""{RESET}'
+            yield f'{STYLE_DOCS}"""{doc}"""{RESET}'
         else:
-            yield from [f'{STYLE_GRAY}"""', doc, f'"""{RESET}']
+            yield from [f'{STYLE_DOCS}"""', doc, f'"""{RESET}']
 
     if config.code and (inspect.isclass(obj) or callable(obj)):
         source = _get_source_code(obj)
         if source:
-            yield f'{STYLE_BRIGHT_BLUE}source code:{RESET}\n{source}'
+            yield f'{STYLE_TRAIT}source code:{RESET}\n{source}'
 
     if not config.short:
         attributes = sorted(_iter_attributes(obj, config), key=lambda attr: attr.name)
@@ -129,7 +129,7 @@ def _get_callable_signature(name: str, obj) -> Optional[str]:
         prefix = 'def '
     else:
         prefix = ''
-    return f'{STYLE_BLUE}{prefix}{STYLE_BRIGHT_GREEN}{name}{STYLE_GREEN}{_signature}{RESET}'
+    return f'{STYLE_KEYWORD}{prefix}{STYLE_CALLABLE}{name}{STYLE_SIGNATURE}{_signature}{RESET}'
 
 
 def _get_source_code(obj) -> Optional[str]:
@@ -150,7 +150,7 @@ def _get_doc(obj, long: bool) -> Optional[str]:
 def _render_attr_variable(attr: InspectAttribute, config: InspectConfig) -> str:
     value_str = _format_short_value(attr.value, long=config.long)
     type_str = _format_type(attr.type)
-    return f'  {STYLE_BRIGHT_YELLOW}{attr.name}{STYLE_YELLOW}: {type_str} = {value_str}'
+    return f'  {STYLE_VARIABLE}{attr.name}{STYLE_CODE}: {type_str} = {value_str}'
 
 
 def _render_attr_method(attr: InspectAttribute, config: InspectConfig) -> str:
@@ -158,9 +158,9 @@ def _render_attr_method(attr: InspectAttribute, config: InspectConfig) -> str:
         return f'  {attr.name}(…)'
     if attr.doc and not config.nodocs:
         if attr.doc.count('\n') == 0:
-            return f'  {attr.signature} {STYLE_GRAY}# {attr.doc}{RESET}'
+            return f'  {attr.signature} {STYLE_DOCS}# {attr.doc}{RESET}'
         else:
-            return f'  {attr.signature}:\n{STYLE_GRAY}"""\n{attr.doc}\n"""{RESET}'
+            return f'  {attr.signature}:\n{STYLE_DOCS}"""\n{attr.doc}\n"""{RESET}'
     else:
         return f'  {attr.signature}'
 
@@ -174,15 +174,15 @@ def _format_short_value(value, long: bool) -> str:
 
 def _format_value(value, indent: int = 0) -> str:
     if isinstance(value, str):
-        return f"{STYLE_GREEN}'{value}'{RESET}"
+        return f"{STYLE_STRING}'{value}'{RESET}"
     if value is None:
-        return f'{STYLE_MAGENTA}None{RESET}'
+        return f'{STYLE_NONE}None{RESET}'
     if value is True:
-        return f'{STYLE_BRIGHT_GREEN}True{RESET}'
+        return f'{STYLE_TRUE}True{RESET}'
     if value is False:
-        return f'{STYLE_BRIGHT_RED}False{RESET}'
+        return f'{STYLE_FALSE}False{RESET}'
     if isinstance(value, (int, float)):
-        return f'{STYLE_RED}{value}{RESET}'
+        return f'{STYLE_NUMBER}{value}{RESET}'
     if isinstance(value, dict):
         return _format_dict_value(value, indent=indent+1)
     if isinstance(value, list):
@@ -190,13 +190,13 @@ def _format_value(value, indent: int = 0) -> str:
     str_val = str(value)
     angle_bracket_match = re.fullmatch(r'<(.*)>', str_val)
     if angle_bracket_match:
-        return f'{STYLE_YELLOW}<{STYLE_BRIGHT_YELLOW}{angle_bracket_match.group(1)}{STYLE_YELLOW}>{RESET}'
-    return f'{STYLE_GREEN}{str_val}{RESET}'
+        return f'{STYLE_CODE}<{STYLE_VARIABLE}{angle_bracket_match.group(1)}{STYLE_CODE}>{RESET}'
+    return f'{STYLE_STRING}{str_val}{RESET}'
 
 
 def _format_dict_value(dic: Dict, indent: int) -> str:
     if indent > 30:
-        return f'{STYLE_BRIGHT_RED}ERROR: too deeply nested{RESET}'
+        return f'{STYLE_FALSE}ERROR: too deeply nested{RESET}'
     lines: List[str] = []
     indentation = '    ' * indent
     for key, value in dic.items():
@@ -206,9 +206,9 @@ def _format_dict_value(dic: Dict, indent: int) -> str:
     if lines:
         small_indent = '    ' * (indent-1)
         middle_lines = '\n'.join(lines)
-        return f'{STYLE_YELLOW}{{{RESET}\n{middle_lines}\n{small_indent}{STYLE_YELLOW}}}{RESET}'
+        return f'{STYLE_CODE}{{{RESET}\n{middle_lines}\n{small_indent}{STYLE_CODE}}}{RESET}'
     else:
-        return f'{STYLE_YELLOW}{{}}{RESET}'
+        return f'{STYLE_CODE}{{}}{RESET}'
 
 
 def _format_list_value(lst: List, indent: int) -> str:
@@ -219,16 +219,16 @@ def _format_list_value(lst: List, indent: int) -> str:
     if lines:
         small_indent = '    ' * (indent-1)
         middle_lines = '\n'.join(lines)
-        return f'{STYLE_YELLOW}[{RESET}\n{middle_lines}\n{small_indent}{STYLE_YELLOW}]{RESET}'
+        return f'{STYLE_CODE}[{RESET}\n{middle_lines}\n{small_indent}{STYLE_CODE}]{RESET}'
     else:
-        return f'{STYLE_YELLOW}[]{RESET}'
+        return f'{STYLE_CODE}[]{RESET}'
 
 
 def _format_type(type_: Type) -> str:
     module = type_.__module__
     if module is None or module == str.__class__.__module__:  # built-in type
-        return f'{STYLE_YELLOW}{type_.__name__}{RESET}'
-    return f'{STYLE_YELLOW}{module}.{type_.__name__}{RESET}'
+        return f'{STYLE_CODE}{type_.__name__}{RESET}'
+    return f'{STYLE_CODE}{module}.{type_.__name__}{RESET}'
 
 
 def _get_parent_types(type_: Type) -> Iterable[str]:
@@ -244,10 +244,10 @@ def _generate_caller_info() -> Iterable[str]:
     if frame:
         frameinfo = inspect.getframeinfo(frame)
         if frameinfo.filename:
-            yield f'{STYLE_BRIGHT_BLUE}caller file: {STYLE_YELLOW}{frameinfo.filename}:{STYLE_BRIGHT_YELLOW}{frameinfo.lineno}{RESET}'
+            yield f'{STYLE_TRAIT}caller file: {STYLE_CODE}{frameinfo.filename}:{STYLE_NUMBER}{frameinfo.lineno}{RESET}'
         if frameinfo.code_context:
             code = '\n'.join(frameinfo.code_context).strip()
-            yield f'{STYLE_BRIGHT_BLUE}caller expression:{RESET} {code}'
+            yield f'{STYLE_TRAIT}caller expression:{RESET} {code}'
 
 
 def _shorten_string(text: str) -> str:
@@ -269,7 +269,7 @@ def _render_attrs_section(attributes: List[InspectAttribute], config: InspectCon
 
     if public_vars or public_methods:
         yield ''
-        yield f'{STYLE_BRIGHT}Public attributes:{RESET}'
+        yield f'{STYLE_HEADER}Public attributes:{RESET}'
         for attr in public_vars:
             yield _render_attr_variable(attr, config)
         if public_vars and public_methods:
@@ -279,7 +279,7 @@ def _render_attrs_section(attributes: List[InspectAttribute], config: InspectCon
     
     if private_vars or private_methods:
         yield ''
-        yield f'{STYLE_BRIGHT}Private attributes:{RESET}'
+        yield f'{STYLE_HEADER}Private attributes:{RESET}'
         for attr in private_vars:
             yield _render_attr_variable(attr, config)
         if private_vars and private_methods:
@@ -289,7 +289,7 @@ def _render_attrs_section(attributes: List[InspectAttribute], config: InspectCon
 
     if config.dunder and (dunder_vars or dunder_methods):
         yield ''
-        yield f'{STYLE_BRIGHT}Dunder attributes:{RESET}'
+        yield f'{STYLE_HEADER}Dunder attributes:{RESET}'
         for attr in dunder_vars:
             yield _render_attr_variable(attr, config)
         if dunder_vars and dunder_methods:
@@ -307,12 +307,12 @@ def _caller_stack_frame(depth: int):
 
 
 def _render_variables(variables: Dict[str, Any], title: str) -> Iterable[str]:
-    yield f'{STYLE_BRIGHT}{title}:{RESET}'
+    yield f'{STYLE_HEADER}{title}:{RESET}'
     for name in sorted(variables.keys()):
         value = variables[name]
         value_str = _format_short_value(value, long=False)
         type_str = _format_type(type(value))
-        yield f'  {STYLE_BRIGHT_YELLOW}{name}{STYLE_YELLOW}: {type_str} = {value_str}'
+        yield f'  {STYLE_VARIABLE}{name}{STYLE_CODE}: {type_str} = {value_str}'
 
 
 def _strip_color(text: str) -> str:
@@ -335,20 +335,20 @@ class Wat:
         return '<WAT Inspector object>'
     
     def _print_help(self):
-        text = f'''Try {STYLE_YELLOW}wat / object{RESET} or {STYLE_YELLOW}wat.modifiers / object{RESET} to inspect an {STYLE_YELLOW}object{RESET}. {STYLE_BRIGHT}Modifiers{RESET} are:
-  {STYLE_GREEN}.short{RESET} or {STYLE_GREEN}.s{RESET} to hide attributes (variables and methods)
-  {STYLE_GREEN}.dunder{RESET} to print dunder attributes
-  {STYLE_GREEN}.code{RESET} to print source code of a function, method or class
-  {STYLE_GREEN}.long{RESET} to print non-abbreviated values and documentation
-  {STYLE_GREEN}.nodocs{RESET} to hide documentation for functions and classes
-  {STYLE_GREEN}.caller{RESET} to show how and where the inspection was called
-  {STYLE_GREEN}.all{RESET} to include all information
-  {STYLE_GREEN}.ret{RESET} to return the inspected {STYLE_YELLOW}object{RESET}
-  {STYLE_GREEN}.str{RESET} to return the output string instead of printing
-  {STYLE_GREEN}.gray{RESET} to disable colorful output in the console
-  {STYLE_GREEN}.color{RESET} to enforce colorful outputs in the console
-Call {STYLE_YELLOW}wat.locals{RESET} or {STYLE_YELLOW}wat(){RESET} to inspect local variables.
-Call {STYLE_YELLOW}wat.globals{RESET} to inspect global variables.'''
+        text = f'''Try {STYLE_CODE}wat / object{RESET} or {STYLE_CODE}wat.modifiers / object{RESET} to inspect an {STYLE_CODE}object{RESET}. {STYLE_HEADER}Modifiers{RESET} are:
+  {STYLE_STRING}.short{RESET} or {STYLE_STRING}.s{RESET} to hide attributes (variables and methods)
+  {STYLE_STRING}.dunder{RESET} to print dunder attributes
+  {STYLE_STRING}.code{RESET} to print source code of a function, method or class
+  {STYLE_STRING}.long{RESET} to print non-abbreviated values and documentation
+  {STYLE_STRING}.nodocs{RESET} to hide documentation for functions and classes
+  {STYLE_STRING}.caller{RESET} to show how and where the inspection was called
+  {STYLE_STRING}.all{RESET} to include all information
+  {STYLE_STRING}.ret{RESET} to return the inspected {STYLE_CODE}object{RESET}
+  {STYLE_STRING}.str{RESET} to return the output string instead of printing
+  {STYLE_STRING}.gray{RESET} to disable colorful output in the console
+  {STYLE_STRING}.color{RESET} to enforce colorful outputs in the console
+Call {STYLE_CODE}wat.locals{RESET} or {STYLE_CODE}wat(){RESET} to inspect local variables.
+Call {STYLE_CODE}wat.globals{RESET} to inspect global variables.'''
         if not self._color_enabled():
             text = _strip_color(text)
         print(text)
@@ -445,17 +445,20 @@ Call {STYLE_YELLOW}wat.globals{RESET} to inspect global variables.'''
 
 
 RESET = '\033[0m'
-STYLE_BRIGHT = '\033[1m'
-STYLE_RED = '\033[0;31m'
-STYLE_BRIGHT_RED = '\033[1;31m'
-STYLE_GREEN = '\033[0;32m'
-STYLE_BRIGHT_GREEN = '\033[1;32m'
-STYLE_YELLOW = '\033[0;33m'
-STYLE_BRIGHT_YELLOW = '\033[1;33m'
-STYLE_BLUE = '\033[0;34m'
-STYLE_BRIGHT_BLUE = '\033[1;34m'
-STYLE_MAGENTA = '\033[0;35m'
-STYLE_CYAN = '\033[0;36m'
-STYLE_GRAY = '\033[2;37m'
+STYLE_LINE = '\033[0;34m'  # blue
+STYLE_TRAIT = '\033[1;34m'  # bright blue
+STYLE_HEADER = '\033[1;37m'  # bright white
+STYLE_REPR = '\033[1;37m'  # bright white
+STYLE_STRING = '\033[0;32m'  # green
+STYLE_NUMBER = '\033[0;31m'  # red
+STYLE_NONE = '\033[0;35m'  # magenta
+STYLE_TRUE = '\033[1;32m'  # bright green
+STYLE_FALSE = '\033[1;31m'  # bright red
+STYLE_DOCS = '\033[2;37m'  # gray
+STYLE_CALLABLE = '\033[1;32m'  # bright green
+STYLE_SIGNATURE = '\033[0;32m'  # green
+STYLE_KEYWORD = '\033[0;34m'  # blue
+STYLE_VARIABLE = '\033[1;33m'  # bright yellow
+STYLE_CODE = '\033[0;33m'  # yellow
 
 wat = Wat()
