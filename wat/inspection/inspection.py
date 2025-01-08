@@ -44,8 +44,8 @@ def inspect_format(
 
     if sys.stdout.isatty():  # horizontal bar
         terminal_width = os.get_terminal_size().columns
-        output.insert(0, STYLE_LINE + '─' * terminal_width + RESET)
-        output.append(STYLE_LINE + '─' * terminal_width + RESET)
+        output.insert(0, STYLE_BAR + '─' * terminal_width + RESET)
+        output.append(STYLE_BAR + '─' * terminal_width + RESET)
 
     return '\n'.join(line for line in output if line is not None)
 
@@ -336,17 +336,17 @@ class Wat:
     
     def _print_help(self):
         text = f'''Try {STYLE_CODE}wat / object{RESET} or {STYLE_CODE}wat.modifiers / object{RESET} to inspect an {STYLE_CODE}object{RESET}. {STYLE_HEADER}Modifiers{RESET} are:
-  {STYLE_STRING}.short{RESET} or {STYLE_STRING}.s{RESET} to hide attributes (variables and methods)
-  {STYLE_STRING}.dunder{RESET} to print dunder attributes
-  {STYLE_STRING}.code{RESET} to print source code of a function, method or class
-  {STYLE_STRING}.long{RESET} to print non-abbreviated values and documentation
-  {STYLE_STRING}.nodocs{RESET} to hide documentation for functions and classes
-  {STYLE_STRING}.caller{RESET} to show how and where the inspection was called
-  {STYLE_STRING}.all{RESET} to include all information
-  {STYLE_STRING}.ret{RESET} to return the inspected {STYLE_CODE}object{RESET}
-  {STYLE_STRING}.str{RESET} to return the output string instead of printing
-  {STYLE_STRING}.gray{RESET} to disable colorful output in the console
-  {STYLE_STRING}.color{RESET} to enforce colorful outputs in the console
+  {STYLE_CODE}.short{RESET} or {STYLE_CODE}.s{RESET} to hide attributes (variables and methods)
+  {STYLE_CODE}.dunder{RESET} to print dunder attributes
+  {STYLE_CODE}.code{RESET} to print source code of a function, method or class
+  {STYLE_CODE}.long{RESET} to print non-abbreviated values and documentation
+  {STYLE_CODE}.nodocs{RESET} to hide documentation for functions and classes
+  {STYLE_CODE}.caller{RESET} to show how and where the inspection was called
+  {STYLE_CODE}.all{RESET} to include all information
+  {STYLE_CODE}.ret{RESET} to return the inspected {STYLE_CODE}object{RESET}
+  {STYLE_CODE}.str{RESET} to return the output string instead of printing
+  {STYLE_CODE}.gray{RESET} to disable colorful output in the console
+  {STYLE_CODE}.color{RESET} to enforce colorful outputs in the console
 Call {STYLE_CODE}wat.locals{RESET} or {STYLE_CODE}wat(){RESET} to inspect local variables.
 Call {STYLE_CODE}wat.globals{RESET} to inspect global variables.'''
         if not self._color_enabled():
@@ -445,7 +445,7 @@ Call {STYLE_CODE}wat.globals{RESET} to inspect global variables.'''
 
 
 RESET = '\033[0m'
-STYLE_LINE = '\033[0;34m'  # blue
+STYLE_BAR = '\033[0;34m'  # blue
 STYLE_TRAIT = '\033[1;34m'  # bright blue
 STYLE_HEADER = '\033[1;37m'  # bright white
 STYLE_REPR = '\033[1;37m'  # bright white
@@ -455,9 +455,9 @@ STYLE_NONE = '\033[0;35m'  # magenta
 STYLE_TRUE = '\033[1;32m'  # bright green
 STYLE_FALSE = '\033[1;31m'  # bright red
 STYLE_DOCS = '\033[2;37m'  # gray
+STYLE_KEYWORD = '\033[0;34m'  # blue
 STYLE_CALLABLE = '\033[1;32m'  # bright green
 STYLE_SIGNATURE = '\033[0;32m'  # green
-STYLE_KEYWORD = '\033[0;34m'  # blue
 STYLE_VARIABLE = '\033[1;33m'  # bright yellow
 STYLE_CODE = '\033[0;33m'  # yellow
 
