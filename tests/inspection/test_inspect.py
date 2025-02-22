@@ -3,6 +3,7 @@ from enum import Enum
 import math
 import os
 import re
+from typing import List
 
 from pydantic import BaseModel
 
@@ -430,3 +431,16 @@ def test_modifiers_long_nodocs():
         assert ' # ' not in line
         assert '"""' not in line
     assert '  def capitalize(self, /)' in lines
+
+
+def test_short_list_attr_preview():
+    class Foo:
+        columns: List[str] = ['123'] * 10
+    output = inspect_format(Foo())
+    assert_multiline_match(output, r'''
+value: <.*.Foo object at .*>
+type: test_inspect\.Foo
+
+Public attributes:
+  columns: list = \['123', '123', .*…
+''')

@@ -54,7 +54,7 @@ def _yield_inspect_lines(obj, config: InspectConfig) -> Iterable[str]:
     if config.caller:
         yield from _generate_caller_info()
 
-    str_value = _format_value(obj)
+    str_value = _format_value(obj, long=True)
     repr_value: str = repr(obj)
     if repr_value == str(obj) or repr_value == _strip_color(str_value):
         yield f'{style.TRAIT}value:{RESET} {str_value}'
@@ -148,9 +148,18 @@ def _get_doc(obj, long: bool) -> Optional[str]:
 
 
 def _render_attr_variable(attr: InspectAttribute, config: InspectConfig) -> str:
-    value_str = _format_short_value(attr.value, long=config.long)
+    value_str = _format_value(attr.value, long=config.long)
+    if not config.long:
+        value_str = _shorten_string(value_str)
     type_str = _format_type(attr.type)
     return f'  {style.VARIABLE}{attr.name}{style.CODE}: {type_str} = {value_str}'
+
+
+def _shorten_string(text: str) -> str:
+    first_line, _, rest = text.partition('\n')
+    if rest or len(first_line) > 100:
+        return first_line[:100] + RESET + '…'
+    return first_line
 
 
 def _render_attr_method(attr: InspectAttribute, config: InspectConfig) -> str:
@@ -165,14 +174,7 @@ def _render_attr_method(attr: InspectAttribute, config: InspectConfig) -> str:
         return f'  {attr.signature}'
 
 
-def _format_short_value(value, long: bool) -> str:
-    value_str = _format_value(value)
-    if long:
-        return value_str
-    return _shorten_string(value_str)
-
-
-def _format_value(value, indent: int = 0) -> str:
+def _format_value(value, long: bool = True, indent: int = 0) -> str:
     if isinstance(value, str):
         return f"{style.STR}'{value}'{RESET}"
     if value is None:
@@ -184,9 +186,9 @@ def _format_value(value, indent: int = 0) -> str:
     if isinstance(value, (int, float)):
         return f'{style.NUMBER}{value}{RESET}'
     if isinstance(value, dict):
-        return _format_dict_value(value, indent=indent+1)
+        return _format_dict_value(value, long, indent+1)
     if isinstance(value, list):
-        return _format_list_value(value, indent=indent+1)
+        return _format_list_value(value, long, indent+1)
     str_val = str(value)
     angle_bracket_match = re.fullmatch(r'<(.*)>', str_val)
     if angle_bracket_match:
@@ -194,34 +196,35 @@ def _format_value(value, indent: int = 0) -> str:
     return f'{style.STR}{str_val}{RESET}'
 
 
-def _format_dict_value(dic: Dict, indent: int) -> str:
+def _format_dict_value(dic: Dict, long: bool, indent: int) -> str:
     if indent > 30:
         return f'{style.FALSE}ERROR: too deeply nested{RESET}'
-    lines: List[str] = []
-    indentation = '    ' * indent
-    for key, value in dic.items():
-        key_str = _format_value(key, indent)
-        value_str = _format_value(value, indent)
-        lines.append(f'{indentation}{key_str}: {value_str},')
-    if lines:
-        small_indent = '    ' * (indent-1)
-        middle_lines = '\n'.join(lines)
-        return f'{style.CODE}{{{RESET}\n{middle_lines}\n{small_indent}{style.CODE}}}{RESET}'
-    else:
+    if not len(dic):
         return f'{style.CODE}{{}}{RESET}'
+    items = [
+        f'{_format_value(k, long, indent)}: {_format_value(v, long, indent)}'
+        for k, v in dic.items()
+    ]
+    if not long:
+        items_str = ', '.join(items)
+        return f'{style.CODE}{{{RESET}{items_str}{style.CODE}}}{RESET}'
+    lines = '\n'.join('    ' * indent + f'{it},' for it in items)
+    end_indent = '    ' * (indent-1)
+    return f'{style.CODE}{{{RESET}\n{lines}\n{end_indent}{style.CODE}}}{RESET}'
 
 
-def _format_list_value(lst: List, indent: int) -> str:
-    lines: List[str] = []
-    for value in lst:
-        value_str = _format_value(value, indent)
-        lines.append('    ' * indent + f'{value_str},')
-    if lines:
-        small_indent = '    ' * (indent-1)
-        middle_lines = '\n'.join(lines)
-        return f'{style.CODE}[{RESET}\n{middle_lines}\n{small_indent}{style.CODE}]{RESET}'
-    else:
+def _format_list_value(lst: List, long: bool, indent: int) -> str:
+    if indent > 30:
+        return f'{style.FALSE}ERROR: too deeply nested{RESET}'
+    if not len(lst):
         return f'{style.CODE}[]{RESET}'
+    items = [_format_value(val, long, indent) for val in lst]
+    if not long:
+        items_str = ', '.join(items)
+        return f'{style.CODE}[{RESET}{items_str}{style.CODE}]{RESET}'
+    lines = '\n'.join('    ' * indent + f'{it},' for it in items)
+    end_indent = '    ' * (indent-1)
+    return f'{style.CODE}[{RESET}\n{lines}\n{end_indent}{style.CODE}]{RESET}'
 
 
 def _format_type(type_: Type) -> str:
@@ -248,15 +251,6 @@ def _generate_caller_info() -> Iterable[str]:
         if frameinfo.code_context:
             code = '\n'.join(frameinfo.code_context).strip()
             yield f'{style.TRAIT}caller expression:{RESET} {code}'
-
-
-def _shorten_string(text: str) -> str:
-    first_line, _, rest = text.partition('\n')
-    if rest:
-        first_line = first_line + '…'
-    if len(first_line) > 100:
-        first_line = first_line[:100] + '…'
-    return first_line + RESET
 
 
 def _render_attrs_section(attributes: List[InspectAttribute], config: InspectConfig) -> Iterable[str]:
@@ -306,12 +300,11 @@ def _caller_stack_frame(depth: int):
     return frame
 
 
-def _render_variables(variables: Dict[str, Any], title: str) -> Iterable[str]:
+def _render_variables(variables: Dict[str, Any], title: str, long: bool) -> Iterable[str]:
     yield f'{style.HEAD}{title}:{RESET}'
     for name in sorted(variables.keys()):
-        value = variables[name]
-        value_str = _format_short_value(value, long=False)
-        type_str = _format_type(type(value))
+        value_str = _format_value(variables[name], long)
+        type_str = _format_type(type(variables[name]))
         yield f'  {style.VARIABLE}{name}{style.CODE}: {type_str} = {value_str}'
 
 
@@ -409,7 +402,8 @@ Call {style.CODE}wat.globals{RESET} to inspect global variables.'''
         return sys.stdout.isatty()
 
     def _print_variables(self, variables: Dict[str, Any], title: str) -> Optional[str]:
-        lines = list(_render_variables(variables, title))
+        long = self._inspect_kwargs.get('long', False)
+        lines = list(_render_variables(variables, title, long))
         output = '\n'.join(line for line in lines if line is not None)
         return self._display_output(output)
 
