@@ -435,7 +435,7 @@ def test_modifiers_long_nodocs():
 
 def test_short_list_attr_preview():
     class Foo:
-        columns: List[str] = ['123'] * 10
+        columns: List[str] = ['123'] * 20
     output = inspect_format(Foo())
     assert_multiline_match(output, r'''
 value: <.*.Foo object at .*>

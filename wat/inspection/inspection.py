@@ -157,7 +157,7 @@ def _render_attr_variable(attr: InspectAttribute, config: InspectConfig) -> str:
 
 def _shorten_string(text: str) -> str:
     first_line, _, rest = text.partition('\n')
-    if rest or len(first_line) > 100:
+    if rest or len(_strip_color(first_line)) > 100:
         return first_line[:100] + RESET + '…'
     return first_line
 
