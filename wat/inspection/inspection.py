@@ -201,13 +201,14 @@ def _format_dict_value(dic: Dict, long: bool, indent: int) -> str:
         return f'{style.FALSE}ERROR: too deeply nested{RESET}'
     if not len(dic):
         return f'{style.CODE}{{}}{RESET}'
-    formatted_entries = [
+    items = [
         f'{_format_value(k, long, indent)}: {_format_value(v, long, indent)}'
         for k, v in dic.items()
     ]
     if not long:
-        return f'{style.CODE}{{{RESET}{", ".join(formatted_entries)}{style.CODE}}}{RESET}'
-    lines = "\n".join('    ' * indent + f'{val},' for val in formatted_entries)
+        items_str = ', '.join(items)
+        return f'{style.CODE}{{{RESET}{items_str}{style.CODE}}}{RESET}'
+    lines = '\n'.join('    ' * indent + f'{it},' for it in items)
     end_indent = '    ' * (indent-1)
     return f'{style.CODE}{{{RESET}\n{lines}\n{end_indent}{style.CODE}}}{RESET}'
 
@@ -217,10 +218,11 @@ def _format_list_value(lst: List, long: bool, indent: int) -> str:
         return f'{style.FALSE}ERROR: too deeply nested{RESET}'
     if not len(lst):
         return f'{style.CODE}[]{RESET}'
-    formatted_vals = [_format_value(val, long, indent) for val in lst]
+    items = [_format_value(val, long, indent) for val in lst]
     if not long:
-        return f'{style.CODE}[{RESET}{", ".join(formatted_vals)}{style.CODE}]{RESET}'
-    lines = "\n".join('    ' * indent + f'{val},' for val in formatted_vals)
+        items_str = ', '.join(items)
+        return f'{style.CODE}[{RESET}{items_str}{style.CODE}]{RESET}'
+    lines = '\n'.join('    ' * indent + f'{it},' for it in items)
     end_indent = '    ' * (indent-1)
     return f'{style.CODE}[{RESET}\n{lines}\n{end_indent}{style.CODE}]{RESET}'
 

@@ -3,6 +3,7 @@ from enum import Enum
 import math
 import os
 import re
+from typing import List
 
 from pydantic import BaseModel
 
@@ -434,7 +435,7 @@ def test_modifiers_long_nodocs():
 
 def test_short_list_attr_preview():
     class Foo:
-        columns: list[str] = ['123'] * 10
+        columns: List[str] = ['123'] * 10
     output = inspect_format(Foo())
     assert_multiline_match(output, r'''
 value: <.*.Foo object at .*>
