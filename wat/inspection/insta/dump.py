@@ -7,22 +7,24 @@ import zlib
 from typing import List
 
 
-def dump_snippet(filename: str) -> str:
-    text: str = Path(filename).read_text()
+def dump_snippet(filename: str) -> tuple[str, str]:
+    src_code: str = Path(filename).read_text()
 
-    text = strip_type_hints(text)
+    src_code = strip_type_hints(src_code)
 
-    lines: List[str] = text.splitlines()
+    lines: List[str] = src_code.splitlines()
     lines = [line for line in lines if line.strip()]  # remove empty lines
     comment_pattern = re.compile(r'  # (.+)$')
     lines = [comment_pattern.sub('', line) for line in lines]  # trim comments
     lines = [minify_code(line) for line in lines]
-    text = '\n'.join(lines)
+    src_code = '\n'.join(lines)
 
-    Path('.inspection_minified.py').write_text(text)
+    Path('.inspection_minified.py').write_text(src_code)
 
-    code: str = encode_text(text)
-    return code
+    bytecode: str = encode_text(src_code)
+    glyph: str = encode_glyph(src_code)
+    Path('wat/inspection/insta/magic_glyph.txt').write_text(glyph)
+    return bytecode, glyph
 
 
 def minify_code(text: str) -> str:
@@ -34,9 +36,20 @@ def minify_code(text: str) -> str:
 
 
 def encode_text(text: str) -> str:
-    compressed = zlib.compress(text.encode())
+    compressed: bytes = zlib.compress(text.encode())
     b64: bytes = base64.b64encode(compressed)
     return b64.decode()
+
+
+def encode_glyph(text: str) -> str:
+    compressed: bytes = zlib.compress(text.encode())
+    buffer: str = '🙀'  # U+1F640
+    # encode each byte as 2 Unicode Combining Diacritical Marks: U+0300 - U+036F [112]
+    for i in range(0, len(compressed), 1):
+        b = compressed[i]
+        buffer += chr(0x0300 | (b >> 4))
+        buffer += chr(0x0300 | (b & 0b1111))
+    return buffer
 
 
 def _is_in_quote(line: str, part: str) -> bool:
@@ -86,4 +99,6 @@ class TypeHintStripper(ast.NodeTransformer):
 
 
 if __name__ == '__main__':
-    print(dump_snippet(sys.argv[1]))
+    bytecode, glyph = dump_snippet(sys.argv[1])
+    print(bytecode)
+    print(glyph)
