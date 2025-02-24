@@ -7,9 +7,10 @@ from wat.inspection.insta.instaload import code
 
 def _regenerate(src_filename: str, dst_filenames: list[str]):
     old_code: str = code.decode()
-    new_code: str = dump_snippet(src_filename)
+    new_code, glyph = dump_snippet(src_filename)
     replaced_contents: list[str] = []
     print(f'Insta-Load code ({len(new_code)} characters):\n{new_code}\n')
+    print(f'Magic Glyph: {glyph}')
     
     for dst_filename in dst_filenames:
         content = Path(dst_filename).read_text()
