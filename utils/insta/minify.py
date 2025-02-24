@@ -1,13 +1,12 @@
 import ast
-import base64
 from pathlib import Path
 import re
-import sys
-import zlib
 from typing import List
 
+SRC_FILENAME = 'wat/inspection/inspection.py'
 
-def dump_snippet(filename: str) -> tuple[str, str]:
+
+def minify_snippet(filename: str) -> str:
     src_code: str = Path(filename).read_text()
 
     src_code = strip_type_hints(src_code)
@@ -19,12 +18,8 @@ def dump_snippet(filename: str) -> tuple[str, str]:
     lines = [minify_code(line) for line in lines]
     src_code = '\n'.join(lines)
 
-    Path('.inspection_minified.py').write_text(src_code)
-
-    bytecode: str = encode_text(src_code)
-    glyph: str = encode_glyph(src_code)
-    Path('wat/inspection/insta/magic_glyph.txt').write_text(glyph)
-    return bytecode, glyph
+    Path('utils/insta/.inspection_minified.py').write_text(src_code)
+    return src_code
 
 
 def minify_code(text: str) -> str:
@@ -33,23 +28,6 @@ def minify_code(text: str) -> str:
             text = text.replace(' = ', '=')
     text = text.replace('from typing import Any, Dict, List, Optional, Type, Iterable, Union', 'from typing import Any, Optional, Type')
     return text
-
-
-def encode_text(text: str) -> str:
-    compressed: bytes = zlib.compress(text.encode())
-    b64: bytes = base64.b64encode(compressed)
-    return b64.decode()
-
-
-def encode_glyph(text: str) -> str:
-    compressed: bytes = zlib.compress(text.encode())
-    buffer: str = '🙀'  # U+1F640
-    # encode each byte as 2 Unicode Combining Diacritical Marks: U+0300 - U+036F [112]
-    for i in range(0, len(compressed), 1):
-        b = compressed[i]
-        buffer += chr(0x0300 | (b >> 4))
-        buffer += chr(0x0300 | (b & 0b1111))
-    return buffer
 
 
 def _is_in_quote(line: str, part: str) -> bool:
@@ -99,6 +77,5 @@ class TypeHintStripper(ast.NodeTransformer):
 
 
 if __name__ == '__main__':
-    bytecode, glyph = dump_snippet(sys.argv[1])
-    print(bytecode)
-    print(glyph)
+    minified = minify_snippet(SRC_FILENAME)
+    print(minified)

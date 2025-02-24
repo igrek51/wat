@@ -20,7 +20,7 @@ if __name__ == '__main__':
     animate_commands(commands, key_delay=0.1, line_delay=1.0)
 
 """
-- Run script: python docs/demo/run-demo-inspect.py
+- Run script: python utils/demo/run-demo-inspect.py
 - Record with OBS recorder
 - Upload MP4 to Github issue: https://github.com/igrek51/wat/issues/1
 - Get source URL like:

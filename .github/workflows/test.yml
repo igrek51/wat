@@ -1,22 +1,23 @@
 name: test
 on:
   push
-
 jobs:
 
   test-unit:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: '3.8'
       - name: Install dependencies
         run: make venv-test-unit
-      - run: . venv/bin/activate && make test && python -m coverage xml
-      
+      - name: Run unit tests
+        run: . venv/bin/activate && make test && python -m coverage xml
       - name: Upload Coverage
         uses: codecov/codecov-action@v3
         with:

@@ -16,4 +16,5 @@ coverage.xml
 *.iml
 .vscode
 launch.json
-.inspection_minified.py
+
+/utils/insta/.inspection_minified.py

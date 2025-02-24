@@ -3,29 +3,24 @@
 SHELL := bash
 
 venv:
-	python3 -m venv venv &&\
+	uv venv venv &&\
 	. venv/bin/activate &&\
-	pip install --upgrade pip &&\
-	pip install -r requirements-dev.txt &&\
-	python -m pip install -e .
+	uv pip install -r requirements-dev.txt -e .
 
 venv-test-unit:
-	python3 -m venv venv &&\
+	uv venv venv &&\
 	. venv/bin/activate &&\
-	pip install -r requirements-dev.txt &&\
-	python -m pip install -e .
+	uv pip install -r requirements-dev.txt -e .
 
 install-local:
-	python -m pip install -e .
+	uv pip install -e .
 
 test:
 	python -m coverage run --source wat -m pytest -vv --tb=short -ra --color=yes $(test)
 	python -m coverage report --show-missing --skip-empty --skip-covered
 
 clean:
-	rm -rf build/
-	rm -rf dist/
-	rm -rf ./*.egg-info
+	rm -rf build/ dist/ ./*.egg-info
 
 build:
 	python -m build --sdist --wheel
@@ -41,10 +36,12 @@ mkdocs-push:
 
 # Generate Insta-Load snippet and update it in the docs
 regenerate-insta-load:
-	python wat/inspection/insta/regenerate.py wat/inspection/inspection.py README.md docs/index.md wat/inspection/insta/instaload.py
+	python utils/insta/regenerate.py
 
 example-inspect:
-	python docs/example/example_inspection.py
+	python utils/example/example_inspection.py
 
 mkdocs-index:
-	python docs/mkdocs_gen.py generate-index
+	python utils/mkdocs_gen.py generate-index
+
+regenerate: regenerate-insta-load mkdocs-index
