@@ -21,8 +21,8 @@ len: 3
 
 
 def test_load_from_magic_glyph():
-    glyph = Path('utils/insta/magic_glyph.txt').read_text()
-    exec(zlib.decompress(bytes(ord(glyph[i])<<4&240|ord(glyph[i+1])&15 for i in range(1,len(glyph),2))).decode(), globals())
+    glyph = Path('utils/insta/magic_glyph.md').read_text()
+    exec(zlib.decompress(bytes(ord(c)&255 for c in glyph[1:])).decode(), globals())
     assert wat.short.str / 'WAT is going on?' == '''value: 'WAT is going on?'
 type: str
 len: 16'''
