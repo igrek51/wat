@@ -13,9 +13,9 @@ def encode_glyph(snippet: str) -> str:
 
 def save_glyph() -> str:
     minified = minify_snippet(SRC_FILENAME)
-    code = encode_glyph(minified)
-    Path(OUT_GLYPH_FILENAME).write_text(code)
-    return code
+    glyph = encode_glyph(minified)
+    Path(OUT_GLYPH_FILENAME).write_text(glyph)
+    return glyph
 
 
 def decode_glyph(glyph: str) -> str:
@@ -301,15 +301,16 @@ def encode_glyph_bytes(nibbles: bytes) -> str:
 
 def encode_glyph_byte(b: int) -> str:
     # encode each byte as 2 Unicode Combining Diacritical Marks: U+0300 - U+036F [112]
-    return chr(0x0300 | (b >> 4)) + chr(0x0300 | (b & 0b1111))
+    # return chr(0x0300 | (b >> 4)) + chr(0x0300 | (b & 0b1111))
 
     # if b <= 0x6F:  # <= 111
     #     buffer += chr(0x0300 | b)
 
-    # if b <= 0xef:
-    #     return chr(0xe0100 | b)
-    # return chr(zero_code_points[b])
+    if b <= 0xef:
+        return chr(0xe0100 | b)
+    return chr(zero_code_points[b])
 
 
 if __name__ == '__main__':
-    save_glyph()
+    glyph = save_glyph()
+    print(glyph)
