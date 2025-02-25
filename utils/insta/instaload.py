@@ -30,4 +30,14 @@ def load_instaload():
 
 
 if __name__ == '__main__':
-    save_instaload()
+    minified: str = minify_snippet(SRC_FILENAME)
+    minified_bytes: bytes = minified.encode()
+    compressed: bytes = zlib.compress(minified_bytes)
+    b64code: str = base64.b64encode(compressed).decode()
+    compression_ratio = len(compressed) / len(minified_bytes)
+    print(f'Minified snippet: {len(minified)} characters')
+    print(f'Minified bytes: {len(minified_bytes)} bytes')
+    print(f'Compressed bytes: {len(compressed)} bytes')
+    print(f'Base64 code: {len(b64code)} characters')
+    print(f'Compression ratio: {compression_ratio*100:.2f}%')
+    Path(OUT_INSTALOAD_FILENAME).write_text(b64code)
