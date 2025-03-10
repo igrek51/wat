@@ -7,28 +7,34 @@ from magic_glyph import OUT_GLYPH_FILENAME, save_glyph
 def _regenerate(src_filename: str, dst_filenames: list[str]):
     old_instaload: str = Path(OUT_INSTALOAD_FILENAME).read_text()
     old_glyph: str = Path(OUT_GLYPH_FILENAME).read_text()
+
+    for dst_filename in dst_filenames:
+        content = Path(dst_filename).read_text()
+        assert content.count(old_instaload) == 1, f'cannot find current Insta-Load code in {dst_filename}'
+        assert content.count(old_glyph) == 1, f'cannot find current Magic Glyph in {dst_filename}'
+
     new_instaload = save_instaload()
     new_glyph = save_glyph()
     replaced_contents: list[str] = []
     print(f'Insta-Load code ({len(new_instaload)} characters):\n{new_instaload}\n')
     print(f'Magic Glyph: {new_glyph}')
+
+    if old_instaload == new_instaload:
+        print('Insta-Load code is already up to date')
+        return
     
     for dst_filename in dst_filenames:
         content = Path(dst_filename).read_text()
 
         assert content.count(old_instaload) == 1, f'cannot find current Insta-Load code in {dst_filename}'
-        replaced_content = content.replace(old_instaload, new_instaload)
-        assert replaced_content.count(new_instaload) == 1
+        content = content.replace(old_instaload, new_instaload)
+        assert content.count(new_instaload) == 1
 
         assert content.count(old_glyph) == 1, f'cannot find current Magic Glyph in {dst_filename}'
-        replaced_content = content.replace(old_glyph, new_glyph)
-        assert replaced_content.count(new_glyph) == 1
+        content = content.replace(old_glyph, new_glyph)
+        assert content.count(new_glyph) == 1
 
-        replaced_contents.append(replaced_content)
-
-    if old_instaload == new_instaload:
-        print('Insta-Load code is already up to date')
-        return
+        replaced_contents.append(content)
 
     for i, dst_filename in enumerate(dst_filenames):
         Path(dst_filenames[i]).write_text(replaced_contents[i])
