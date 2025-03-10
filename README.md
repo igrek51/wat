@@ -89,10 +89,11 @@ You can call `wat.modifier / foo` with the following **modifiers**:
 - `.short` or `.s` to hide the attributes (variables and methods inside the object)
   and print only value, type, parent types, signature and documentation
 - `.dunder` to display dunder attributes (starting with double underscore)
-- `.code` to reveal the source code of a function, method, or class
 - `.long` to show non-abbreviated values and docstrings
+- `.code` to reveal the source code of a function, method, or class
 - `.nodocs` to hide documentation for functions and classes
 - `.caller` to show how and where the inspection was called (works in files, not REPL)
+- `.public` to show only public attributes (hiding private attributes)
 - `.all` to include all available information
 - `.ret` to return the object back after the inspection
 - `.str` to return the output string instead of printing it

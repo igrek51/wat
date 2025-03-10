@@ -444,3 +444,20 @@ type: test_inspect\.Foo
 Public attributes:
   columns: list = \['123', '123', .*…
 ''')
+
+
+def test_hide_private_attrs():
+    class Foo:
+        __dunder: str = 'mifflin'
+        _private_one: str = 'two'
+        public: str = 'pub'
+
+    output = wat.public.str / Foo
+    assert_multiline_match(output, r'''
+value: <class 'test_inspect\.test_hide_private_attrs\.<locals>\.Foo'>
+type: type
+signature: class Foo\(\)
+
+Public attributes:
+  public: str = 'pub'
+''')

@@ -14,6 +14,7 @@ class InspectConfig:
     long: bool
     code: bool
     caller: bool
+    private: bool
 
 
 @dataclass
@@ -37,9 +38,18 @@ def inspect_format(
     long: bool = False,
     code: bool = False,
     caller: bool = False,
+    public: bool = False,
     all: bool = False,
 ) -> str:
-    config = InspectConfig(short=short, dunder=dunder or all, nodocs=nodocs, long=long or all, code=code or all, caller=caller or all)
+    config = InspectConfig(
+        short=short,
+        dunder=dunder or all,
+        nodocs=nodocs,
+        long=long or all,
+        code=code or all,
+        caller=caller or all,
+        private=not public,
+    )
     output: List[str] = list(_yield_inspect_lines(obj, config))
 
     if sys.stdout.isatty():  # horizontal bar
@@ -93,7 +103,7 @@ def _yield_inspect_lines(obj, config: InspectConfig) -> Iterable[str]:
 
     if not config.short:
         attributes = sorted(_iter_attributes(obj, config), key=lambda attr: attr.name)
-        yield from _render_attrs_section(attributes, config)
+        yield from _render_attrs_sections(attributes, config)
 
 
 def _iter_attributes(obj, config: InspectConfig) -> Iterable[InspectAttribute]:
@@ -253,43 +263,29 @@ def _generate_caller_info() -> Iterable[str]:
             yield f'{style.TRAIT}caller expression:{RESET} {code}'
 
 
-def _render_attrs_section(attributes: List[InspectAttribute], config: InspectConfig) -> Iterable[str]:
-    public_vars = [a for a in attributes if not a.private and not a.dunder and not a.callable]
-    private_vars = [a for a in attributes if a.private and not a.callable]
-    dunder_vars = [a for a in attributes if a.dunder and not a.callable]
-    public_methods = [a for a in attributes if not a.private and not a.dunder and a.callable]
-    private_methods = [a for a in attributes if a.private and a.callable]
-    dunder_methods = [a for a in attributes if a.dunder and a.callable]
+def _render_attrs_sections(attrs: List[InspectAttribute], config: InspectConfig) -> Iterable[str]:
+    public_attrs = [a for a in attrs if not a.private and not a.dunder]
+    private_attrs = [a for a in attrs if a.private]
+    dunder_attrs = [a for a in attrs if a.dunder]
+    if public_attrs:
+        yield from _render_attrs_section('Public attributes', public_attrs, config)
+    if config.private and private_attrs:
+        yield from _render_attrs_section('Private attributes', private_attrs, config)
+    if config.dunder and dunder_attrs:
+        yield from _render_attrs_section('Dunder attributes', dunder_attrs, config)
 
-    if public_vars or public_methods:
-        yield ''
-        yield f'{style.HEAD}Public attributes:{RESET}'
-        for attr in public_vars:
-            yield _render_attr_variable(attr, config)
-        if public_vars and public_methods:
-            yield ''
-        for attr in public_methods:
-            yield _render_attr_method(attr, config)
-    
-    if private_vars or private_methods:
-        yield ''
-        yield f'{style.HEAD}Private attributes:{RESET}'
-        for attr in private_vars:
-            yield _render_attr_variable(attr, config)
-        if private_vars and private_methods:
-            yield ''
-        for attr in private_methods:
-            yield _render_attr_method(attr, config)
 
-    if config.dunder and (dunder_vars or dunder_methods):
+def _render_attrs_section(title: str, attrs: List[InspectAttribute], config: InspectConfig) -> Iterable[str]:
+    attr_vars = [a for a in attrs if not a.callable]
+    attr_methods = [a for a in attrs if a.callable]
+    yield ''
+    yield f'{style.HEAD}{title}:{RESET}'
+    for attr in attr_vars:
+        yield _render_attr_variable(attr, config)
+    if attr_vars and attr_methods:
         yield ''
-        yield f'{style.HEAD}Dunder attributes:{RESET}'
-        for attr in dunder_vars:
-            yield _render_attr_variable(attr, config)
-        if dunder_vars and dunder_methods:
-            yield ''
-        for attr in dunder_methods:
-            yield _render_attr_method(attr, config)
+    for attr in attr_methods:
+        yield _render_attr_method(attr, config)
 
 
 def _caller_stack_frame(depth: int):
@@ -313,7 +309,7 @@ def _strip_color(text: str) -> str:
 
 
 class Wat:
-    '''Inspector instance to examine unknown objects with short operators'''
+    '''Inspector instance to examine unknown objects'''
     def __init__(self, **inspect_kwargs):
         self._inspect_kwargs = inspect_kwargs
         self._config = {}
@@ -331,10 +327,11 @@ class Wat:
         text = f'''Try {style.CODE}wat / object{RESET} or {style.CODE}wat.modifiers / object{RESET} to inspect an {style.CODE}object{RESET}. {style.HEAD}Modifiers{RESET} are:
   {style.STR}.short{RESET} or {style.STR}.s{RESET} to hide attributes (variables and methods)
   {style.STR}.dunder{RESET} to print dunder attributes
-  {style.STR}.code{RESET} to print source code of a function, method or class
   {style.STR}.long{RESET} to print non-abbreviated values and documentation
+  {style.STR}.code{RESET} to print source code of a function, method or class
   {style.STR}.nodocs{RESET} to hide documentation for functions and classes
   {style.STR}.caller{RESET} to show how and where the inspection was called
+  {style.STR}.public{RESET} to show only public attributes
   {style.STR}.all{RESET} to include all information
   {style.STR}.ret{RESET} to return the inspected {style.CODE}object{RESET}
   {style.STR}.str{RESET} to return the output string instead of printing
@@ -419,7 +416,7 @@ Call {style.CODE}wat.globals{RESET} to inspect global variables.'''
         new_wat = self.copy() 
         if name in {'short', 's'}:
             new_wat._inspect_kwargs['short'] = True
-        elif name in {'long', 'dunder', 'code', 'nodocs', 'caller', 'all'}:
+        elif name in {'long', 'dunder', 'code', 'nodocs', 'caller', 'public', 'all'}:
             new_wat._inspect_kwargs[name] = True
         elif name in {'ret', 'str', 'gray', 'color'}:
             new_wat._config[name] = True
