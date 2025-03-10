@@ -57,7 +57,7 @@ def inspect_format(
         output.insert(0, style.BAR + '─' * terminal_width + RESET)
         output.append(style.BAR + '─' * terminal_width + RESET)
 
-    return '\n'.join(line for line in output if line is not None)
+    return '\n'.join(output)
 
 
 def _yield_inspect_lines(obj, config: InspectConfig) -> Iterable[str]:
@@ -211,10 +211,10 @@ def _format_dict_value(dic: Dict, long: bool, indent: int) -> str:
         return f'{style.FALSE}ERROR: too deeply nested{RESET}'
     if not len(dic):
         return f'{style.CODE}{{}}{RESET}'
-    items = [
+    items = (
         f'{_format_value(k, long, indent)}: {_format_value(v, long, indent)}'
         for k, v in dic.items()
-    ]
+    )
     if not long:
         items_str = ', '.join(items)
         return f'{style.CODE}{{{RESET}{items_str}{style.CODE}}}{RESET}'
@@ -228,7 +228,7 @@ def _format_list_value(lst: List, long: bool, indent: int) -> str:
         return f'{style.FALSE}ERROR: too deeply nested{RESET}'
     if not len(lst):
         return f'{style.CODE}[]{RESET}'
-    items = [_format_value(val, long, indent) for val in lst]
+    items = (_format_value(val, long, indent) for val in lst)
     if not long:
         items_str = ', '.join(items)
         return f'{style.CODE}[{RESET}{items_str}{style.CODE}]{RESET}'
@@ -401,8 +401,7 @@ Call {style.CODE}wat.globals{RESET} to inspect global variables.'''
     def _print_variables(self, variables: Dict[str, Any], title: str) -> Optional[str]:
         long = self._inspect_kwargs.get('long', False)
         lines = list(_render_variables(variables, title, long))
-        output = '\n'.join(line for line in lines if line is not None)
-        return self._display_output(output)
+        return self._display_output('\n'.join(lines))
 
     def __truediv__(self, other): return self.inspect(other)  # /
     def __add__(self, other): return self.inspect(other)  # +
