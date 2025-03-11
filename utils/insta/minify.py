@@ -1,7 +1,7 @@
 import ast
 from pathlib import Path
 import re
-from typing import List
+from typing import Iterable
 
 SRC_FILENAME = 'wat/inspection/inspection.py'
 
@@ -10,12 +10,11 @@ def minify_snippet(filename: str) -> str:
     src_code: str = Path(filename).read_text()
 
     src_code = strip_type_hints(src_code)
-
-    lines: List[str] = src_code.splitlines()
-    lines = [line for line in lines if line.strip()]  # remove empty lines
+    lines: Iterable[str] = src_code.splitlines()
+    lines = (line for line in lines if line.strip())  # remove empty lines
     comment_pattern = re.compile(r'  # (.+)$')
-    lines = [comment_pattern.sub('', line) for line in lines]  # trim comments
-    lines = [minify_code(line) for line in lines]
+    lines = (comment_pattern.sub('', line) for line in lines)  # trim comments
+    lines = (minify_code(line) for line in lines)
     src_code = '\n'.join(lines)
 
     Path('utils/insta/.inspection_minified.py').write_text(src_code)
