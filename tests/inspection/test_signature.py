@@ -82,8 +82,9 @@ def test_signature_colors():
     GREEN = '\033[0;32m'
     RESET = '\033[0m'
     YELLOW = '\033[0;33m'
+    BRIGHT_YELLOW = '\033[1;33m'
     signature = _get_callable_signature(foo.__name__, foo)
-    assert signature.startswith(f'{BLUE}def {BRIGHT_GREEN}foo{GREEN}({RESET}')
-    assert f'a_a{RESET}{GREEN}: {RESET}{YELLOW}int{RESET}' in signature
-    assert f"b_b{RESET}{GREEN}: {RESET}{YELLOW}str{RESET}{GREEN} = {RESET}{GREEN}'bar'{RESET}" in signature
-    assert f'{GREEN}){RESET}{GREEN} -> {RESET}{YELLOW}str{RESET}' in signature
+    assert f'{BLUE}def {BRIGHT_GREEN}foo{RESET}{RESET}(' in signature
+    assert f'{BRIGHT_YELLOW}a_a{YELLOW}: {YELLOW}int' in signature
+    assert f"{BRIGHT_YELLOW}b_b{YELLOW}: {YELLOW}str{RESET}{YELLOW} = {GREEN}'bar'" in signature
+    assert f'{RESET}){YELLOW} -> {YELLOW}str{RESET}' in signature

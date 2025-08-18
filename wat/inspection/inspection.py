@@ -129,7 +129,7 @@ def _get_callable_signature(name: str, obj) -> str:
     try:
         _signature = _format_signature(inspect.signature(obj))
     except (ValueError, TypeError):
-        _signature = f'{style.SIGNATURE}(…){RESET}'
+        _signature = f'{RESET}({style.CODE}…{RESET})'
     
     if inspect.isclass(obj):
         prefix = 'class '
@@ -139,7 +139,7 @@ def _get_callable_signature(name: str, obj) -> str:
         prefix = 'def '
     else:
         prefix = ''
-    return f'{style.KEYWORD}{prefix}{style.CALLABLE}{name}{_signature}'
+    return f'{style.KEYWORD}{prefix}{style.CALLABLE}{name}{RESET}{_signature}{RESET}'
 
 
 def _format_signature(sig: inspect.Signature) -> str:
@@ -150,35 +150,35 @@ def _format_signature(sig: inspect.Signature) -> str:
         if param.kind == inspect.Parameter.POSITIONAL_ONLY:
             render_pos_only_separator = True
         elif render_pos_only_separator:
-            parts.append(f'{style.SIGNATURE}/{RESET}')
+            parts.append(f'{style.CODE}/')
             render_pos_only_separator = False
         if param.kind == inspect.Parameter.VAR_POSITIONAL:
             render_kw_only_separator = False
         elif param.kind == inspect.Parameter.KEYWORD_ONLY and render_kw_only_separator:
-            parts.append(f'{style.SIGNATURE}*{RESET}')
+            parts.append(f'{style.CODE}*')
             render_kw_only_separator = False
         parts.append(_format_signature_parameter(param))
     if render_pos_only_separator:
-        parts.append(f'{style.SIGNATURE}/{RESET}')
-    args_str = f'{style.SIGNATURE}, {RESET}'.join(parts)
-    rendered = f'{style.SIGNATURE}({RESET}{args_str}{style.SIGNATURE}){RESET}'
+        parts.append(f'{style.CODE}/')
+    args_str = f'{style.CODE}, '.join(parts)
+    rendered = f'{RESET}({args_str}{RESET})'
     if sig.return_annotation is not inspect.Signature.empty:
-        rendered += f'{style.SIGNATURE} -> {RESET}{_format_annotation(sig.return_annotation)}'
+        rendered += f'{style.CODE} -> {_format_annotation(sig.return_annotation)}'
     return rendered
 
 
 def _format_signature_parameter(param: inspect.Parameter) -> str:
     parts: list[str] = []
     if param.kind == inspect.Parameter.VAR_POSITIONAL:
-        parts.append(f'{style.SIGNATURE}*{RESET}')
+        parts.append(f'{style.CODE}*')
     elif param.kind == inspect.Parameter.VAR_KEYWORD:
-        parts.append(f'{style.SIGNATURE}**{RESET}')
-    parts.append(f'{style.VARIABLE}{param.name}{RESET}')
+        parts.append(f'{style.CODE}**')
+    parts.append(f'{style.VARIABLE}{param.name}')
     if param.annotation is not inspect.Parameter.empty:
-        parts.append(f'{style.SIGNATURE}: {RESET}{_format_annotation(param.annotation)}')
+        parts.append(f'{style.CODE}: {_format_annotation(param.annotation)}')
     if param.default is not inspect.Parameter.empty:
         equals = '=' if param.annotation is inspect.Parameter.empty else ' = '
-        parts.append(f'{style.SIGNATURE}{equals}{RESET}{_format_value(param.default)}')
+        parts.append(f'{style.CODE}{equals}{_format_value(param.default)}')
     return ''.join(parts)
 
 
@@ -193,7 +193,7 @@ def _format_annotation(annotation) -> str:
         return _format_type(annotation)
     else:
         name = repr(annotation)
-    return f'{style.CODE}{name}{RESET}'
+    return f'{style.CODE}{name}'
 
 
 def _get_source_code(obj) -> Optional[str]:
@@ -500,7 +500,6 @@ class Style:
     DOCS = '\033[2;37m'  # gray
     KEYWORD = '\033[0;34m'  # blue
     CALLABLE = '\033[1;32m'  # bright green
-    SIGNATURE = '\033[0;32m'  # green
     VARIABLE = '\033[1;33m'  # bright yellow
     CODE = '\033[0;33m'  # yellow
 
