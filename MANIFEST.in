@@ -1,2 +1,0 @@
-prune tests
-include wat/py.typed
