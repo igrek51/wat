@@ -4,4 +4,4 @@ import datetime
 
 
 if __name__ == '__main__':
-    wat.caller / datetime.datetime.now()
+    wat.caller / ''
