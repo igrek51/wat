@@ -1,7 +1,7 @@
 [project]
 name = "wat"
 description = "Deep inspection of Python objects"
-license = "MIT"
+license = {text = "MIT"}
 authors = [
     { name = "igrek51", email = "igrek51.dev@gmail.com" },
 ]
@@ -18,7 +18,7 @@ Homepage = "https://github.com/igrek51/wat"
 
 
 [build-system]
-requires = ["setuptools>=79", "build", "wheel"]
+requires = ["setuptools>=75", "build", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
