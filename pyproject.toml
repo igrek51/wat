@@ -21,8 +21,10 @@ Homepage = "https://github.com/igrek51/wat"
 requires = ["setuptools>=61.0", "build", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-packages = ["wat", "wat.inspection"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["wat*"]
+exclude = ["tests*"]
 
 [tool.setuptools.package-data]
 wat = ["py.typed"]
