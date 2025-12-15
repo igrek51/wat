@@ -180,7 +180,7 @@ wat / str.split
 ![](https://github.com/igrek51/wat/blob/master/docs/img/wat-str-split.png?raw=true)
 
 ### Look up attributes
-List the attribues and their types to see what's really inside the inspected object.
+List the attributes and their types to see what's really inside the inspected object.
 ```python
 wat / re.match('(\d)_(.*)', '1_title')
 ```
