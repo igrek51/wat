@@ -2,22 +2,27 @@ from pathlib import Path
 
 from instaload import OUT_INSTALOAD_FILENAME, save_instaload
 from magic_glyph import OUT_GLYPH_FILENAME, save_glyph
+from uncompressed_unicode_cluster import OUT_RAW_CLUSTER_FILENAME, save_raw_cluster
 
 
 def _regenerate(src_filename: str, dst_filenames: list[str]):
     old_instaload: str = Path(OUT_INSTALOAD_FILENAME).read_text()
     old_glyph: str = Path(OUT_GLYPH_FILENAME).read_text()
+    old_raw_cluster: str = Path(OUT_RAW_CLUSTER_FILENAME).read_text()
 
     for dst_filename in dst_filenames:
         content = Path(dst_filename).read_text()
         assert content.count(old_instaload) == 1, f'cannot find current Insta-Load code in {dst_filename}'
         assert content.count(old_glyph) == 1, f'cannot find current Magic Glyph in {dst_filename}'
+        assert content.count(old_raw_cluster) == 1, f'cannot find current Raw Cluster in {dst_filename}'
 
     new_instaload = save_instaload()
     new_glyph = save_glyph()
+    new_raw_cluster = save_raw_cluster()
     replaced_contents: list[str] = []
     print(f'Insta-Load code ({len(new_instaload)} characters):\n{new_instaload}\n')
     print(f'Magic Glyph: {new_glyph}')
+    print(f'Raw Cluster ({len(new_raw_cluster)} characters): {new_raw_cluster}')
 
     if old_instaload == new_instaload:
         print('Insta-Load code is already up to date')
@@ -33,6 +38,10 @@ def _regenerate(src_filename: str, dst_filenames: list[str]):
         assert content.count(old_glyph) == 1, f'cannot find current Magic Glyph in {dst_filename}'
         content = content.replace(old_glyph, new_glyph)
         assert content.count(new_glyph) == 1
+
+        assert content.count(old_raw_cluster) == 1, f'cannot find current Raw Cluster in {dst_filename}'
+        content = content.replace(old_raw_cluster, new_raw_cluster)
+        assert content.count(new_raw_cluster) == 1
 
         replaced_contents.append(content)
 
