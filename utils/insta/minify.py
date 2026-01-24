@@ -15,7 +15,7 @@ def minify_snippet(filename: str) -> str:
     comment_pattern = re.compile(r'  # (.+)$')
     lines = (comment_pattern.sub('', line) for line in lines)  # trim comments
     lines = (minify_code(line) for line in lines)
-    src_code = '\n'.join(lines)
+    src_code = '\n'.join(line for line in lines if line)
 
     Path('utils/insta/.inspection_minified.py').write_text(src_code)
     return src_code
@@ -25,7 +25,7 @@ def minify_code(text: str) -> str:
     if text.count(' = ') == 1:
         if not _is_in_quote(text, ' = '):
             text = text.replace(' = ', '=')
-    text = text.replace('from typing import Any, Dict, List, Optional, Type, Iterable, Union', 'from typing import Any, Optional, Type')
+    text = text.replace('from typing import Any, Dict, List, Optional, Type, Iterable, Union', '')
     return text
 
 

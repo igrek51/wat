@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 import inspect
 import os
 import re
@@ -6,27 +5,29 @@ import sys
 from typing import Any, Dict, List, Optional, Type, Iterable, Union
 
 
-@dataclass
 class InspectConfig:
-    short: bool
-    dunder: bool
-    nodocs: bool
-    long: bool
-    code: bool
-    caller: bool
-    private: bool
+    def __init__(self, short: bool, dunder: bool, nodocs: bool, long: bool, code: bool,
+                 caller: bool, private: bool):
+        self.short: bool = short
+        self.dunder: bool = dunder
+        self.nodocs: bool = nodocs
+        self.long: bool = long
+        self.code: bool = code
+        self.caller: bool = caller
+        self.private: bool = private
 
 
-@dataclass
 class InspectAttribute:
-    name: str
-    value: Any
-    type: Type
-    callable: bool
-    dunder: bool
-    private: bool
-    signature: Optional[str]
-    doc: Optional[str]
+    def __init__(self, name: str, value: Any, type: Type, callable: bool, dunder: bool,
+                 private: bool, signature: Optional[str], doc: Optional[str]):
+        self.name: str = name
+        self.value: Any = value
+        self.type: Type = type
+        self.callable: bool = callable
+        self.dunder: bool = dunder
+        self.private: bool = private
+        self.signature: Optional[str] = signature
+        self.doc: Optional[str] = doc
 
 
 def inspect_format(
