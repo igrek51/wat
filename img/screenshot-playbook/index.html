@@ -1,0 +1,444 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="igrek51">
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.22">
+    
+    
+      
+        <title>Screenshot playbook - WAT</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.732c4fb1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#wat-intro-setpng" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="WAT" class="md-header__button md-logo" aria-label="WAT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            WAT
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Screenshot playbook
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/igrek51/wat" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    igrek51/wat
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="WAT" class="md-nav__button md-logo" aria-label="WAT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+
+    </a>
+    WAT
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/igrek51/wat" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    igrek51/wat
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#wat-intro-setpng" class="md-nav__link">
+    <span class="md-ellipsis">
+      wat-intro-set.png
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wat-datetime-nowpng" class="md-nav__link">
+    <span class="md-ellipsis">
+      wat-datetime-now.png
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wat-nested-dict-prettypng" class="md-nav__link">
+    <span class="md-ellipsis">
+      wat-nested-dict-pretty.png
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Screenshot playbook</h1>
+
+<h2 id="wat-intro-setpng">wat-intro-set.png</h2>
+<p><div class="highlight"><pre><span></span><code>python -m IPython
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>import wat
+wat / {42}
+</code></pre></div></p>
+<h2 id="wat-datetime-nowpng">wat-datetime-now.png</h2>
+<ul>
+<li>terminal 90x27</li>
+<li><code>title wat</code></li>
+<li><code>python</code>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">wat</span>
+<span class="n">wat</span><span class="o">.</span><span class="n">str</span> <span class="o">/</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+</code></pre></div></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">wat_out</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[0;34m──────────────────────────────────────────────────────────────────────────────────────────</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n\x1b</span><span class="s2">[1;34mstr:</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[0;32m2024-07-31 21:30:28.163527</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n\x1b</span><span class="s2">[1;34mrepr:</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[1mdatetime.datetime(2024, 7, 31, 21, 30, 28, 163527)</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n\x1b</span><span class="s2">[1;34mtype:</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[0;33mdatetime.datetime</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n\x1b</span><span class="s2">[1;34mparents:</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[0;33mdatetime.date</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n\n\x1b</span><span class="s2">[1mPublic attributes:</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[1;33mday</span><span class="se">\x1b</span><span class="s2">[0;33m: </span><span class="se">\x1b</span><span class="s2">[0;33mint</span><span class="se">\x1b</span><span class="s2">[0m = </span><span class="se">\x1b</span><span class="s2">[0;31m31</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[1;33mfold</span><span class="se">\x1b</span><span class="s2">[0;33m: </span><span class="se">\x1b</span><span class="s2">[0;33mint</span><span class="se">\x1b</span><span class="s2">[0m = </span><span class="se">\x1b</span><span class="s2">[0;31m0</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[1;33mhour</span><span class="se">\x1b</span><span class="s2">[0;33m: </span><span class="se">\x1b</span><span class="s2">[0;33mint</span><span class="se">\x1b</span><span class="s2">[0m = </span><span class="se">\x1b</span><span class="s2">[0;31m21</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[1;33mmax</span><span class="se">\x1b</span><span class="s2">[0;33m: </span><span class="se">\x1b</span><span class="s2">[0;33mdatetime.datetime</span><span class="se">\x1b</span><span class="s2">[0m = </span><span class="se">\x1b</span><span class="s2">[0;32m9999-12-31 23:59:59.999999</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[1;33mmicrosecond</span><span class="se">\x1b</span><span class="s2">[0;33m: </span><span class="se">\x1b</span><span class="s2">[0;33mint</span><span class="se">\x1b</span><span class="s2">[0m = </span><span class="se">\x1b</span><span class="s2">[0;31m163527</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[1;33mmin</span><span class="se">\x1b</span><span class="s2">[0;33m: </span><span class="se">\x1b</span><span class="s2">[0;33mdatetime.datetime</span><span class="se">\x1b</span><span class="s2">[0m = </span><span class="se">\x1b</span><span class="s2">[0;32m0001-01-01 00:00:00</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[1;33mminute</span><span class="se">\x1b</span><span class="s2">[0;33m: </span><span class="se">\x1b</span><span class="s2">[0;33mint</span><span class="se">\x1b</span><span class="s2">[0m = </span><span class="se">\x1b</span><span class="s2">[0;31m30</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[1;33mmonth</span><span class="se">\x1b</span><span class="s2">[0;33m: </span><span class="se">\x1b</span><span class="s2">[0;33mint</span><span class="se">\x1b</span><span class="s2">[0m = </span><span class="se">\x1b</span><span class="s2">[0;31m7</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[1;33mresolution</span><span class="se">\x1b</span><span class="s2">[0;33m: </span><span class="se">\x1b</span><span class="s2">[0;33mdatetime.timedelta</span><span class="se">\x1b</span><span class="s2">[0m = </span><span class="se">\x1b</span><span class="s2">[0;32m0:00:00.000001</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[1;33msecond</span><span class="se">\x1b</span><span class="s2">[0;33m: </span><span class="se">\x1b</span><span class="s2">[0;33mint</span><span class="se">\x1b</span><span class="s2">[0m = </span><span class="se">\x1b</span><span class="s2">[0;31m28</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[1;33mtzinfo</span><span class="se">\x1b</span><span class="s2">[0;33m: </span><span class="se">\x1b</span><span class="s2">[0;33mNoneType</span><span class="se">\x1b</span><span class="s2">[0m = </span><span class="se">\x1b</span><span class="s2">[0;35mNone</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[1;33myear</span><span class="se">\x1b</span><span class="s2">[0;33m: </span><span class="se">\x1b</span><span class="s2">[0;33mint</span><span class="se">\x1b</span><span class="s2">[0m = </span><span class="se">\x1b</span><span class="s2">[0;31m2024</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mastimezone</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# tz -&gt; convert to local time in new timezone tz</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mcombine</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# date, time -&gt; datetime with same date and time fields</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mctime</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return ctime() style string.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mdate</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return date object with same year, month and day.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mdst</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return self.tzinfo.dst(self).</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mfromisocalendar</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# int, int, int -&gt; Construct a date from the ISO year, week number and weekday.…</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mfromisoformat</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# string -&gt; datetime from a string in most ISO 8601 formats</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mfromordinal</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# int -&gt; date corresponding to a proleptic Gregorian ordinal.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mfromtimestamp</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# timestamp[, tz] -&gt; tz&#39;s local time from POSIX timestamp.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32misocalendar</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return a named tuple containing ISO year, week number, and weekday.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32misoformat</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# [sep] -&gt; string in ISO 8601 format, YYYY-MM-DDT[HH[:MM[:SS[.mmm[uuu]]]]][+HH:MM].…</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32misoweekday</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return the day of the week represented by the date.…</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mnow</span><span class="se">\x1b</span><span class="s2">[0;32m(tz=None)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Returns new datetime object representing current time local to tz.…</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mreplace</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return datetime with new specified fields.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mstrftime</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# format -&gt; strftime() style string.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mstrptime</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# string, format -&gt; new datetime parsed from a string (like time.strptime()).</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mtime</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return time object with same time but with tzinfo=None.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mtimestamp</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return POSIX timestamp as float.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mtimetuple</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return time tuple, compatible with time.localtime().</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mtimetz</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return time object with same time and tzinfo.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mtoday</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Current date or datetime:  same as self.__class__.fromtimestamp(time.time()).</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mtoordinal</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return proleptic Gregorian ordinal.  January 1 of year 1 is day 1.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mtzname</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return self.tzinfo.tzname(self).</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mutcfromtimestamp</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Construct a naive UTC datetime from a POSIX timestamp.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mutcnow</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return a new datetime representing UTC day and time.</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mutcoffset</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return self.tzinfo.utcoffset(self).</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mutctimetuple</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return UTC time tuple, compatible with time.localtime().</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n</span><span class="s2">  </span><span class="se">\x1b</span><span class="s2">[0;34mdef </span><span class="se">\x1b</span><span class="s2">[1;32mweekday</span><span class="se">\x1b</span><span class="s2">[0;32m(…)</span><span class="se">\x1b</span><span class="s2">[0m </span><span class="se">\x1b</span><span class="s2">[2;37m# Return the day of the week represented by the date.…</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\x1b</span><span class="s2">[0m</span><span class="se">\n\x1b</span><span class="s2">[0;34m──────────────────────────────────────────────────────────────────────────────────────────</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span>
+<span class="n">RESET</span> <span class="o">=</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span>
+<span class="n">STYLE_BRIGHT</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1m&#39;</span>
+<span class="n">STYLE_DIM</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[2m&#39;</span>
+<span class="n">STYLE_RED</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;31m&#39;</span>
+<span class="n">STYLE_BRIGHT_RED</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1;31m&#39;</span>
+<span class="n">STYLE_GREEN</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;32m&#39;</span>
+<span class="n">STYLE_BRIGHT_GREEN</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1;32m&#39;</span>
+<span class="n">STYLE_YELLOW</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;33m&#39;</span>
+<span class="n">STYLE_BRIGHT_YELLOW</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1;33m&#39;</span>
+<span class="n">STYLE_BLUE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;34m&#39;</span>
+<span class="n">STYLE_BRIGHT_BLUE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1;34m&#39;</span>
+<span class="n">STYLE_MAGENTA</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;35m&#39;</span>
+<span class="n">STYLE_CYAN</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;36m&#39;</span>
+<span class="n">STYLE_WHITE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0;37m&#39;</span>
+<span class="n">STYLE_GRAY</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[2;37m&#39;</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+    <span class="sa">f</span><span class="s1">&#39;&gt;&gt;&gt; </span><span class="si">{</span><span class="n">STYLE_BRIGHT_GREEN</span><span class="si">}</span><span class="s1">import </span><span class="si">{</span><span class="n">STYLE_BRIGHT_BLUE</span><span class="si">}</span><span class="s1">wat</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s1">&#39;&gt;&gt;&gt; </span><span class="si">{</span><span class="n">STYLE_BRIGHT_GREEN</span><span class="si">}</span><span class="s1">import </span><span class="si">{</span><span class="n">STYLE_BRIGHT_BLUE</span><span class="si">}</span><span class="s1">datetime</span><span class="si">{</span><span class="n">RESET</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s1">&#39;&gt;&gt;&gt; wat / datetime.datetime.now()&#39;</span><span class="p">,</span>
+    <span class="n">wat_out</span><span class="p">,</span>
+<span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="wat-nested-dict-prettypng">wat-nested-dict-pretty.png</h2>
+<div class="highlight"><pre><span></span><code><span class="n">wat</span><span class="o">.</span><span class="n">s</span> <span class="o">/</span> <span class="p">{</span><span class="s2">&quot;people&quot;</span><span class="p">:[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Alice&quot;</span><span class="p">,</span><span class="s2">&quot;age&quot;</span><span class="p">:</span><span class="mi">21</span><span class="p">,</span><span class="s2">&quot;pets&quot;</span><span class="p">:</span><span class="kc">None</span><span class="p">},{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span><span class="mi">42</span><span class="p">,</span><span class="s2">&quot;pets&quot;</span><span class="p">:[</span><span class="s1">&#39;Kitty&#39;</span><span class="p">,</span><span class="s1">&#39;Fluffy&#39;</span><span class="p">],</span><span class="s2">&quot;items&quot;</span><span class="p">:[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s2">&quot;teapot&quot;</span><span class="p">,</span><span class="s2">&quot;price&quot;</span><span class="p">:</span><span class="mf">10.99</span><span class="p">,</span><span class="s1">&#39;in_stock&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">}]}]}</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/igrek51/wat" target="_blank" rel="noopener" title="WAT on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5cfa9459.min.js"></script>
+      
+    
+  </body>
+</html>
