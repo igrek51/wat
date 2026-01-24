@@ -3,7 +3,7 @@
 SHELL := bash
 
 venv:
-	uv venv venv &&\
+	uv venv --python 3.12 venv &&\
 	. venv/bin/activate &&\
 	uv pip install -r requirements-dev.txt -e .
 
